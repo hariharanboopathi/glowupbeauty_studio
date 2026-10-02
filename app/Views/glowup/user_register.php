@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><?= esc($pageTitle ?? 'Register | Glowup Beauty Studio & Academy') ?></title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet" />
+
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+
+    <!-- Main Unified CSS -->
+    <link rel="stylesheet" href="<?= base_url('css/style.css') ?>" />
+
+    <style>
+        /* ========== BACKGROUND IMAGE (CLEAR) ========== */
+        html, body {
+            min-height: 100vh;
+            color: #ffffff !important;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+
+            /* 🖼️ BACKGROUND IMAGE */
+            background-image: url('https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        /* very light tint only — image stays clear */
+        body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(26, 14, 36, 0.35);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* ========== CARD ========== */
+        .login-card {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 480px;
+            background: rgba(26, 14, 36, 0.72);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 22px;
+            padding: 38px 36px 32px;
+            box-shadow: 0 35px 80px rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        /* ========== BACK TO HOME NAV ========== */
+        .login-nav {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .btn-back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #d9b8ff !important;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 7px 16px 7px 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-back-home:hover {
+            color: #ffffff !important;
+            background: rgba(167, 108, 255, 0.25);
+            border-color: rgba(167, 108, 255, 0.5);
+            transform: translateX(-3px);
+            box-shadow: 0 4px 16px rgba(167, 108, 255, 0.25);
+        }
+
+        .btn-back-home .material-symbols-outlined {
+            font-size: 18px;
+            color: inherit !important;
+            transition: transform 0.25s ease;
+        }
+
+        .btn-back-home:hover .material-symbols-outlined {
+            transform: translateX(-2px);
+        }
+
+        .login-head {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .login-head h2 {
+            font-family: 'Playfair Display', serif;
+            color: #ffffff !important;
+            font-size: 1.95rem;
+            margin: 0 0 6px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .login-head p {
+            color: #e8ddf5 !important;
+            font-size: 13.5px;
+            line-height: 1.6;
+            margin: 0;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+
+        /* ========== GOOGLE SIGN IN BUTTON ========== */
+        .btn-google {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            color: #ffffff !important;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-google:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.45);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            color: #ffffff !important;
+        }
+
+        .btn-google svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        /* ========== DIVIDER ========== */
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+            color: rgba(232, 221, 245, 0.55);
+            font-size: 11px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .auth-divider span {
+            padding: 0 12px;
+        }
+
+        /* ========== FIELDS ========== */
+        .field {
+            margin-bottom: 15px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 10.5px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #d9b8ff !important;
+            font-weight: 700;
+            margin-bottom: 7px;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .field-inner {
+            position: relative;
+        }
+
+        .field-inner .material-symbols-outlined {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 19px;
+            color: #d0c2e0 !important;
+            pointer-events: none;
+            transition: color 0.25s;
+        }
+
+        .field-inner input {
+            width: 100%;
+            padding: 12px 46px 12px 44px;
+            background: rgba(255, 255, 255, 0.12) !important;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            border-radius: 12px;
+            color: #ffffff !important;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+        }
+
+        .field-inner input::placeholder {
+            color: rgba(255, 255, 255, 0.55) !important;
+        }
+
+        /* kill autofill white/black bg */
+        .field-inner input:-webkit-autofill,
+        .field-inner input:-webkit-autofill:hover,
+        .field-inner input:-webkit-autofill:focus {
+            -webkit-text-fill-color: #ffffff !important;
+            -webkit-box-shadow: 0 0 0 1000px #2a1838 inset !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+
+        .field-inner input:focus {
+            border-color: #a76cff;
+            background: rgba(255, 255, 255, 0.18) !important;
+            box-shadow: 0 0 0 4px rgba(167, 108, 255, 0.25);
+        }
+
+        .field-inner input:focus ~ .material-symbols-outlined {
+            color: #c99cff !important;
+        }
+
+        /* password eye */
+        .pw-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #d0c2e0 !important;
+            display: flex;
+            align-items: center;
+            padding: 4px;
+            transition: color 0.25s;
+        }
+
+        .pw-toggle:hover {
+            color: #c99cff !important;
+        }
+
+        .pw-toggle .material-symbols-outlined {
+            position: static;
+            transform: none;
+            font-size: 19px;
+            pointer-events: none;
+            color: inherit !important;
+        }
+
+        /* ========== SUBMIT ========== */
+        .btn-submit {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #a76cff 0%, #8b4fe0 100%);
+            color: #1a0e24 !important;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 14px;
+            transition: transform 0.25s, box-shadow 0.25s, filter 0.25s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 34px rgba(167, 108, 255, 0.55);
+            filter: brightness(1.08);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .btn-submit .material-symbols-outlined {
+            font-size: 18px;
+            color: #1a0e24 !important;
+        }
+
+        /* ========== BOTTOM LINK ========== */
+        .login-foot {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #e8ddf5 !important;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .login-foot a {
+            color: #c99cff !important;
+            font-weight: 700;
+            text-decoration: none;
+            transition: color 0.25s;
+        }
+
+        .login-foot a:hover {
+            color: #a76cff !important;
+            text-decoration: underline;
+        }
+
+        /* ========== LUXURY TOAST NOTIFICATIONS ========== */
+        .toast-container {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 420px;
+            width: calc(100% - 48px);
+            pointer-events: none;
+        }
+
+        .toast-item {
+            pointer-events: auto;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px 18px 18px;
+            background: rgba(26, 14, 38, 0.94);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 16px;
+            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.65), 0 0 25px rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            transform: translateX(125%);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+        }
+
+        .toast-item.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast-item.hide {
+            transform: translateX(125%);
+            opacity: 0;
+        }
+
+        .toast-error {
+            border-color: rgba(244, 63, 94, 0.55);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 30px rgba(244, 63, 94, 0.3);
+        }
+
+        .toast-error .toast-icon-box {
+            color: #fb7185;
+            background: rgba(244, 63, 94, 0.18);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+        }
+
+        .toast-success {
+            border-color: rgba(16, 185, 129, 0.55);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 30px rgba(16, 185, 129, 0.3);
+        }
+
+        .toast-success .toast-icon-box {
+            color: #34d399;
+            background: rgba(16, 185, 129, 0.18);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .toast-icon-box {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .toast-icon-box .material-symbols-outlined {
+            font-size: 22px;
+            color: inherit !important;
+        }
+
+        .toast-body {
+            flex-grow: 1;
+            padding-top: 1px;
+        }
+
+        .toast-title {
+            font-size: 13.5px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            color: #ffffff;
+            margin-bottom: 3px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .toast-message {
+            font-size: 12.5px;
+            color: #e5d7f5;
+            line-height: 1.45;
+            margin: 0;
+        }
+
+        .toast-close-btn {
+            background: none;
+            border: none;
+            color: #c8b3e0 !important;
+            cursor: pointer;
+            padding: 2px;
+            margin-left: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            transition: color 0.2s, background 0.2s;
+        }
+
+        .toast-close-btn:hover {
+            color: #ffffff !important;
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .toast-close-btn .material-symbols-outlined {
+            font-size: 18px;
+            color: inherit !important;
+        }
+
+        .toast-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .toast-progress-bar {
+            height: 100%;
+            width: 100%;
+            animation: toastCountdown 5s linear forwards;
+        }
+
+        .toast-error .toast-progress-bar {
+            background: linear-gradient(90deg, #f43f5e, #fb7185);
+        }
+
+        .toast-success .toast-progress-bar {
+            background: linear-gradient(90deg, #10b981, #34d399);
+        }
+
+        @keyframes toastCountdown {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                background-attachment: scroll;
+                padding: 24px 16px;
+            }
+
+            .login-card {
+                padding: 30px 22px 26px;
+                border-radius: 18px;
+                background: rgba(26, 14, 36, 0.82);
+                backdrop-filter: blur(12px);
+            }
+
+            .login-head h2 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- LUXURY TOAST CONTAINER -->
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <form class="login-card" action="<?= base_url('register') ?>" method="POST" novalidate>
+        <?= csrf_field() ?>
+
+        <!-- BACK TO HOME NAVIGATION -->
+        <div class="login-nav">
+            <a href="<?= base_url('/') ?>" class="btn-back-home" title="Return to Sanctuary Home">
+                <span class="material-symbols-outlined">arrow_back</span>
+                <span>Back to Home</span>
+            </a>
+        </div>
+
+        <div class="login-head">
+            <h2>Create Account</h2>
+            <p>Join Glowup to book rituals &amp; track rewards.</p>
+        </div>
+
+        <!-- GOOGLE SIGN-IN BUTTON -->
+        <a href="<?= base_url('auth/google') ?>" class="btn-google">
+            <svg viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            Continue with Google
+        </a>
+
+        <?php if (ENVIRONMENT === 'development'): ?>
+            <div class="text-center mt-2">
+                <a href="<?= base_url('auth/google/demo?name=Priya+Patel&email=priya.patel@gmail.com') ?>" 
+                   style="font-size: 11px; color: #d0c2e0; text-decoration: none; opacity: 0.85;"
+                   title="Simulate Google OAuth login in local development">
+                   <span class="material-symbols-outlined align-middle" style="font-size: 13px;">developer_mode</span>
+                   Quick Test: Sign up with Google Demo
+                </a>
+            </div>
+        <?php endif; ?>
+
+        <!-- DIVIDER -->
+        <div class="auth-divider">
+            <span>Or register with email</span>
+        </div>
+
+        <!-- FULL NAME -->
+        <div class="field">
+            <label for="name">Full Name</label>
+            <div class="field-inner">
+                <span class="material-symbols-outlined">person</span>
+                <input type="text" id="name" name="name" placeholder="Your full name" value="<?= esc(old('name')) ?>" required />
+            </div>
+        </div>
+
+        <!-- EMAIL -->
+        <div class="field">
+            <label for="email">Email</label>
+            <div class="field-inner">
+                <span class="material-symbols-outlined">mail</span>
+                <input type="email" id="email" name="email" placeholder="you@example.com" value="<?= esc(old('email')) ?>" required />
+            </div>
+        </div>
+
+        <!-- PHONE -->
+        <div class="field">
+            <label for="phone">Phone</label>
+            <div class="field-inner">
+                <span class="material-symbols-outlined">call</span>
+                <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" value="<?= esc(old('phone')) ?>" />
+            </div>
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="field">
+            <label for="password">Password</label>
+            <div class="field-inner">
+                <span class="material-symbols-outlined">lock</span>
+                <input type="password" id="password" name="password" placeholder="Create a password (min 6 chars)" required />
+                <button type="button" class="pw-toggle" onclick="togglePassword('password','pwIcon')"
+                    aria-label="Show password">
+                    <span class="material-symbols-outlined" id="pwIcon">visibility</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- SUBMIT -->
+        <button type="submit" class="btn-submit">
+            <span class="material-symbols-outlined">person_add</span>
+            Register
+        </button>
+
+        <!-- LINK TO LOGIN -->
+        <div class="login-foot">
+            Already have an account? <a href="<?= base_url('login') ?>">Sign In</a>
+        </div>
+
+    </form>
+
+    <script>
+        function togglePassword(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.textContent = 'visibility_off';
+            } else {
+                input.type = 'password';
+                icon.textContent = 'visibility';
+            }
+        }
+
+        // Universal Luxury Toaster Notification Function
+        function showToast(type, title, message) {
+            const container = document.getElementById('toastContainer');
+            if (!container) return;
+
+            // Clear any prior toasts so only ONE toast is displayed
+            container.innerHTML = '';
+
+            const toast = document.createElement('div');
+            toast.className = `toast-item toast-${type}`;
+
+            let iconName = 'info';
+            if (type === 'success') iconName = 'check_circle';
+            else if (type === 'error') iconName = 'error';
+            else if (type === 'warning') iconName = 'warning';
+
+            toast.innerHTML = `
+                <div class="toast-icon-box">
+                    <span class="material-symbols-outlined">${iconName}</span>
+                </div>
+                <div class="toast-body">
+                    <div class="toast-title">${title}</div>
+                    <p class="toast-message">${message}</p>
+                </div>
+                <button type="button" class="toast-close-btn" aria-label="Dismiss notification">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+                <div class="toast-progress">
+                    <div class="toast-progress-bar"></div>
+                </div>
+            `;
+
+            container.appendChild(toast);
+
+            requestAnimationFrame(() => {
+                toast.classList.add('show');
+            });
+
+            const removeToast = () => {
+                toast.classList.remove('show');
+                toast.classList.add('hide');
+                setTimeout(() => {
+                    if (toast.parentElement) toast.parentElement.removeChild(toast);
+                }, 400);
+            };
+
+            const closeBtn = toast.querySelector('.toast-close-btn');
+            if (closeBtn) closeBtn.addEventListener('click', removeToast);
+
+            setTimeout(removeToast, 5000);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            <?php if ($flashSuccess = session()->getFlashdata('success')): ?>
+                showToast('success', 'Registration Successful', <?= json_encode($flashSuccess) ?>);
+            <?php endif; ?>
+
+            <?php if ($flashError = session()->getFlashdata('error')): ?>
+                showToast('error', 'Registration Notice', <?= json_encode($flashError) ?>);
+            <?php endif; ?>
+        });
+    </script>
+
+</body>
+
+</html>
