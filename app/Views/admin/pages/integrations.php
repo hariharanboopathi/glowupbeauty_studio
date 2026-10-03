@@ -25,7 +25,7 @@
     <ul class="nav nav-pills gap-1" id="integrationTabs" role="tablist">
         <li class="nav-item">
             <button class="nav-link active d-flex align-items-center gap-2 px-3 py-2" id="whatsapp-tab" data-bs-toggle="pill" data-bs-target="#whatsapp-pane" style="font-size: 13px; border-radius: 8px;">
-                <i class="fab fa-whatsapp text-success fs-6"></i>
+                <?= glowup_whatsapp_icon('text-success', 18) ?>
                 WhatsApp Cloud API
             </button>
         </li>
@@ -43,13 +43,13 @@
         </li>
         <li class="nav-item">
             <button class="nav-link d-flex align-items-center gap-2 px-3 py-2" id="meta-tab" data-bs-toggle="pill" data-bs-target="#meta-pane" style="font-size: 13px; border-radius: 8px;">
-                <i class="fab fa-facebook text-primary fs-6"></i>
+                <?= glowup_facebook_icon('text-primary', 18) ?>
                 Facebook / Meta
             </button>
         </li>
         <li class="nav-item">
             <button class="nav-link d-flex align-items-center gap-2 px-3 py-2" id="instagram-tab" data-bs-toggle="pill" data-bs-target="#instagram-pane" style="font-size: 13px; border-radius: 8px;">
-                <i class="fab fa-instagram text-danger fs-6"></i>
+                <?= glowup_instagram_icon('text-danger', 18) ?>
                 Instagram
             </button>
         </li>

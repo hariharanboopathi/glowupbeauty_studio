@@ -16,8 +16,8 @@
                     $st = $invoice['status'];
                     $badgeStyle = 'background: rgba(108, 117, 125, 0.12); color: #6c757d;';
                     if ($st === 'paid') $badgeStyle = 'background: rgba(46, 125, 50, 0.12); color: #2e7d32;';
-                    elseif ($st === 'sent') $badgeStyle = 'background: rgba(2, 136, 209, 0.12); color: #0288d1;';
-                    elseif ($st === 'partially_paid') $badgeStyle = 'background: rgba(245, 124, 0, 0.12); color: #f57c00;';
+                    elseif ($st === 'sent') $badgeStyle = 'background: var(--color-primary-subtle); color: var(--color-primary);';
+                    elseif ($st === 'partially_paid') $badgeStyle = 'background: var(--color-secondary-subtle); color: var(--color-secondary);';
                     elseif ($st === 'overdue') $badgeStyle = 'background: rgba(211, 47, 47, 0.12); color: #d32f2f;';
                     elseif ($st === 'cancelled') $badgeStyle = 'background: rgba(0, 0, 0, 0.12); color: #333;';
                 ?>
@@ -49,7 +49,7 @@
                 $waText = urlencode("Dear " . $invoice['customer_name'] . ", here is your official Tax Invoice #" . $invoice['invoice_number'] . " from Glowup Beauty Studio & Academy for ₹" . number_format($invoice['total_amount'], 2) . ". Current balance due: ₹" . number_format($invoice['balance_due'], 2) . ". Thank you for your visit!");
             ?>
                 <a href="https://wa.me/<?= $cleanPhone ?>?text=<?= $waText ?>" target="_blank" class="btn btn-sm btn-outline-success d-flex align-items-center gap-1">
-                    <i class="fab fa-whatsapp"></i>
+                    <?= glowup_whatsapp_icon('', 16) ?>
                     Send WhatsApp
                 </a>
             <?php endif; ?>

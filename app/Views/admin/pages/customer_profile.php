@@ -508,7 +508,7 @@
                                 <tr>
                                     <td><?= date('M d, Y h:i A', strtotime($cm['created_at'])) ?></td>
                                     <td>
-                                        <span class="badge" style="background: <?= $cm['channel'] === 'whatsapp' ? '#25D366' : ($cm['channel'] === 'sms' ? '#ff9800' : 'var(--accent)') ?>; color: #fff;">
+                                        <span class="badge" style="background: <?= $cm['channel'] === 'whatsapp' ? '#25D366' : ($cm['channel'] === 'sms' ? '#A36952' : 'var(--accent)') ?>; color: #fff;">
                                             <?= strtoupper($cm['channel']) ?>
                                         </span>
                                     </td>

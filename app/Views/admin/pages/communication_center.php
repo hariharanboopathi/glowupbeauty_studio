@@ -24,7 +24,7 @@
                 <small class="text-muted" style="font-size: 11px;">Delivered via Cloud API</small>
             </div>
             <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(46, 125, 50, 0.08); display: flex; align-items: center; justify-content: center; color: #2e7d32;">
-                <i class="fab fa-whatsapp fs-5"></i>
+                <?= glowup_whatsapp_icon('', 20) ?>
             </div>
         </div>
     </div>
@@ -32,10 +32,10 @@
         <div class="glass-panel p-3 d-flex align-items-center justify-content-between">
             <div>
                 <span class="text-muted" style="font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">SMS Messages</span>
-                <h3 class="mb-0 mt-1 fw-bold" style="color: #0288d1; font-family: 'Playfair Display', serif;"><?= esc($logStats['sms'] ?? 0) ?></h3>
+                <h3 class="mb-0 mt-1 fw-bold" style="color: var(--color-primary); font-family: 'Playfair Display', serif;"><?= esc($logStats['sms'] ?? 0) ?></h3>
                 <small class="text-muted" style="font-size: 11px;">Transactional & promo SMS</small>
             </div>
-            <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(2, 136, 209, 0.08); display: flex; align-items: center; justify-content: center; color: #0288d1;">
+            <div style="width: 44px; height: 44px; border-radius: 12px; background: var(--color-primary-subtle); display: flex; align-items: center; justify-content: center; color: var(--color-primary);">
                 <span class="material-symbols-outlined">sms</span>
             </div>
         </div>
@@ -222,7 +222,7 @@
                             <td class="ps-4 text-muted" style="font-size: 11.5px;"><?= date('d M Y, h:i A', strtotime($l['sent_at'] ?: $l['created_at'])) ?></td>
                             <td>
                                 <?php if ($l['channel'] === 'whatsapp'): ?>
-                                    <span class="badge bg-success bg-opacity-10 text-success"><i class="fab fa-whatsapp me-1"></i> WhatsApp</span>
+                                    <span class="badge bg-success bg-opacity-10 text-success"><?= glowup_whatsapp_icon('me-1', 13) ?> WhatsApp</span>
                                 <?php elseif ($l['channel'] === 'email'): ?>
                                     <span class="badge bg-primary bg-opacity-10 text-primary"><span class="material-symbols-outlined align-middle" style="font-size: 12px;">mail</span> Email</span>
                                 <?php elseif ($l['channel'] === 'sms'): ?>

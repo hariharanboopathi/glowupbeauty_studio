@@ -32,10 +32,10 @@
         <div class="glass-panel p-3 d-flex align-items-center justify-content-between">
             <div>
                 <span class="text-muted" style="font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Under Review</span>
-                <h3 class="mb-0 mt-1 fw-bold" style="color: #f57c00; font-family: 'Playfair Display', serif;"><?= esc($stats['read'] ?? 0) ?></h3>
+                <h3 class="mb-0 mt-1 fw-bold" style="color: var(--color-secondary); font-family: 'Playfair Display', serif;"><?= esc($stats['read'] ?? 0) ?></h3>
                 <small class="text-muted" style="font-size: 11px;">Read by desk specialist</small>
             </div>
-            <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(245, 124, 0, 0.08); display: flex; align-items: center; justify-content: center; color: #f57c00;">
+            <div style="width: 44px; height: 44px; border-radius: 12px; background: var(--color-secondary-subtle); display: flex; align-items: center; justify-content: center; color: var(--color-secondary);">
                 <span class="material-symbols-outlined">drafts</span>
             </div>
         </div>

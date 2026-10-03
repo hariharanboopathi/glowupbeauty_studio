@@ -128,11 +128,11 @@
                             <td style="padding: 14px 18px;">
                                 <?php
                                     $catStyles = [
-                                        'bridal'  => ['bg' => 'rgba(201, 136, 96, 0.12)', 'color' => '#a36952', 'label' => 'Haute Bridal'],
+                                        'bridal'  => ['bg' => 'rgba(163, 105, 82, 0.12)', 'color' => '#a36952', 'label' => 'Haute Bridal'],
                                         'hair'    => ['bg' => 'rgba(89, 46, 131, 0.10)',  'color' => '#592e83', 'label' => 'Hair Alchemy'],
-                                        'facials' => ['bg' => 'rgba(0, 150, 136, 0.10)',  'color' => '#00796b', 'label' => 'Skin Radiance'],
-                                        'academy' => ['bg' => 'rgba(33, 150, 243, 0.10)',  'color' => '#1976d2', 'label' => 'Academy'],
-                                        'nails'   => ['bg' => 'rgba(233, 30, 99, 0.10)',   'color' => '#c2185b', 'label' => 'Nails & Lashes'],
+                                        'facials' => ['bg' => 'rgba(163, 105, 82, 0.10)', 'color' => '#8a5540', 'label' => 'Skin Radiance'],
+                                        'academy' => ['bg' => 'rgba(89, 46, 131, 0.10)',  'color' => '#592e83', 'label' => 'Academy'],
+                                        'nails'   => ['bg' => 'rgba(72, 60, 70, 0.10)',   'color' => '#483c46', 'label' => 'Nails & Lashes'],
                                     ];
                                     $st = $catStyles[$item['category']] ?? ['bg' => '#f0ebe8', 'color' => '#555', 'label' => ucfirst($item['category'])];
                                 ?>

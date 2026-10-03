@@ -32,10 +32,10 @@
         <div class="glass-panel p-3 d-flex align-items-center justify-content-between">
             <div>
                 <span class="text-muted" style="font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Live on Website</span>
-                <h3 class="mb-0 mt-1 fw-bold" style="color: #0288d1; font-family: 'Playfair Display', serif;"><?= esc($stats['frontend'] ?? 0) ?></h3>
+                <h3 class="mb-0 mt-1 fw-bold" style="color: var(--color-primary); font-family: 'Playfair Display', serif;"><?= esc($stats['frontend'] ?? 0) ?></h3>
                 <small class="text-muted" style="font-size: 11px;">Featured across frontend pages</small>
             </div>
-            <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(2, 136, 209, 0.08); display: flex; align-items: center; justify-content: center; color: #0288d1;">
+            <div style="width: 44px; height: 44px; border-radius: 12px; background: var(--color-primary-subtle); display: flex; align-items: center; justify-content: center; color: var(--color-primary);">
                 <span class="material-symbols-outlined">web</span>
             </div>
         </div>

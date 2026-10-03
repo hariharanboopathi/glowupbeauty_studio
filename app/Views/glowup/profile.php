@@ -3,20 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Patron Portal &amp; Sanctuary Pass | Glowup Beauty Studio &amp; Academy</title>
-  <meta name="description" content="Manage your personal patron profile, active appointment passes, treatment history, and radiance rewards at Glowup." />
+  <?= view('glowup/partials/seo_meta', [
+      'pageKey'       => 'profile',
+      'fallbackTitle' => 'Patron Portal & Sanctuary Pass | Glowup Beauty Studio & Academy',
+      'fallbackDesc'  => 'Manage your personal patron profile, active appointment passes, treatment history, and radiance rewards at Glowup.',
+  ]) ?>
 
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts & Material Symbols (Unified Single Network Request + Non-blocking display:swap) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet" />
-
-  <!-- Material Symbols & FontAwesome -->
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
 
   <!-- Main Unified CSS -->
   <link rel="stylesheet" href="<?= base_url('css/style.css') ?>" />

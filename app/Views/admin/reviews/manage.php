@@ -27,7 +27,7 @@
 
 										<a class="btn btn-primary btn-round ml-auto" style="color: #fff;" href="<?php echo base_url('admin/reviews/add/'.$request->uri->getSegment(4));?>">
 
-											<i class="fa fa-plus"></i>
+											<span class="material-symbols-outlined align-middle me-1" style="font-size: 16px;">add</span>
 
 											<?=lang('general.add');?> <?=lang('general.review');?>
 
@@ -85,13 +85,13 @@
 
 																		<a href="<?php echo base_url();?>/admin/reviews/edit/<?php echo $r->id; ?>" type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="<?=lang('general.edit');?> <?=lang('general.review');?>">
 
-																			<i class="fa fa-edit"></i>
+																			<span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
 
 																		</a>
 
 																		<a href="<?php echo base_url();?>/admin/reviews/delete/<?php echo $r->id; ?>" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="<?=lang('general.remove');?>" id="del_btn">
 
-																			<i class="fa fa-times"></i>
+																			<span class="material-symbols-outlined" style="font-size: 18px;">close</span>
 
 																		</a>
 

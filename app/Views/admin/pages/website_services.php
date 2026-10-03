@@ -183,7 +183,7 @@
                 'nails'    => 'brush',
                 'wellness' => 'self_improvement',
             ];
-            $catColors = ['#592E83', '#A36952', '#c026d3', '#0284c7', '#16a34a'];
+            $catColors = ['#592E83', '#A36952', '#483C46', '#8a5540', '#6a379c'];
             $i = 0;
         ?>
         <?php foreach ($categories as $cat): ?>
@@ -297,9 +297,9 @@
                                     $catPalette = [
                                         'facials'  => ['color' => '#A36952', 'bg' => 'rgba(163, 105, 82, 0.1)'],
                                         'hair'     => ['color' => '#592E83', 'bg' => 'rgba(89, 46, 131, 0.1)'],
-                                        'bridal'   => ['color' => '#c026d3', 'bg' => 'rgba(192, 38, 211, 0.1)'],
-                                        'nails'    => ['color' => '#0284c7', 'bg' => 'rgba(2, 132, 199, 0.1)'],
-                                        'wellness' => ['color' => '#16a34a', 'bg' => 'rgba(22, 163, 74, 0.1)'],
+                                        'bridal'   => ['color' => '#592E83', 'bg' => 'rgba(89, 46, 131, 0.1)'],
+                                        'nails'    => ['color' => '#A36952', 'bg' => 'rgba(163, 105, 82, 0.1)'],
+                                        'wellness' => ['color' => '#483C46', 'bg' => 'rgba(72, 60, 70, 0.1)'],
                                     ];
                                     $slugKey = strtolower($srv['category']);
                                     $cLabel = $categoryMap[$srv['category']] ?? ($categoryMap[$slugKey] ?? ucwords(str_replace(['_', '-'], ' ', $srv['category'])));

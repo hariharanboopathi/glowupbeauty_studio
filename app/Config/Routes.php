@@ -158,7 +158,6 @@ $routes->group('admin', ['filter' => 'adminAuth'], static function ($routes) {
     $routes->match(['get', 'post'], 'website/gallery/delete/(:num)', 'Admin\MediaController::deleteGallery/$1');
     $routes->post('website/gallery/toggle/(:num)', 'Admin\MediaController::toggleGalleryStatus/$1');
     $routes->post('website/gallery/toggle-featured/(:num)', 'Admin\MediaController::toggleGalleryFeatured/$1');
-    $routes->get('website/contact', 'Admin\PageController::websiteContact');
     $routes->get('website/reviews', 'Admin\ReviewController::index');
     $routes->get('website/reviews/details/(:num)', 'Admin\ReviewController::details/$1');
     $routes->post('website/reviews/save', 'Admin\ReviewController::save');
@@ -248,6 +247,11 @@ $routes->group('admin', ['filter' => 'adminAuth'], static function ($routes) {
     $routes->get('reviews', 'Admin\PageController::systemReviews');
     $routes->get('reports', 'Admin\PageController::reports');
 
+    // SEO Management Routes
+    $routes->get('seo', 'Admin\SeoController::index');
+    $routes->get('seo/(:segment)', 'Admin\SeoController::index/$1');
+    $routes->post('seo/save', 'Admin\SeoController::save');
+
     // Settings & Profile
     $routes->get('settings', 'Admin\SettingController::index');
     $routes->post('settings/save', 'Admin\SettingController::saveSettings');
@@ -255,3 +259,26 @@ $routes->group('admin', ['filter' => 'adminAuth'], static function ($routes) {
     $routes->post('settings/profile/update', 'Admin\SettingController::updateProfile');
     $routes->post('settings/profile/password', 'Admin\SettingController::changePassword');
 });
+
+/**
+ * --------------------------------------------------------------------
+ * Custom 404 Override Handler
+ * --------------------------------------------------------------------
+ * Renders the custom Glowup Beauty Studio & Academy branded 404 page
+ * with HTTP 404 Not Found status, zero debug/path exposure, and full
+ * resilience across all frontend and admin routes.
+ */
+$routes->set404Override(static function () {
+    $request = service('request');
+    if ($request->isAJAX() || (!str_contains($request->getHeaderLine('accept'), 'text/html') && str_contains($request->getHeaderLine('accept'), 'application/json'))) {
+        service('response')->setContentType('application/json');
+        return json_encode([
+            'status'  => 404,
+            'error'   => 'Not Found',
+            'message' => 'The requested resource was not found.',
+        ]);
+    }
+
+    return view('errors/html/error_404');
+});
+

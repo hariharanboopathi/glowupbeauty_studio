@@ -160,47 +160,47 @@ if (!isset($footerSettings) || !isset($footerQuickLinks) || !isset($footerTreatm
 
                 <div class="mt-3">
                     <?php if (!empty($footerSettings['social_instagram']) && $footerSettings['social_instagram'] !== '#'): ?>
-                        <a href="<?= esc($footerSettings['social_instagram']) ?>" class="social-circle" title="Instagram" target="_blank">
-                            <span class="material-symbols-outlined">photo_camera</span>
+                        <a href="<?= esc($footerSettings['social_instagram']) ?>" class="social-circle" title="Instagram" target="_blank" rel="noopener noreferrer">
+                            <?= glowup_instagram_icon('', 18) ?>
                         </a>
                     <?php else: ?>
                         <a href="#" class="social-circle" title="Instagram">
-                            <span class="material-symbols-outlined">photo_camera</span>
+                            <?= glowup_instagram_icon('', 18) ?>
                         </a>
                     <?php endif; ?>
 
                     <?php if (!empty($footerSettings['social_pinterest']) && $footerSettings['social_pinterest'] !== '#'): ?>
-                        <a href="<?= esc($footerSettings['social_pinterest']) ?>" class="social-circle" title="Pinterest" target="_blank">
-                            <span class="material-symbols-outlined">push_pin</span>
+                        <a href="<?= esc($footerSettings['social_pinterest']) ?>" class="social-circle" title="Pinterest" target="_blank" rel="noopener noreferrer">
+                            <?= glowup_pinterest_icon('', 18) ?>
                         </a>
                     <?php else: ?>
                         <a href="#" class="social-circle" title="Pinterest">
-                            <span class="material-symbols-outlined">push_pin</span>
+                            <?= glowup_pinterest_icon('', 18) ?>
                         </a>
                     <?php endif; ?>
 
                     <?php if (!empty($footerSettings['social_facebook']) && $footerSettings['social_facebook'] !== '#'): ?>
-                        <a href="<?= esc($footerSettings['social_facebook']) ?>" class="social-circle" title="Facebook" target="_blank">
-                            <span class="material-symbols-outlined">facebook</span>
+                        <a href="<?= esc($footerSettings['social_facebook']) ?>" class="social-circle" title="Facebook" target="_blank" rel="noopener noreferrer">
+                            <?= glowup_facebook_icon('', 18) ?>
                         </a>
                     <?php else: ?>
-                        <a href="#" class="social-circle" title="Facebook" target="_blank">
-                            <span class="material-symbols-outlined">facebook</span>
+                        <a href="#" class="social-circle" title="Facebook">
+                            <?= glowup_facebook_icon('', 18) ?>
                         </a>
                     <?php endif; ?>
 
                     <?php if (!empty($footerSettings['social_youtube']) && $footerSettings['social_youtube'] !== '#'): ?>
-                        <a href="<?= esc($footerSettings['social_youtube']) ?>" class="social-circle" title="YouTube" target="_blank">
-                            <span class="material-symbols-outlined">smart_display</span>
+                        <a href="<?= esc($footerSettings['social_youtube']) ?>" class="social-circle" title="YouTube" target="_blank" rel="noopener noreferrer">
+                            <?= glowup_youtube_icon('', 18) ?>
                         </a>
                     <?php else: ?>
                         <a href="#" class="social-circle" title="YouTube">
-                            <span class="material-symbols-outlined">smart_display</span>
+                            <?= glowup_youtube_icon('', 18) ?>
                         </a>
                     <?php endif; ?>
 
                     <?php if (!empty($footerSettings['social_location']) && $footerSettings['social_location'] !== '#'): ?>
-                        <a href="<?= esc($footerSettings['social_location']) ?>" class="social-circle" title="Location" target="_blank">
+                        <a href="<?= esc($footerSettings['social_location']) ?>" class="social-circle" title="Location" target="_blank" rel="noopener noreferrer">
                             <span class="material-symbols-outlined">public</span>
                         </a>
                     <?php else: ?>

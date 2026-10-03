@@ -32,10 +32,10 @@
         <div class="glass-panel p-3 d-flex align-items-center justify-content-between">
             <div>
                 <span class="text-muted" style="font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Pending Receivables</span>
-                <h3 class="mb-0 mt-1 fw-bold" style="color: #e65100; font-family: 'Playfair Display', serif;">₹<?= number_format($stats['pending_payments'] ?? 0, 2) ?></h3>
+                <h3 class="mb-0 mt-1 fw-bold" style="color: #A36952; font-family: 'Playfair Display', serif;">₹<?= number_format($stats['pending_payments'] ?? 0, 2) ?></h3>
                 <small class="text-muted" style="font-size: 11px;"><?= esc($stats['unpaid_count'] ?? 0) ?> Awaiting settlement</small>
             </div>
-            <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(230, 81, 0, 0.08); display: flex; align-items: center; justify-content: center; color: #e65100;">
+            <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(163, 105, 82, 0.1); display: flex; align-items: center; justify-content: center; color: #A36952; border: 1px solid rgba(163, 105, 82, 0.15);">
                 <span class="material-symbols-outlined">pending_actions</span>
             </div>
         </div>
@@ -162,11 +162,11 @@
                                 <?php 
                                     $st = $inv['status'];
                                     $badgeStyle = 'background: rgba(108, 117, 125, 0.12); color: #6c757d;';
-                                    if ($st === 'paid') $badgeStyle = 'background: rgba(46, 125, 50, 0.12); color: #2e7d32;';
-                                    elseif ($st === 'sent') $badgeStyle = 'background: rgba(2, 136, 209, 0.12); color: #0288d1;';
-                                    elseif ($st === 'partially_paid') $badgeStyle = 'background: rgba(245, 124, 0, 0.12); color: #f57c00;';
-                                    elseif ($st === 'overdue' || $isOverdue) $badgeStyle = 'background: rgba(211, 47, 47, 0.12); color: #d32f2f;';
-                                    elseif ($st === 'cancelled') $badgeStyle = 'background: rgba(0, 0, 0, 0.12); color: #333;';
+                                    if ($st === 'paid') $badgeStyle = 'background: rgba(22, 163, 74, 0.12); color: #16a34a; border: 1px solid rgba(22, 163, 74, 0.2);';
+                                    elseif ($st === 'sent') $badgeStyle = 'background: var(--color-primary-subtle); color: var(--color-primary); border: 1px solid var(--color-primary-border);';
+                                    elseif ($st === 'partially_paid') $badgeStyle = 'background: var(--color-secondary-subtle); color: var(--color-secondary); border: 1px solid var(--color-secondary-border);';
+                                    elseif ($st === 'overdue' || $isOverdue) $badgeStyle = 'background: #fee2e2; color: #dc2626; border: 1px solid #fecaca;';
+                                    elseif ($st === 'cancelled') $badgeStyle = 'background: var(--color-dark-subtle, #f2edf1); color: var(--color-dark, #483C46); border: 1px solid #ded8dc;';
                                 ?>
                                 <span class="badge" style="<?= $badgeStyle ?> font-weight: 600; text-transform: capitalize; border-radius: 12px; padding: 4px 10px;">
                                     <?= ($isOverdue && $st !== 'paid') ? 'Overdue' : str_replace('_', ' ', $st) ?>
@@ -200,7 +200,7 @@
                                         <a href="https://wa.me/<?= $cleanPhone ?>?text=<?= $waMsg ?>" target="_blank" 
                                            class="btn btn-sm btn-outline-success p-1 d-inline-flex align-items-center justify-content-center" 
                                            title="Send on WhatsApp" style="width: 28px; height: 28px; border-radius: 6px;">
-                                            <i class="fab fa-whatsapp" style="font-size: 14px;"></i>
+                                            <?= glowup_whatsapp_icon('', 14) ?>
                                         </a>
                                     <?php endif; ?>
 

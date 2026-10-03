@@ -8,9 +8,9 @@
 <!-- Today's Follow-up Alert Banner (if any due today) -->
 <?php if (!empty($todayFollowUps)): ?>
     <div class="alert border-0 shadow-sm d-flex align-items-center justify-content-between p-3 mb-4" 
-         style="background: linear-gradient(90deg, #fff3e0 0%, #ffe0b2 100%); border-left: 5px solid #e65100 !important; border-radius: 12px;">
+         style="background: linear-gradient(90deg, #fdfaf8 0%, #f7efeb 100%); border-left: 5px solid #A36952 !important; border-radius: 12px;">
         <div class="d-flex align-items-center gap-3">
-            <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(230, 81, 0, 0.15); display: flex; align-items: center; justify-content: center; color: #e65100;">
+            <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(163, 105, 82, 0.12); display: flex; align-items: center; justify-content: center; color: #A36952; border: 1px solid rgba(163, 105, 82, 0.2);">
                 <span class="material-symbols-outlined">notification_important</span>
             </div>
             <div>
@@ -18,7 +18,7 @@
                 <small class="text-muted">Reach out to these prospective brides and patrons scheduled for consultation today.</small>
             </div>
         </div>
-        <a href="<?= base_url('admin/crm/followups?filter=today') ?>" class="btn btn-sm btn-dark" style="border-radius: 8px;">
+        <a href="<?= base_url('admin/crm/followups?filter=today') ?>" class="btn btn-sm btn-dark" style="border-radius: 8px; background: #483C46 !important; border-color: #483C46 !important;">
             View Today's Reminders
         </a>
     </div>
@@ -31,10 +31,10 @@
         <div class="glass-panel p-3 h-100 d-flex flex-column justify-content-between">
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="text-muted" style="font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Today's Bookings</span>
-                <span class="material-symbols-outlined text-warning" style="font-size: 20px;">today</span>
+                <span class="material-symbols-outlined" style="font-size: 20px; color: #A36952;">today</span>
             </div>
             <div>
-                <h3 class="fw-bold mb-0" style="color: #e65100; font-family: 'Playfair Display', serif;"><?= esc($todayBookings) ?></h3>
+                <h3 class="fw-bold mb-0" style="color: #A36952; font-family: 'Playfair Display', serif;"><?= esc($todayBookings) ?></h3>
                 <small class="text-muted" style="font-size: 11px;"><?= esc($upcomingAppointments) ?> Upcoming Total</small>
             </div>
         </div>
@@ -73,10 +73,10 @@
         <div class="glass-panel p-3 h-100 d-flex flex-column justify-content-between">
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="text-muted" style="font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">New Leads</span>
-                <span class="material-symbols-outlined text-info" style="font-size: 20px;">filter_alt</span>
+                <span class="material-symbols-outlined" style="font-size: 20px; color: #592E83;">filter_alt</span>
             </div>
             <div>
-                <h3 class="fw-bold mb-0" style="color: #0288d1; font-family: 'Playfair Display', serif;"><?= esc($newLeads) ?></h3>
+                <h3 class="fw-bold mb-0" style="color: #592E83; font-family: 'Playfair Display', serif;"><?= esc($newLeads) ?></h3>
                 <small class="text-muted" style="font-size: 11px;"><?= esc($newEnquiries) ?> Website Inquiries</small>
             </div>
         </div>
@@ -87,10 +87,10 @@
         <div class="glass-panel p-3 h-100 d-flex flex-column justify-content-between">
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="text-muted" style="font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Active Offers</span>
-                <span class="material-symbols-outlined text-primary" style="font-size: 20px;">local_offer</span>
+                <span class="material-symbols-outlined" style="font-size: 20px; color: #592E83;">local_offer</span>
             </div>
             <div>
-                <h3 class="fw-bold mb-0" style="color: var(--accent); font-family: 'Playfair Display', serif;"><?= esc($offersActive) ?></h3>
+                <h3 class="fw-bold mb-0" style="color: #592E83; font-family: 'Playfair Display', serif;"><?= esc($offersActive) ?></h3>
                 <small class="text-muted" style="font-size: 11px;">Live on Frontend</small>
             </div>
         </div>
@@ -101,7 +101,7 @@
         <div class="glass-panel p-3 h-100 d-flex flex-column justify-content-between">
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="text-muted" style="font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Client Comms</span>
-                <span class="material-symbols-outlined text-secondary" style="font-size: 20px;">forward_to_inbox</span>
+                <span class="material-symbols-outlined" style="font-size: 20px; color: #483C46;">forward_to_inbox</span>
             </div>
             <div>
                 <h3 class="fw-bold mb-0" style="color: #483C46; font-family: 'Playfair Display', serif;"><?= $whatsappSent + $smsSent + $emailSent ?></h3>
@@ -115,18 +115,18 @@
 <div class="row g-3 mb-4">
     <div class="col-md-3">
         <div class="glass-panel p-3 d-flex align-items-center gap-3">
-            <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(89, 46, 131, 0.08); display: flex; align-items: center; justify-content: center; color: var(--accent);">
+            <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(89, 46, 131, 0.08); display: flex; align-items: center; justify-content: center; color: #592E83; border: 1px solid rgba(89, 46, 131, 0.15);">
                 <span class="material-symbols-outlined">spa</span>
             </div>
             <div>
                 <span class="text-muted d-block" style="font-size: 11px; text-transform: uppercase; font-weight: 600;">Completed Services</span>
-                <h5 class="fw-bold mb-0" style="color: var(--text-main);"><?= esc($completedServices) ?> Treatments Done</h5>
+                <h5 class="fw-bold mb-0" style="color: #483C46;"><?= esc($completedServices) ?> Treatments Done</h5>
             </div>
         </div>
     </div>
     <div class="col-md-3">
         <div class="glass-panel p-3 d-flex align-items-center gap-3">
-            <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(163, 105, 82, 0.12); display: flex; align-items: center; justify-content: center; color: #A36952;">
+            <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(163, 105, 82, 0.1); display: flex; align-items: center; justify-content: center; color: #A36952; border: 1px solid rgba(163, 105, 82, 0.15);">
                 <span class="material-symbols-outlined">favorite</span>
             </div>
             <div>
@@ -137,18 +137,18 @@
     </div>
     <div class="col-md-3">
         <div class="glass-panel p-3 d-flex align-items-center gap-3">
-            <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(2, 136, 209, 0.1); display: flex; align-items: center; justify-content: center; color: #0288d1;">
+            <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(89, 46, 131, 0.08); display: flex; align-items: center; justify-content: center; color: #592E83; border: 1px solid rgba(89, 46, 131, 0.15);">
                 <span class="material-symbols-outlined">school</span>
             </div>
             <div>
                 <span class="text-muted d-block" style="font-size: 11px; text-transform: uppercase; font-weight: 600;">Academy Enquiries</span>
-                <h5 class="fw-bold mb-0" style="color: #0288d1;"><?= esc($academyEnquiries) ?> Course Enquiries</h5>
+                <h5 class="fw-bold mb-0" style="color: #592E83;"><?= esc($academyEnquiries) ?> Course Enquiries</h5>
             </div>
         </div>
     </div>
     <div class="col-md-3">
         <div class="glass-panel p-3 d-flex align-items-center gap-3">
-            <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(46, 125, 50, 0.1); display: flex; align-items: center; justify-content: center; color: #2e7d32;">
+            <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(22, 163, 74, 0.1); display: flex; align-items: center; justify-content: center; color: #16a34a; border: 1px solid rgba(22, 163, 74, 0.15);">
                 <span class="material-symbols-outlined">person_add</span>
             </div>
             <div>
@@ -313,8 +313,8 @@
                                             $cleanPhone = preg_replace('/[^0-9]/', '', $rl['phone']);
                                             if (strlen($cleanPhone) === 10) $cleanPhone = '91' . $cleanPhone;
                                         ?>
-                                            <a href="https://wa.me/<?= $cleanPhone ?>" target="_blank" class="btn btn-sm btn-outline-success p-1" title="Chat on WhatsApp">
-                                                <i class="fab fa-whatsapp"></i>
+                                            <a href="https://wa.me/<?= $cleanPhone ?>" target="_blank" class="btn btn-sm btn-outline-success p-1 d-inline-flex align-items-center justify-content-center" title="Chat on WhatsApp" style="width: 28px; height: 28px; border-radius: 6px;">
+                                                <?= glowup_whatsapp_icon('', 14) ?>
                                             </a>
                                         <?php endif; ?>
                                     </td>
@@ -394,7 +394,7 @@ document.addEventListener('DOMContentLoaded', function() {
             labels: <?= json_encode(!empty($serviceLabels) ? $serviceLabels : ['Hydra Facial', 'Bridal Package', 'Hair Keratin']) ?>,
             datasets: [{
                 data: <?= json_encode(!empty($serviceData) ? $serviceData : [12000, 25000, 8500]) ?>,
-                backgroundColor: ['#592E83', '#A36952', '#0288d1', '#2e7d32', '#e65100']
+                backgroundColor: ['#592E83', '#A36952', '#483C46', '#6a379c', '#ba7e66']
             }]
         },
         options: {
@@ -416,7 +416,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 axis: 'y',
                 label: 'Prospects',
                 data: <?= json_encode(array_values($pipelineCounts)) ?>,
-                backgroundColor: ['#d32f2f', '#0288d1', '#f57c00', '#7b1fa2', '#388e3c', '#2e7d32', '#616161'],
+                backgroundColor: ['#dc2626', '#592E83', '#A36952', '#6a379c', '#16a34a', '#483C46', '#988b97'],
                 borderRadius: 4
             }]
         },
@@ -440,7 +440,7 @@ document.addEventListener('DOMContentLoaded', function() {
             labels: <?= json_encode(array_keys($paymentStatusCounts)) ?>,
             datasets: [{
                 data: <?= json_encode(array_values($paymentStatusCounts)) ?>,
-                backgroundColor: ['#2e7d32', '#0288d1', '#f57c00', '#d32f2f']
+                backgroundColor: ['#16a34a', '#592E83', '#A36952', '#dc2626']
             }]
         },
         options: {

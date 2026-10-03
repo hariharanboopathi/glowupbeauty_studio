@@ -24,7 +24,7 @@
 
 										 <a class="btn btn-primary btn-round ml-auto" style="color: #fff;" href="<?php echo base_url('beheerpaneel/options/add');?>">
 
-											<i class="fa fa-plus"></i>
+											<span class="material-symbols-outlined align-middle me-1" style="font-size: 16px;">add</span>
 
 											<?=lang("general.add");?> <?=lang("general.options");?>
 
@@ -78,13 +78,13 @@
 
 																		<a href="<?php echo base_url();?>/beheerpaneel/options/edit/<?php echo $o->id; ?>" type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="<?=lang("general.edit");?>">
 
-																			<i class="fa fa-edit"></i>
+																			<span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
 
 																		</a>
 
 																		<a href="<?php echo base_url();?>/beheerpaneel/options/delete/<?php echo $o->id; ?>" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="<?=lang("general.remove");?>" id="del_btn">
 
-																			<i class="fa fa-times"></i>
+																			<span class="material-symbols-outlined" style="font-size: 18px;">close</span>
 
 																		</a>
 

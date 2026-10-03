@@ -14,26 +14,40 @@
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts & Material Symbols (Unified Single Network Request + Non-blocking display:swap) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap"
-        rel="stylesheet" />
-
-    <!-- Material Symbols -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
         rel="stylesheet" />
 
     <!-- Main Unified CSS -->
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="<?= base_url('css/style.css') ?>" />
 
     <style>
+        :root {
+            --glowup-primary: #592E83;
+            --glowup-secondary: #A36952;
+            --glowup-dark: #483C46;
+            --glowup-white: #FFFFFF;
+            --glowup-canvas: #FCFBFA;
+            --glowup-lavender-subtle: #F8F5FA;
+            --glowup-border-subtle: #EDE6E4;
+            --glowup-muted: #6f626d;
+            --glowup-border: #D5CCD3;
+
+            /* Backward-compatible aliases */
+            --color-primary: var(--glowup-primary);
+            --color-secondary: var(--glowup-secondary);
+            --color-dark: var(--glowup-dark);
+            --color-white: var(--glowup-white);
+            --color-canvas: var(--glowup-canvas);
+        }
+
         /* ========== #592E83 + #A36952 + #483C46 THEME ========== */
         html, body {
             min-height: 100vh;
-            color: #483C46 !important;
+            color: var(--glowup-dark) !important;
             margin: 0;
         }
 
@@ -45,7 +59,7 @@
             position: relative;
             overflow: hidden;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #fcfbfa;
+            background-color: var(--glowup-canvas);
             background-image:
                 radial-gradient(circle at 15% 15%, rgba(89, 46, 131, 0.06) 0%, transparent 45%),
                 radial-gradient(circle at 85% 85%, rgba(163, 105, 82, 0.06) 0%, transparent 40%);
@@ -68,8 +82,8 @@
             z-index: 2;
             width: 100%;
             max-width: 440px;
-            background: #ffffff;
-            border: 1px solid #ede6e4;
+            background: var(--glowup-white);
+            border: 1px solid var(--glowup-border-subtle);
             border-radius: 22px;
             padding: 44px 40px 38px;
             box-shadow: 0 20px 50px rgba(72, 60, 70, 0.08), 0 4px 16px rgba(0, 0, 0, 0.03);
@@ -82,14 +96,14 @@
 
         .login-head h2 {
             font-family: 'Playfair Display', serif;
-            color: #483C46 !important;
+            color: var(--glowup-dark) !important;
             font-size: 2rem;
             font-weight: 700;
             margin: 0 0 6px;
         }
 
         .login-head p {
-            color: #6f626d !important;
+            color: var(--glowup-muted) !important;
             font-size: 13.5px;
             line-height: 1.6;
             margin: 0;
@@ -105,7 +119,7 @@
             font-size: 11px;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: #483C46 !important;
+            color: var(--glowup-dark) !important;
             font-weight: 700;
             margin-bottom: 8px;
         }
@@ -120,7 +134,7 @@
             top: 50%;
             transform: translateY(-50%);
             font-size: 19px;
-            color: #592E83 !important;
+            color: var(--glowup-primary) !important;
             pointer-events: none;
             transition: color 0.25s;
         }
@@ -128,10 +142,10 @@
         .field-inner input {
             width: 100%;
             padding: 13px 46px 13px 44px;
-            background: #ffffff !important;
-            border: 1px solid #d5ccd3;
+            background: var(--glowup-white) !important;
+            border: 1px solid var(--glowup-border);
             border-radius: 12px;
-            color: #483C46 !important;
+            color: var(--glowup-dark) !important;
             font-size: 14px;
             font-family: inherit;
             outline: none;
@@ -146,19 +160,19 @@
         .field-inner input:-webkit-autofill,
         .field-inner input:-webkit-autofill:hover,
         .field-inner input:-webkit-autofill:focus {
-            -webkit-text-fill-color: #483C46 !important;
+            -webkit-text-fill-color: var(--glowup-dark) !important;
             -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
             transition: background-color 5000s ease-in-out 0s;
         }
 
         .field-inner input:focus {
-            border-color: #592E83;
-            background: #ffffff !important;
+            border-color: var(--glowup-primary);
+            background: var(--glowup-white) !important;
             box-shadow: 0 0 0 3px rgba(89, 46, 131, 0.18);
         }
 
         .field-inner input:focus ~ .material-symbols-outlined {
-            color: #592E83 !important;
+            color: var(--glowup-primary) !important;
         }
 
         /* Password eye toggle */
@@ -170,7 +184,7 @@
             background: none;
             border: none;
             cursor: pointer;
-            color: #483C46 !important;
+            color: var(--glowup-dark) !important;
             display: flex;
             align-items: center;
             padding: 4px;
@@ -178,7 +192,7 @@
         }
 
         .pw-toggle:hover {
-            color: #592E83 !important;
+            color: var(--glowup-primary) !important;
         }
 
         .pw-toggle .material-symbols-outlined {
@@ -195,8 +209,8 @@
             padding: 13px;
             border: none;
             border-radius: 12px;
-            background: linear-gradient(135deg, #592E83 0%, #48236d 100%);
-            color: #ffffff !important;
+            background: linear-gradient(135deg, var(--glowup-primary) 0%, #48236d 100%);
+            color: var(--glowup-white) !important;
             font-weight: 700;
             font-size: 12px;
             letter-spacing: 0.14em;
@@ -219,7 +233,12 @@
         }
 
         .btn-submit:active {
-            transform: translateY(0);
+            transform: scale(0.98);
+        }
+
+        .btn-submit:focus-visible {
+            outline: 2px solid var(--glowup-primary);
+            outline-offset: 2px;
         }
 
         .btn-submit .material-symbols-outlined {

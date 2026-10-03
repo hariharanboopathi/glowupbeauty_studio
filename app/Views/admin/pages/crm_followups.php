@@ -20,10 +20,10 @@
         <div class="glass-panel p-3 d-flex align-items-center justify-content-between">
             <div>
                 <span class="text-muted" style="font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Due Today</span>
-                <h3 class="mb-0 mt-1 fw-bold" style="color: #e65100; font-family: 'Playfair Display', serif;"><?= esc($stats['today'] ?? 0) ?></h3>
+                <h3 class="mb-0 mt-1 fw-bold" style="color: var(--color-secondary); font-family: 'Playfair Display', serif;"><?= esc($stats['today'] ?? 0) ?></h3>
                 <small class="text-muted" style="font-size: 11px;">Priority contacts for today</small>
             </div>
-            <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(230, 81, 0, 0.08); display: flex; align-items: center; justify-content: center; color: #e65100;">
+            <div style="width: 44px; height: 44px; border-radius: 12px; background: var(--color-secondary-subtle); display: flex; align-items: center; justify-content: center; color: var(--color-secondary);">
                 <span class="material-symbols-outlined">notification_important</span>
             </div>
         </div>
@@ -32,10 +32,10 @@
         <div class="glass-panel p-3 d-flex align-items-center justify-content-between">
             <div>
                 <span class="text-muted" style="font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Pending Reminders</span>
-                <h3 class="mb-0 mt-1 fw-bold" style="color: #0288d1; font-family: 'Playfair Display', serif;"><?= esc($stats['pending'] ?? 0) ?></h3>
+                <h3 class="mb-0 mt-1 fw-bold" style="color: var(--color-primary); font-family: 'Playfair Display', serif;"><?= esc($stats['pending'] ?? 0) ?></h3>
                 <small class="text-muted" style="font-size: 11px;">Awaiting staff outreach</small>
             </div>
-            <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(2, 136, 209, 0.08); display: flex; align-items: center; justify-content: center; color: #0288d1;">
+            <div style="width: 44px; height: 44px; border-radius: 12px; background: var(--color-primary-subtle); display: flex; align-items: center; justify-content: center; color: var(--color-primary);">
                 <span class="material-symbols-outlined">pending_actions</span>
             </div>
         </div>
@@ -174,7 +174,7 @@
                                         Completed
                                     </span>
                                 <?php else: ?>
-                                    <span class="badge" style="background: rgba(230, 81, 0, 0.12); color: #e65100; font-weight: 600; border-radius: 12px; padding: 4px 10px;">
+                                    <span class="badge" style="background: var(--color-secondary-subtle); color: var(--color-secondary); font-weight: 600; border-radius: 12px; padding: 4px 10px;">
                                         <span class="material-symbols-outlined align-middle me-1" style="font-size: 12px;">schedule</span>
                                         Pending
                                     </span>
@@ -191,7 +191,7 @@
                                         <a href="https://wa.me/<?= $cleanPhone ?>?text=<?= $waText ?>" target="_blank" 
                                            class="btn btn-sm btn-outline-success p-1 d-inline-flex align-items-center justify-content-center" 
                                            title="Direct WhatsApp" style="width: 30px; height: 30px; border-radius: 6px;">
-                                            <i class="fab fa-whatsapp" style="font-size: 15px;"></i>
+                                            <?= glowup_whatsapp_icon('', 15) ?>
                                         </a>
                                     <?php endif; ?>
 

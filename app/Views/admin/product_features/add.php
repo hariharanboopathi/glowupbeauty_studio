@@ -166,7 +166,7 @@
       </div>
       <div class="row ml-0 bg-light mt-3 border py-3">
         <div class="col-md-12">
-          <span  class="btn btn-outline-lite py-0 add_new_frm_field_btn"><i class="fas fa-plus add_icon"></i> Add New row</span>
+          <span  class="btn btn-outline-lite py-0 add_new_frm_field_btn"><span class="material-symbols-outlined align-middle me-1" style="font-size: 16px;">add</span> Add New row</span>
         </div>
       </div>
  </div>

@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Patron Reviews &amp; Testimonials | Glowup Beauty Studio &amp; Academy</title>
-  <meta name="description" content="Read unedited reviews and reflections from cherished patrons who experienced our clinical facials, hair alchemy, and bridal couture." />
+  <?= view('glowup/partials/seo_meta', [
+      'pageKey'       => 'reviews',
+      'fallbackTitle' => 'Patron Reviews & Testimonials | Glowup Beauty Studio & Academy',
+      'fallbackDesc'  => 'Read unedited reviews and reflections from cherished patrons who experienced our clinical facials, hair alchemy, and bridal couture.',
+  ]) ?>
 
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts & Material Symbols (Unified Single Network Request + Non-blocking display:swap) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet" />
-
-  <!-- Material Symbols -->
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
 
   <!-- Main Unified CSS -->
   <link rel="stylesheet" href="<?= base_url('css/style.css') ?>" />
