@@ -221,10 +221,58 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
+    // Dynamic Slot Availability
+    function fetchAvailableSlots(date, specialist) {
+      if (!date) return;
+      const url = new URL(window.location.origin + '/booking/check-slots');
+      url.searchParams.append('date', date);
+      if (specialist) {
+        url.searchParams.append('specialist', specialist);
+      }
+
+      fetch(url.toString())
+        .then(res => res.json())
+        .then(data => {
+          if (data.status && Array.isArray(data.unavailable_slots)) {
+            const unavailable = data.unavailable_slots;
+            let currentSelectedDisabled = false;
+
+            timeSlots.forEach(slot => {
+              const text = slot.textContent.trim();
+              if (unavailable.includes(text)) {
+                slot.classList.add('disabled');
+                slot.setAttribute('aria-disabled', 'true');
+                if (slot.classList.contains('selected')) {
+                  slot.classList.remove('selected');
+                  currentSelectedDisabled = true;
+                }
+              } else {
+                slot.classList.remove('disabled');
+                slot.removeAttribute('aria-disabled');
+              }
+            });
+
+            // If the currently selected slot was booked, pick the first available slot
+            if (currentSelectedDisabled || !selectedTime || unavailable.includes(selectedTime)) {
+              const firstAvailable = Array.from(timeSlots).find(s => !s.classList.contains('disabled'));
+              if (firstAvailable) {
+                firstAvailable.classList.add('selected');
+                selectedTime = firstAvailable.textContent.trim();
+              } else {
+                selectedTime = '';
+              }
+              updateSummary();
+            }
+          }
+        })
+        .catch(err => console.error('Error fetching slot availability:', err));
+    }
+
     // Time Slot Selection
     const timeSlots = bookingForm.querySelectorAll('.slot-pill');
     timeSlots.forEach(slot => {
       slot.addEventListener('click', () => {
+        if (slot.classList.contains('disabled')) return;
         timeSlots.forEach(s => s.classList.remove('selected'));
         slot.classList.add('selected');
         selectedTime = slot.textContent.trim();
@@ -238,6 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
       artistSelect.addEventListener('change', (e) => {
         selectedArtist = e.target.value;
         updateSummary();
+        fetchAvailableSlots(selectedDate, selectedArtist);
       });
     }
 
@@ -251,7 +300,10 @@ document.addEventListener('DOMContentLoaded', () => {
       dateInput.addEventListener('change', (e) => {
         selectedDate = e.target.value;
         updateSummary();
+        fetchAvailableSlots(selectedDate, selectedArtist);
       });
+      // Initial fetch on page load
+      fetchAvailableSlots(selectedDate, selectedArtist);
     }
 
     function updateSummary() {
@@ -304,6 +356,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnNext) {
       btnNext.addEventListener('click', (e) => {
         e.preventDefault();
+        if (currentStep === 2) {
+          if (!selectedTime) {
+            window.showBookingToast('error', 'Booking Notice', 'Please select an available time slot before continuing.');
+            return;
+          }
+        }
         if (currentStep < 3) {
           currentStep++;
           showStep(currentStep);
@@ -462,10 +520,58 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
+    // Dynamic Slot Availability for Modal
+    function fetchModalAvailableSlots(date, specialist) {
+      if (!date) return;
+      const url = new URL(window.location.origin + '/booking/check-slots');
+      url.searchParams.append('date', date);
+      if (specialist) {
+        url.searchParams.append('specialist', specialist);
+      }
+
+      fetch(url.toString())
+        .then(res => res.json())
+        .then(data => {
+          if (data.status && Array.isArray(data.unavailable_slots)) {
+            const unavailable = data.unavailable_slots;
+            let currentSelectedDisabled = false;
+
+            modalTimeSlots.forEach(slot => {
+              const text = slot.textContent.trim();
+              if (unavailable.includes(text)) {
+                slot.classList.add('disabled');
+                slot.setAttribute('aria-disabled', 'true');
+                if (slot.classList.contains('selected')) {
+                  slot.classList.remove('selected');
+                  currentSelectedDisabled = true;
+                }
+              } else {
+                slot.classList.remove('disabled');
+                slot.removeAttribute('aria-disabled');
+              }
+            });
+
+            // If the currently selected slot was booked, pick the first available slot
+            if (currentSelectedDisabled || !modalSelectedTime || unavailable.includes(modalSelectedTime)) {
+              const firstAvailable = Array.from(modalTimeSlots).find(s => !s.classList.contains('disabled'));
+              if (firstAvailable) {
+                firstAvailable.classList.add('selected');
+                modalSelectedTime = firstAvailable.textContent.trim();
+              } else {
+                modalSelectedTime = '';
+              }
+              updateModalSummary();
+            }
+          }
+        })
+        .catch(err => console.error('Error fetching modal slot availability:', err));
+    }
+
     // Time Slot Selection inside modal
     const modalTimeSlots = modalEl.querySelectorAll('.modal-slot-pill');
     modalTimeSlots.forEach(slot => {
       slot.addEventListener('click', () => {
+        if (slot.classList.contains('disabled')) return;
         modalTimeSlots.forEach(s => s.classList.remove('selected'));
         slot.classList.add('selected');
         modalSelectedTime = slot.textContent.trim();
@@ -479,6 +585,7 @@ document.addEventListener('DOMContentLoaded', () => {
       modalArtistSelect.addEventListener('change', (e) => {
         modalSelectedArtist = e.target.value;
         updateModalSummary();
+        fetchModalAvailableSlots(modalSelectedDate, modalSelectedArtist);
       });
     }
 
@@ -492,8 +599,17 @@ document.addEventListener('DOMContentLoaded', () => {
       modalDateInput.addEventListener('change', (e) => {
         modalSelectedDate = e.target.value;
         updateModalSummary();
+        fetchModalAvailableSlots(modalSelectedDate, modalSelectedArtist);
       });
+      // Initial fetch
+      fetchModalAvailableSlots(modalSelectedDate, modalSelectedArtist);
     }
+
+    // Also refresh availability whenever modal is shown
+    modalEl.addEventListener('show.bs.modal', () => {
+      const activeDate = modalDateInput?.value || new Date().toISOString().split('T')[0];
+      fetchModalAvailableSlots(activeDate, modalSelectedArtist);
+    });
 
     function updateModalSummary() {
       const summaryService = document.getElementById('modalSummaryService');
@@ -544,6 +660,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modalBtnNext) {
       modalBtnNext.addEventListener('click', (e) => {
         e.preventDefault();
+        if (modalStep === 2) {
+          if (!modalSelectedTime) {
+            window.showBookingToast('error', 'Booking Notice', 'Please select an available time slot before continuing.');
+            return;
+          }
+        }
         if (modalStep < 3) {
           modalStep++;
           showModalStep(modalStep);

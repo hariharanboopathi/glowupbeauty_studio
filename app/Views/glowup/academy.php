@@ -5,9 +5,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <?= view('glowup/partials/seo_meta', [
-      'pageKey'       => 'academy',
-      'fallbackTitle' => 'Academy of Beauty Arts & Courses | Glowup',
-      'fallbackDesc'  => 'Enroll in professional beauty courses: Bridal Makeup Diploma, Advanced Hair Alchemy, Clinical Cosmetology, and Nail Artistry in Madurai.',
+    'pageKey' => 'academy',
+    'fallbackTitle' => 'Academy of Beauty Arts & Courses | Glowup',
+    'fallbackDesc' => 'Enroll in professional beauty courses: Bridal Makeup Diploma, Advanced Hair Alchemy, Clinical Cosmetology, and Nail Artistry in Madurai.',
   ]) ?>
 
   <!-- Bootstrap 5 CSS -->
@@ -98,11 +98,11 @@
         </div>
       </div>
 
-            <div class="row g-4">
+      <div class="row g-4">
         <?php if (!empty($courses)): ?>
           <?php foreach ($courses as $c): ?>
             <?php
-              $cImg = (strpos($c['image_url'], 'http') === 0) ? $c['image_url'] : base_url($c['image_url']);
+            $cImg = (strpos($c['image_url'], 'http') === 0) ? $c['image_url'] : base_url($c['image_url']);
             ?>
             <div class="col-lg-4 col-md-6">
               <div class="course-card">
@@ -110,12 +110,15 @@
                   <div class="course-badge"><?= esc($c['badge']) ?></div>
                 <?php endif; ?>
                 <div class="course-img">
-                  <img src="<?= esc($cImg) ?>" alt="<?= esc($c['title']) ?>" onerror="this.src='https://placehold.co/800x600?text=Diploma'" />
+                  <img src="<?= esc($cImg) ?>" alt="<?= esc($c['title']) ?>"
+                    onerror="this.src='https://placehold.co/800x600?text=Diploma'" />
                 </div>
                 <div class="course-body">
                   <div class="course-meta">
-                    <span><span class="material-symbols-outlined" style="font-size:15px;">schedule</span> <?= esc($c['duration']) ?></span>
-                    <span><span class="material-symbols-outlined" style="font-size:15px;">school</span> <?= esc($c['level']) ?></span>
+                    <span><span class="material-symbols-outlined" style="font-size:15px;">schedule</span>
+                      <?= esc($c['duration']) ?></span>
+                    <span><span class="material-symbols-outlined" style="font-size:15px;">school</span>
+                      <?= esc($c['level']) ?></span>
                   </div>
                   <h4><?= esc($c['title']) ?></h4>
                   <p><?= esc($c['description']) ?></p>
@@ -124,7 +127,8 @@
                       ₹<?= number_format((float) $c['price'], 0) ?>
                       <small>Certification &amp; Kit Included</small>
                     </div>
-                    <a href="#enrollSection" class="btn-book" onclick="selectCourse('<?= esc($c['title']) ?>')">Enroll Now</a>
+                    <a href="#enrollSection" class="btn-primary" onclick="selectCourse('<?= esc($c['title']) ?>')">Enroll
+                      Now</a>
                   </div>
                 </div>
               </div>
@@ -141,14 +145,19 @@
               </div>
               <h5>1-on-1 Masterclass Apprenticeship</h5>
               <p class="mt-2">
-                Looking for intensive private mentoring? Spend 3 to 5 days shadowing our senior artists directly in live client suites.
+                Looking for intensive private mentoring? Spend 3 to 5 days shadowing our senior artists directly in live
+                client suites.
               </p>
             </div>
             <div class="mt-4 d-flex gap-2">
-              <a href="<?= business_phone_url() ?>" class="btn btn-accent flex-grow-1" aria-label="Call Admissions Concierge: <?= esc(business_phone()) ?>" title="Call Admissions">
-                <span class="material-symbols-outlined align-middle me-1" style="font-size: 16px;">call</span> Call Admissions
+              <a href="<?= business_phone_url() ?>" class="btn btn-accent flex-grow-1"
+                aria-label="Call Admissions Concierge: <?= esc(business_phone()) ?>" title="Call Admissions">
+                <span class="material-symbols-outlined align-middle me-1" style="font-size: 16px;">call</span> Call
+                Admissions
               </a>
-              <a href="<?= business_whatsapp_url('Hello Glowup Studio, I am interested in the 1-on-1 Masterclass Apprenticeship. Please share course details.') ?>" target="_blank" rel="noopener noreferrer" class="btn-wa-enquire" title="Enquire on WhatsApp" aria-label="Enquire about Masterclass Apprenticeship on WhatsApp">
+              <a href="<?= business_whatsapp_url('Hello Glowup Studio, I am interested in the 1-on-1 Masterclass Apprenticeship. Please share course details.') ?>"
+                target="_blank" rel="noopener noreferrer" class="btn-wa-enquire" title="Enquire on WhatsApp"
+                aria-label="Enquire about Masterclass Apprenticeship on WhatsApp">
                 <?= glowup_whatsapp_icon('', 14) ?>
                 <span>WhatsApp</span>
               </a>
@@ -242,13 +251,11 @@
             <div class="col-md-6">
               <label class="form-label">Program of Interest *</label>
               <select class="form-select-violet" id="enrollCourse" required>
-                <option value="Master Diploma in Bridal Makeup">Master Diploma in Bridal &amp; Fashion Artistry (6 Mos)
-                </option>
-                <option value="Advanced Hair Alchemy">Advanced Hair Alchemy &amp; Chemical Textures (3 Mos)</option>
-                <option value="Clinical Cosmetology">Clinical Cosmetology &amp; Dermal Therapeutics (4 Mos)</option>
-                <option value="Haute Nail Artistry">Haute Nail Artistry &amp; Russian Sculpting (6 Wks)</option>
-                <option value="Salon Business Mastery">Salon Business &amp; Client Concierge (4 Wks)</option>
-                <option value="Private Apprenticeship">1-on-1 Private Apprenticeship</option>
+                <?php if (!empty($courses)): ?>
+                  <?php foreach ($courses as $c): ?>
+                    <option value="<?= esc($c['title']) ?>"><?= esc($c['title']) ?></option>
+                  <?php endforeach; ?>
+                <?php endif; ?>
               </select>
             </div>
             <div class="col-md-6">
@@ -288,7 +295,7 @@
   </section>
 
   <!-- ==================== FOOTER ==================== -->
-<?= view('glowup/partials/footer') ?>
+  <?= view('glowup/partials/footer') ?>
 
 
 
@@ -314,13 +321,13 @@
     if (enrollForm) {
       enrollForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const name   = document.getElementById('enrollName')?.value;
-        const phone  = document.getElementById('enrollPhone')?.value;
-        const email  = document.getElementById('enrollEmail')?.value;
+        const name = document.getElementById('enrollName')?.value;
+        const phone = document.getElementById('enrollPhone')?.value;
+        const email = document.getElementById('enrollEmail')?.value;
         const course = document.getElementById('enrollCourse')?.value;
-        const batch  = document.getElementById('enrollBatch')?.value;
-        const exp    = document.getElementById('enrollExp')?.value;
-        const notes  = document.getElementById('enrollNotes')?.value;
+        const batch = document.getElementById('enrollBatch')?.value;
+        const exp = document.getElementById('enrollExp')?.value;
+        const notes = document.getElementById('enrollNotes')?.value;
         const alertBox = document.getElementById('enrollSuccessAlert');
         const submitBtn = enrollForm.querySelector('button[type="submit"]');
         const origBtnText = submitBtn ? submitBtn.innerHTML : '';
@@ -343,38 +350,38 @@
           method: 'POST',
           body: formData,
         })
-        .then(res => res.json())
-        .then(data => {
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = origBtnText;
-          }
-          if (alertBox) {
-            const isSuccess = data.status !== false;
-            alertBox.innerHTML = `
+          .then(res => res.json())
+          .then(data => {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = origBtnText;
+            }
+            if (alertBox) {
+              const isSuccess = data.status !== false;
+              alertBox.innerHTML = `
               <div class="alert ${isSuccess ? 'alert-success' : 'alert-danger'} d-flex align-items-center gap-2 mb-4" style="background: rgba(184, 163, 208, 0.25); border: 1px solid var(--accent); color: #fff;">
                 <span class="material-symbols-outlined text-accent-2" style="font-size:24px;">${isSuccess ? 'verified' : 'error'}</span>
                 <div>${data.message || 'Application submitted successfully.'}</div>
               </div>
             `;
-            if (isSuccess) enrollForm.reset();
-          }
-        })
-        .catch(err => {
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = origBtnText;
-          }
-          if (alertBox) {
-            alertBox.innerHTML = `
+              if (isSuccess) enrollForm.reset();
+            }
+          })
+          .catch(err => {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = origBtnText;
+            }
+            if (alertBox) {
+              alertBox.innerHTML = `
               <div class="alert alert-success d-flex align-items-center gap-2 mb-4" style="background: rgba(184, 163, 208, 0.25); border: 1px solid var(--accent); color: #fff;">
                 <span class="material-symbols-outlined text-accent-2" style="font-size:24px;">verified</span>
                 <div>Thank you <strong>${name}</strong>! Your application for <strong>${course}</strong> has been received. Our Admissions Dean will reach you shortly.</div>
               </div>
             `;
-            enrollForm.reset();
-          }
-        });
+              enrollForm.reset();
+            }
+          });
       });
     }
   </script>

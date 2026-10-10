@@ -258,14 +258,14 @@
             <span class="material-symbols-outlined align-middle" style="font-size:13px;">stars</span>
             <?= !empty($customer['customer_status']) ? ucfirst($customer['customer_status']) . ' Patron' : 'Royal Silver Tier' ?>
           </span>
-          <p class="text-muted mb-4" style="font-size:12px;">
+          <p class="text-light mb-4" style="font-size:12px;">
             Patron Pass: <strong>#GLW-<?= str_pad((string)($customer['id'] ?? 1), 4, '0', STR_PAD_LEFT) ?></strong> • Member since <?= !empty($customer['created_at']) ? date('M Y', strtotime($customer['created_at'])) : 'Recent' ?>
           </p>
 
           <div class="p-3 mb-4 text-start rounded-3" style="background:rgba(255,255,255,0.03);border:1px solid rgba(229,221,240,0.1);">
             <div class="mb-2 text-white" style="font-size:12.5px;">
               <span class="material-symbols-outlined align-middle text-accent me-2" style="font-size:16px;">call</span>
-              <?= !empty($customer['phone']) ? esc($customer['phone']) : '<span class="text-muted">No phone added</span>' ?>
+              <?= !empty($customer['phone']) ? esc($customer['phone']) : '<span class="text-light">No phone added</span>' ?>
             </div>
             <div class="mb-2 text-white" style="font-size:12.5px;">
               <span class="material-symbols-outlined align-middle text-accent me-2" style="font-size:16px;">mail</span>
@@ -283,13 +283,13 @@
             <div class="col-6">
               <div class="p-3 rounded text-center" style="background: rgba(89, 46, 131, 0.15); border: 1px solid rgba(89, 46, 131, 0.3);">
                 <div class="fs-5 fw-bold" style="color: #c98860;"><?= esc($profile['metrics']['total_bookings'] ?? 0) ?></div>
-                <small class="text-muted" style="font-size: 10.5px; text-transform: uppercase;">Bookings</small>
+                <small class="text-light" style="font-size: 10.5px; text-transform: uppercase;">Bookings</small>
               </div>
             </div>
             <div class="col-6">
               <div class="p-3 rounded text-center" style="background: rgba(46, 125, 50, 0.15); border: 1px solid rgba(46, 125, 50, 0.3);">
                 <div class="fs-5 fw-bold text-success">₹<?= number_format($profile['metrics']['total_spent'] ?? 0) ?></div>
-                <small class="text-muted" style="font-size: 10.5px; text-transform: uppercase;">Total Spent</small>
+                <small class="text-light" style="font-size: 10.5px; text-transform: uppercase;">Total Spent</small>
               </div>
             </div>
           </div>
@@ -311,7 +311,7 @@
               <span class="eyebrow" style="font-size: 10px;">Contact Studio</span>
               <span class="badge" style="background: rgba(37, 211, 102, 0.15); color: #4ade80; font-size: 10px;">Live Concierge</span>
             </div>
-            <p class="text-muted mb-3" style="font-size: 11.5px; line-height: 1.45;">
+            <p class="text-light mb-3" style="font-size: 11.5px; line-height: 1.45;">
               Need to modify a ritual, arrange private valet, or consult your master stylist?
             </p>
             <div class="d-flex flex-column gap-2">
@@ -380,8 +380,8 @@
                           <span class="text-white fw-bold">₹<?= number_format((float) ($b['service_price'] ?? 0), 2) ?></span>
                         </div>
                       </div>
-                      <div class="row g-2 text-muted" style="font-size: 12px;">
-                        <div class="col-sm-6">
+                      <div class="row g-2 text-light" style="font-size: 12px;">
+                        <div class="col-sm-6 text-light">
                           <span class="material-symbols-outlined align-middle me-1" style="font-size: 14px;">calendar_today</span>
                           <?= date('d M Y', strtotime($b['booking_date'])) ?> at <?= esc($b['time_slot']) ?>
                         </div>
@@ -392,7 +392,7 @@
                         </div>
                       </div>
                       <div class="mt-2 pt-2 border-top border-subtle d-flex justify-content-between align-items-center">
-                        <small class="text-muted" style="font-size: 11px;">Ref: <?= esc($b['booking_code'] ?: ('#GLW-' . $b['id'])) ?></small>
+                        <small class="text-light" style="font-size: 11px;">Ref: <?= esc($b['booking_code'] ?: ('#GLW-' . $b['id'])) ?></small>
                         <a href="<?= business_whatsapp_url('Hello Glowup Studio, I would like to enquire about my booking ' . ($b['booking_code'] ?: ('#GLW-' . $b['id'])) . '.') ?>" target="_blank" rel="noopener noreferrer" class="btn-wa-enquire py-1 px-2" style="font-size: 11px;" aria-label="Enquire about booking on WhatsApp" title="Enquire on WhatsApp">
                           <?= glowup_whatsapp_icon('', 13) ?>
                           <span>WhatsApp Concierge</span>
@@ -402,7 +402,7 @@
                   <?php endforeach; ?>
                 </div>
               <?php else: ?>
-                <div class="text-center py-4 text-muted">
+                <div class="text-center py-4 text-light">
                   <span class="material-symbols-outlined mb-2" style="font-size: 36px; opacity: 0.5;">event_busy</span>
                   <p class="mb-2" style="font-size: 13px;">No reservations found.</p>
                   <a href="<?= base_url('booking') ?>" class="btn btn-sm btn-primary">Book Your First Treatment</a>
@@ -426,7 +426,7 @@
                         <strong class="text-white"><?= esc($cb['service_name']) ?></strong>
                         <span class="badge bg-success bg-opacity-25 text-success">Completed</span>
                       </div>
-                      <p class="text-muted mb-2" style="font-size: 12px;">
+                      <p class="text-light mb-2" style="font-size: 12px;">
                         Rendered on <?= date('d F Y', strtotime($cb['booking_date'])) ?> with Specialist <?= esc($cb['specialist'] ?: 'Elena Vance') ?>
                       </p>
                       <a href="<?= base_url('review') ?>" class="btn btn-xs btn-outline-light" style="font-size: 11px;">
@@ -436,7 +436,7 @@
                   <?php endforeach; ?>
                 </div>
               <?php else: ?>
-                <p class="text-muted text-center py-4">No completed treatments recorded yet.</p>
+                <p class="text-light text-center py-4">No completed treatments recorded yet.</p>
               <?php endif; ?>
             </div>
           </div>
@@ -449,7 +449,7 @@
                 <div class="table-responsive">
                   <table class="table table-dark table-hover align-middle mb-0" style="font-size: 12.5px;">
                     <thead>
-                      <tr class="text-muted" style="font-size: 11px; text-transform: uppercase;">
+                      <tr class="text-light" style="font-size: 11px; text-transform: uppercase;">
                         <th>Invoice #</th>
                         <th>Date</th>
                         <th>Amount</th>
@@ -464,7 +464,7 @@
                           <td class="fw-bold" style="color: #c98860;"><?= esc($inv['invoice_number']) ?></td>
                           <td><?= date('d M Y', strtotime($inv['invoice_date'])) ?></td>
                           <td class="fw-bold text-white">₹<?= number_format((float) $inv['total_amount'], 2) ?></td>
-                          <td class="<?= ((float) $inv['balance_due'] > 0) ? 'text-danger' : 'text-muted' ?>">
+                          <td class="<?= ((float) $inv['balance_due'] > 0) ? 'text-danger' : 'text-light' ?>">
                             ₹<?= number_format((float) $inv['balance_due'], 2) ?>
                           </td>
                           <td>
@@ -483,7 +483,7 @@
                   </table>
                 </div>
               <?php else: ?>
-                <p class="text-muted text-center py-4">No invoices issued to date.</p>
+                <p class="text-light text-center py-4">No invoices issued to date.</p>
               <?php endif; ?>
             </div>
           </div>
@@ -496,7 +496,7 @@
                 <div class="table-responsive">
                   <table class="table table-dark table-hover align-middle mb-0" style="font-size: 12.5px;">
                     <thead>
-                      <tr class="text-muted" style="font-size: 11px; text-transform: uppercase;">
+                      <tr class="text-light" style="font-size: 11px; text-transform: uppercase;">
                         <th>Receipt #</th>
                         <th>Date</th>
                         <th>Method</th>
@@ -519,7 +519,7 @@
                                 <span class="material-symbols-outlined align-middle" style="font-size: 13px;">print</span> Print
                               </a>
                             <?php else: ?>
-                              <span class="text-muted" style="font-size: 11px;">Settled</span>
+                              <span class="text-light" style="font-size: 11px;">Settled</span>
                             <?php endif; ?>
                           </td>
                         </tr>
@@ -528,7 +528,7 @@
                   </table>
                 </div>
               <?php else: ?>
-                <p class="text-muted text-center py-4">No payment transactions recorded.</p>
+                <p class="text-light text-center py-4">No payment transactions recorded.</p>
               <?php endif; ?>
             </div>
           </div>
@@ -547,10 +547,10 @@
                             <span class="badge" style="background: rgba(163, 105, 82, 0.3); color: #ffcaa6; font-size: 11px;">
                               <?= ($off['discount_type'] === 'percentage') ? ($off['discount_value'] . '% OFF') : ('₹' . number_format($off['discount_value']) . ' OFF') ?>
                             </span>
-                            <small class="text-muted" style="font-size: 11px;">Valid till <?= date('d M', strtotime($off['end_date'])) ?></small>
+                            <small class="text-light" style="font-size: 11px;">Valid till <?= date('d M', strtotime($off['end_date'])) ?></small>
                           </div>
                           <h6 class="text-white fw-bold mb-1"><?= esc($off['title']) ?></h6>
-                          <p class="text-muted mb-3" style="font-size: 12px;"><?= esc($off['description']) ?></p>
+                          <p class="text-light mb-3" style="font-size: 12px;"><?= esc($off['description']) ?></p>
                         </div>
                         <div class="p-2 rounded d-flex align-items-center justify-content-between" style="background: rgba(255,255,255,0.05);">
                           <code class="text-accent fw-bold" style="font-size: 13px;"><?= esc($off['coupon_code']) ?></code>
@@ -561,7 +561,7 @@
                   <?php endforeach; ?>
                 </div>
               <?php else: ?>
-                <p class="text-muted text-center py-4">No active promotional privileges at this time.</p>
+                <p class="text-light text-center py-4">No active promotional privileges at this time.</p>
               <?php endif; ?>
             </div>
           </div>
@@ -574,31 +574,31 @@
                 <?= csrf_field() ?>
                 <div class="row g-3">
                   <div class="col-md-6">
-                    <label class="form-label text-muted" style="font-size: 12px;">Full Name *</label>
+                    <label class="form-label text-light" style="font-size: 12px;">Full Name *</label>
                     <input type="text" name="name" class="form-control" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.15); color: #fff;" value="<?= esc($customer['name'] ?? '') ?>" required>
                   </div>
                   <div class="col-md-6">
-                    <label class="form-label text-muted" style="font-size: 12px;">Email Address (Read-Only)</label>
+                    <label class="form-label text-light" style="font-size: 12px;">Email Address (Read-Only)</label>
                     <input type="email" class="form-control" style="background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.08); color: #aaa;" value="<?= esc($customer['email'] ?? '') ?>" readonly>
                   </div>
                   <div class="col-md-6">
-                    <label class="form-label text-muted" style="font-size: 12px;">Phone Number</label>
+                    <label class="form-label text-light" style="font-size: 12px;">Phone Number</label>
                     <input type="tel" name="phone" class="form-control" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.15); color: #fff;" value="<?= esc($customer['phone'] ?? '') ?>">
                   </div>
                   <div class="col-md-6">
-                    <label class="form-label text-muted" style="font-size: 12px;">WhatsApp Number</label>
+                    <label class="form-label text-light" style="font-size: 12px;">WhatsApp Number</label>
                     <input type="tel" name="whatsapp" class="form-control" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.15); color: #fff;" value="<?= esc($customer['whatsapp_number'] ?? ($customer['phone'] ?? '')) ?>">
                   </div>
                   <div class="col-md-6">
-                    <label class="form-label text-muted" style="font-size: 12px;">Date of Birth</label>
+                    <label class="form-label text-light" style="font-size: 12px;">Date of Birth</label>
                     <input type="date" name="dob" class="form-control" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.15); color: #fff;" value="<?= esc($customer['dob'] ?? '') ?>">
                   </div>
                   <div class="col-md-6">
-                    <label class="form-label text-muted" style="font-size: 12px;">Preferred Rituals / Services</label>
+                    <label class="form-label text-light" style="font-size: 12px;">Preferred Rituals / Services</label>
                     <input type="text" name="preferred_services" class="form-control" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.15); color: #fff;" value="<?= esc($customer['preferred_services'] ?? '') ?>" placeholder="e.g. Hydra Facials, Bridal Couture">
                   </div>
                   <div class="col-12">
-                    <label class="form-label text-muted" style="font-size: 12px;">Sanctuary Postal Address</label>
+                    <label class="form-label text-light" style="font-size: 12px;">Sanctuary Postal Address</label>
                     <textarea name="address" rows="2" class="form-control" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.15); color: #fff;"><?= esc($customer['address'] ?? '') ?></textarea>
                   </div>
                   <div class="col-12">
@@ -614,15 +614,15 @@
                 <?= csrf_field() ?>
                 <div class="row g-3">
                   <div class="col-md-4">
-                    <label class="form-label text-muted" style="font-size: 12px;">Current Password</label>
+                    <label class="form-label text-light" style="font-size: 12px;">Current Password</label>
                     <input type="password" name="current_password" class="form-control" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.15); color: #fff;" required>
                   </div>
                   <div class="col-md-4">
-                    <label class="form-label text-muted" style="font-size: 12px;">New Password (Min 6 chars)</label>
+                    <label class="form-label text-light" style="font-size: 12px;">New Password (Min 6 chars)</label>
                     <input type="password" name="new_password" class="form-control" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.15); color: #fff;" required>
                   </div>
                   <div class="col-md-4">
-                    <label class="form-label text-muted" style="font-size: 12px;">Confirm New Password</label>
+                    <label class="form-label text-light" style="font-size: 12px;">Confirm New Password</label>
                     <input type="password" name="confirm_password" class="form-control" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.15); color: #fff;" required>
                   </div>
                   <div class="col-12">
@@ -643,14 +643,14 @@
                     <div class="patron-subcard">
                       <div class="d-flex justify-content-between align-items-center mb-1">
                         <strong class="text-white" style="font-size: 13px;"><?= esc($c['subject'] ?: 'Studio Notification') ?></strong>
-                        <small class="text-muted" style="font-size: 11px;"><?= date('d M Y', strtotime($c['sent_at'] ?: $c['created_at'])) ?></small>
+                        <small class="text-light" style="font-size: 11px;"><?= date('d M Y', strtotime($c['sent_at'] ?: $c['created_at'])) ?></small>
                       </div>
-                      <p class="text-muted mb-0" style="font-size: 12px; line-height: 1.5;"><?= esc($c['message_content'] ?? ($c['message'] ?? '')) ?></p>
+                      <p class="text-light mb-0" style="font-size: 12px; line-height: 1.5;"><?= esc($c['message_content'] ?? ($c['message'] ?? '')) ?></p>
                     </div>
                   <?php endforeach; ?>
                 </div>
               <?php else: ?>
-                <p class="text-muted text-center py-4">No notifications at this time.</p>
+                <p class="text-light text-center py-4">No notifications at this time.</p>
               <?php endif; ?>
             </div>
           </div>

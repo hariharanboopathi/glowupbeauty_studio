@@ -158,7 +158,7 @@
         <?php if (!empty($team)): ?>
           <?php foreach ($team as $m): ?>
             <?php
-              $photo = (strpos($m['image_url'], 'http') === 0) ? $m['image_url'] : base_url($m['image_url']);
+              $photo = (strpos($m['image_url'], 'http') === 0) ? $m['image_url'] : base_url($m['image_url'] ?? "");
             ?>
             <div class="col-sm-6 col-lg-3">
               <div class="team-card">

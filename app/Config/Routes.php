@@ -37,6 +37,7 @@ $routes->match(['get', 'head'], 'booking.html', static function() {
     $targetUrl = base_url('booking') . ($queryString ? ('?' . $queryString) : '');
     return redirect()->to($targetUrl, 301);
 });
+$routes->get('booking/check-slots', 'Home::checkSlots');
 $routes->post('booking/submit', 'Home::submitBooking');
 
 $routes->match(['get', 'head'], 'profile', 'Home::profile');

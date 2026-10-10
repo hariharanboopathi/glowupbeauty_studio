@@ -15,25 +15,27 @@ if (!function_exists('base_url')) {
     }
 }
 
-$homeUrl     = function_exists('base_url') ? base_url('/') : '/';
+$homeUrl = function_exists('base_url') ? base_url('/') : '/';
 $servicesUrl = function_exists('base_url') ? base_url('services') : '/services';
-$contactUrl  = function_exists('base_url') ? base_url('contact') : '/contact';
-$academyUrl  = function_exists('base_url') ? base_url('academy') : '/academy';
-$galleryUrl  = function_exists('base_url') ? base_url('gallery') : '/gallery';
-$reviewUrl   = function_exists('base_url') ? base_url('review') : '/review';
-$bookingUrl  = function_exists('base_url') ? base_url('booking') : '/booking';
-$faviconUrl  = function_exists('base_url') ? base_url('favicon.ico') : '/favicon.ico';
-$logoEmblem  = function_exists('base_url') ? base_url('assets/images/Glowup_Favicon_512.png') : '/assets/images/Glowup_Favicon_512.png';
-$cssUrl      = function_exists('base_url') ? base_url('css/style.css') : '/css/style.css';
+$contactUrl = function_exists('base_url') ? base_url('contact') : '/contact';
+$academyUrl = function_exists('base_url') ? base_url('academy') : '/academy';
+$galleryUrl = function_exists('base_url') ? base_url('gallery') : '/gallery';
+$reviewUrl = function_exists('base_url') ? base_url('review') : '/review';
+$bookingUrl = function_exists('base_url') ? base_url('booking') : '/booking';
+$faviconUrl = function_exists('base_url') ? base_url('favicon.ico') : '/favicon.ico';
+$logoEmblem = function_exists('base_url') ? base_url('assets/images/Glowup_Favicon_512.png') : '/assets/images/Glowup_Favicon_512.png';
+$cssUrl = function_exists('base_url') ? base_url('css/style.css') : '/css/style.css';
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>404 | Page Not Found | Glowup Beauty Studio &amp; Academy</title>
     <meta name="robots" content="noindex, nofollow" />
-    <meta name="description" content="The page you are looking for does not exist or may have been moved. Return to Glowup Beauty Studio &amp; Academy." />
+    <meta name="description"
+        content="The page you are looking for does not exist or may have been moved. Return to Glowup Beauty Studio &amp; Academy." />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="<?= esc($logoEmblem, 'attr') ?>" />
@@ -43,7 +45,9 @@ $cssUrl      = function_exists('base_url') ? base_url('css/style.css') : '/css/s
     <!-- Google Fonts & Material Symbols (Unified Single Network Request + Non-blocking display:swap) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+        rel="stylesheet" />
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -70,14 +74,18 @@ $cssUrl      = function_exists('base_url') ? base_url('css/style.css') : '/css/s
             --glowup-transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
         }
 
-        html, body {
+        html,
+        body {
             margin: 0;
             padding: 0;
-            min-height: 100vh;
+            /* min-height: 100vh; */
+            height: 100dvh;
             width: 100%;
             background-color: var(--glowup-bg-main);
             color: var(--glowup-text-light);
@@ -201,7 +209,7 @@ $cssUrl      = function_exists('base_url') ? base_url('css/style.css') : '/css/s
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             box-shadow: 0 24px 60px rgba(10, 5, 18, 0.55),
-                        0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+                0 0 0 1px rgba(255, 255, 255, 0.05) inset;
             position: relative;
             overflow: hidden;
             animation: cardEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -222,6 +230,7 @@ $cssUrl      = function_exists('base_url') ? base_url('css/style.css') : '/css/s
                 opacity: 0;
                 transform: translateY(24px) scale(0.98);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
@@ -240,7 +249,7 @@ $cssUrl      = function_exists('base_url') ? base_url('css/style.css') : '/css/s
             align-items: center;
             justify-content: center;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
-                        0 0 20px rgba(184, 163, 208, 0.25);
+                0 0 20px rgba(184, 163, 208, 0.25);
         }
 
         .icon-badge .material-symbols-outlined {
@@ -478,13 +487,14 @@ $cssUrl      = function_exists('base_url') ? base_url('css/style.css') : '/css/s
         }
     </style>
 </head>
+
 <body>
     <!-- Ambient Lighting Effects -->
     <div class="ambient-glow-1" aria-hidden="true"></div>
     <div class="ambient-glow-2" aria-hidden="true"></div>
 
     <!-- Header with Official Glowup Branding -->
-    <header class="glowup-header">
+    <!-- <header class="glowup-header">
         <a href="<?= esc($homeUrl, 'attr') ?>" class="glowup-brand" title="Glowup Beauty Studio &amp; Academy">
             <img src="<?= esc($logoEmblem, 'attr') ?>" alt="Glowup Emblem" class="glowup-brand-logo" />
             <div class="glowup-brand-text">
@@ -492,10 +502,12 @@ $cssUrl      = function_exists('base_url') ? base_url('css/style.css') : '/css/s
                 <small>Beauty Studio &amp; Academy</small>
             </div>
         </a>
-    </header>
+    </header> -->
+
+    <?= view('glowup/partials/navbar') ?>
 
     <!-- Main Error Content Card -->
-    <main class="glowup-content-wrap">
+    <main class="glowup-content-wrap" style="margin-top: 70px;">
         <section class="glowup-404-card" aria-labelledby="errorHeading">
             <!-- Decorative Icon Badge -->
             <div class="icon-badge" aria-hidden="true">
@@ -561,8 +573,15 @@ $cssUrl      = function_exists('base_url') ? base_url('css/style.css') : '/css/s
     </main>
 
     <!-- Minimalist Brand Footer -->
-    <footer class="glowup-footer">
+    <!-- <footer class="glowup-footer">
         <div>&copy; <?= date('Y') ?> Glowup Beauty Studio &amp; Academy. All rights reserved.</div>
-    </footer>
+    </footer> -->
+
+    <!-- ==================== FOOTER ==================== -->
+    <?= view('glowup/partials/footer') ?>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

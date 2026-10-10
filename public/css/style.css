@@ -1360,6 +1360,17 @@ a {
   border-color: var(--accent);
 }
 
+.slot-pill.disabled,
+.slot-pill[disabled] {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(229, 221, 240, 0.08);
+  color: var(--text-dim);
+  text-decoration: line-through;
+}
+
 /* Forms */
 .form-label {
   font-size: 11px;
@@ -2284,11 +2295,9 @@ footer a:hover {
 @keyframes luxuryPageFadeIn {
   from {
     opacity: 0.88;
-    transform: translateY(6px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -2690,3 +2699,51 @@ body {
     transition: none !important;
   }
 }
+
+/* 10-10-2026 */
+.footer-brand-logo {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  flex-shrink: 0;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.footer-brand:hover .footer-brand-logo {
+  transform: rotate(-6deg) scale(1.05);
+}
+
+footer .col-lg-4:first-child{
+  margin-top: unset;
+}
+
+.btn-primary {
+  background: var(--bg-deep);
+  color: #fff;
+  border: 1px solid rgba(229, 221, 240, 0.25);
+  border-radius: 6px;
+  padding: .5rem 1rem;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: var(--transition);
+}
+
+.btn-primary:hover {
+  background: var(--accent);
+  color: var(--bg-deep);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+@media (min-width:1000px) {
+  footer .col-lg-4{
+    margin-top: unset;
+  }
+}
+/* 10-10-2026 */

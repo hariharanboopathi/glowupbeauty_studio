@@ -195,6 +195,60 @@ class Home extends BaseController
     }
 
     /**
+     * Check Unavailable Time Slots for a Date & Specialist (AJAX API)
+     */
+    public function checkSlots()
+    {
+        $date = trim((string) $this->request->getGet('date'));
+        $specialist = trim((string) $this->request->getGet('specialist'));
+
+        if (empty($date)) {
+            return $this->response->setJSON([
+                'status'            => true,
+                'unavailable_slots' => [],
+            ]);
+        }
+
+        $timestamp = strtotime($date);
+        if (!$timestamp) {
+            return $this->response->setJSON([
+                'status'            => false,
+                'message'           => 'Invalid date format.',
+                'unavailable_slots' => [],
+            ]);
+        }
+
+        $formattedDate = date('Y-m-d', $timestamp);
+        $bookingModel = new \App\Models\BookingModel();
+
+        $query = $bookingModel->select('time_slot')
+            ->where('booking_date', $formattedDate)
+            ->whereIn('status', ['pending', 'confirmed', 'in_progress']);
+
+        if (!empty($specialist) && strcasecmp($specialist, 'Any Master Specialist') !== 0) {
+            $query->groupStart()
+                ->where('specialist', $specialist)
+                ->orWhere('specialist', 'Any Master Specialist')
+                ->orWhere('specialist IS NULL')
+                ->groupEnd();
+        }
+
+        $rows = $query->findAll();
+        $unavailableSlots = [];
+        foreach ($rows as $row) {
+            if (!empty($row['time_slot'])) {
+                $unavailableSlots[] = trim($row['time_slot']);
+            }
+        }
+
+        return $this->response->setJSON([
+            'status'            => true,
+            'date'              => $formattedDate,
+            'unavailable_slots' => array_values(array_unique($unavailableSlots)),
+        ]);
+    }
+
+    /**
      * Patron Profile View
      */
     public function profile()
@@ -458,12 +512,18 @@ class Home extends BaseController
 
         // 5. Check Duplicate / Slot Conflict Rules
         $bookingModel = new \App\Models\BookingModel();
+        $isAnySpecialist = empty($specialist) || strcasecmp($specialist, 'Any Master Specialist') === 0;
+
         $conflictQuery = $bookingModel->where('booking_date', $date)
             ->where('time_slot', $timeSlot)
-            ->whereIn('status', ['pending', 'confirmed']);
+            ->whereIn('status', ['pending', 'confirmed', 'in_progress']);
 
-        if (!empty($specialist) && strcasecmp($specialist, 'Any Master Specialist') !== 0) {
-            $conflictQuery->where('specialist', $specialist);
+        if (!$isAnySpecialist) {
+            $conflictQuery->groupStart()
+                ->where('specialist', $specialist)
+                ->orWhere('specialist', 'Any Master Specialist')
+                ->orWhere('specialist IS NULL')
+                ->groupEnd();
         }
 
         if ($conflictQuery->first()) {
@@ -512,59 +572,95 @@ class Home extends BaseController
             }
         }
 
-        // 7. Track CRM Lead Record
-        $leadSource = (stripos($serviceName, 'bridal') !== false) ? 'Bridal Booking' : 'Booking Form';
-        $leadModel = new \App\Models\LeadModel();
-        $leadModel->insert([
-            'name'               => $name,
-            'phone'              => $phone,
-            'whatsapp'           => $phone,
-            'email'              => $email ?: '',
-            'service_interested' => $serviceName,
-            'source'             => $leadSource,
-            'campaign'           => 'Website Booking Wizard',
-            'notes'              => "Appointment: {$date} at {$timeSlot} with {$specialist}. Notes: {$notes}",
-            'status'             => 'booking_confirmed',
-            'customer_id'        => $customerId,
-            'created_at'         => date('Y-m-d H:i:s'),
-            'updated_at'         => date('Y-m-d H:i:s'),
-        ]);
+        // 7. Atomic DB Transaction to Prevent Concurrent Race Conditions
+        $db = \Config\Database::connect();
+        $db->transBegin();
 
-        // 8. Insert Appointment Record
-        $bookingCode = 'GLOW-' . strtoupper(substr(uniqid(), -6));
+        try {
+            // Re-verify availability inside transaction
+            $finalConflictCheck = $bookingModel->where('booking_date', $date)
+                ->where('time_slot', $timeSlot)
+                ->whereIn('status', ['pending', 'confirmed', 'in_progress']);
 
-        $inserted = $bookingModel->insert([
-            'booking_code'     => $bookingCode,
-            'customer_id'      => $customerId,
-            'customer_name'    => $name,
-            'customer_email'   => $email ?: 'client@glowup.in',
-            'customer_phone'   => $phone,
-            'service_name'     => $serviceName,
-            'service_price'    => $price,
-            'service_duration' => $duration,
-            'specialist'       => $specialist,
-            'booking_date'     => $date,
-            'time_slot'        => $timeSlot,
-            'notes'            => $notes ?: null,
-            'status'           => 'pending',
-            'created_at'       => date('Y-m-d H:i:s'),
-            'updated_at'       => date('Y-m-d H:i:s'),
-        ]);
+            if (!$isAnySpecialist) {
+                $finalConflictCheck->groupStart()
+                    ->where('specialist', $specialist)
+                    ->orWhere('specialist', 'Any Master Specialist')
+                    ->orWhere('specialist IS NULL')
+                    ->groupEnd();
+            }
 
-        if ($inserted) {
+            if ($finalConflictCheck->first()) {
+                $db->transRollback();
+                return $this->response->setJSON([
+                    'status'  => false,
+                    'message' => 'This time slot was just booked by another patron. Please select another slot.',
+                ]);
+            }
+
+            // Track CRM Lead Record
+            $leadSource = (stripos($serviceName, 'bridal') !== false) ? 'Bridal Booking' : 'Booking Form';
+            $leadModel = new \App\Models\LeadModel();
+            $leadModel->insert([
+                'name'               => $name,
+                'phone'              => $phone,
+                'whatsapp'           => $phone,
+                'email'              => $email ?: '',
+                'service_interested' => $serviceName,
+                'source'             => $leadSource,
+                'campaign'           => 'Website Booking Wizard',
+                'notes'              => "Appointment: {$date} at {$timeSlot} with {$specialist}. Notes: {$notes}",
+                'status'             => 'booking_confirmed',
+                'customer_id'        => $customerId,
+                'created_at'         => date('Y-m-d H:i:s'),
+                'updated_at'         => date('Y-m-d H:i:s'),
+            ]);
+
+            // Insert Appointment Record
+            $bookingCode = 'GLOW-' . strtoupper(substr(uniqid(), -6));
+
+            $inserted = $bookingModel->insert([
+                'booking_code'     => $bookingCode,
+                'customer_id'      => $customerId,
+                'customer_name'    => $name,
+                'customer_email'   => $email ?: 'client@glowup.in',
+                'customer_phone'   => $phone,
+                'service_name'     => $serviceName,
+                'service_price'    => $price,
+                'service_duration' => $duration,
+                'specialist'       => $specialist,
+                'booking_date'     => $date,
+                'time_slot'        => $timeSlot,
+                'notes'            => $notes ?: null,
+                'status'           => 'pending',
+                'created_at'       => date('Y-m-d H:i:s'),
+                'updated_at'       => date('Y-m-d H:i:s'),
+            ]);
+
+            if ($inserted && $db->transStatus() !== false) {
+                $db->transCommit();
+                return $this->response->setJSON([
+                    'status'       => true,
+                    'booking_code' => $bookingCode,
+                    'service_name' => $serviceName,
+                    'date'         => $date,
+                    'time'         => $timeSlot,
+                    'message'      => 'Booking confirmed! Your reference is ' . $bookingCode . '.',
+                ]);
+            }
+
+            $db->transRollback();
             return $this->response->setJSON([
-                'status'       => true,
-                'booking_code' => $bookingCode,
-                'service_name' => $serviceName,
-                'date'         => $date,
-                'time'         => $timeSlot,
-                'message'      => 'Booking confirmed! Your reference is ' . $bookingCode . '.',
+                'status'  => false,
+                'message' => 'Unable to complete your booking right now. Please try again.',
+            ]);
+        } catch (\Throwable $e) {
+            $db->transRollback();
+            log_message('error', 'Booking transaction failure: ' . $e->getMessage());
+            return $this->response->setJSON([
+                'status'  => false,
+                'message' => 'An unexpected error occurred while confirming your booking. Please try again.',
             ]);
         }
-
-        return $this->response->setJSON([
-            'status'  => false,
-            'message' => 'Unable to complete your booking right now. Please try again.',
-        ]);
     }
 }
