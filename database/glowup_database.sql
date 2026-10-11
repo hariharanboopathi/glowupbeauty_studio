@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 11, 2026 at 07:56 PM
+-- Generation Time: Oct 11, 2026 at 09:14 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -206,14 +206,14 @@ INSERT INTO `bookings` (`id`, `booking_code`, `customer_id`, `customer_name`, `c
 (12, 'GLOW-CADDCC', 17, 'Sanjana Reddy', 'sanjana.reddy@gmail.com', '+91 99123 44556', NULL, 'Signature Bridal Makeup', 18500.00, '180 Min', 'Priya Chandran (Lead Bridal Couturier)', '2026-10-05', '11:00 AM', 'Traditional South Indian bridal look with fresh jasmine floral styling.', 'completed', 11, 1, '2026-09-30 17:12:12', '2026-09-30 17:12:13'),
 (13, 'GLOW-5ABF4E', 20, 'Ananya Sundaram 2200', 'ananya_2200@example.com', '987652200', NULL, 'Haute Royal Bridal Artistry', 15000.00, '180 Minutes', 'Priya Chandran (Lead Bridal Couturier)', '2026-10-05', '11:00 AM', 'Trial session for wedding reception', 'completed', 17, 1, '2026-09-30 18:28:53', '2026-10-03 20:17:48'),
 (14, 'GLOW-C88AF3', 23, 'Priya Test', 'priya.test@example.com', '9876543210', NULL, 'Haute Royal Bridal Artistry', 15000.00, '180 Minutes', 'Any Master Specialist', '2026-10-07', '11:00 AM', NULL, 'pending', NULL, 0, '2026-09-30 18:34:04', '2026-09-30 18:34:04'),
-(15, 'GLOW-E642FD', 25, 'Ananya Sundaram 4484', 'ananya_4484@example.com', '987654484', NULL, 'Haute Royal Bridal Artistry', 15000.00, '180 Minutes', 'Priya Chandran (Lead Bridal Couturier)', '2026-12-13', '02:00 PM', 'Trial session for wedding reception', 'pending', NULL, 0, '2026-09-30 18:39:10', '2026-09-30 18:39:10'),
-(16, 'GLOW-3CEF6A', 26, 'Ananya Sundaram 5480', 'ananya_5480@example.com', '987655480', NULL, 'Haute Royal Bridal Artistry', 15000.00, '180 Minutes', 'Priya Chandran (Lead Bridal Couturier)', '2026-10-29', '02:00 PM', 'Trial session for wedding reception', 'pending', NULL, 0, '2026-09-30 19:17:07', '2026-09-30 19:17:07'),
-(17, 'GLOW-0496F8', 27, 'Ananya Sundaram 5546', 'ananya_5546@example.com', '987655546', NULL, 'Haute Royal Bridal Artistry', 15000.00, '180 Minutes', 'Priya Chandran (Lead Bridal Couturier)', '2026-10-23', '02:00 PM', 'Trial session for wedding reception', 'pending', NULL, 0, '2026-09-30 19:17:20', '2026-09-30 19:17:20'),
-(18, 'GLOW-D487C4', 29, 'Sujata AutomatedTest', 'sujata.test@example.com', '9876543999', NULL, 'Hydra Facial Ritual', 3500.00, '75 Minutes', 'Any Master Specialist', '2026-10-30', '06:30 PM', NULL, 'pending', NULL, 0, '2026-09-30 19:36:45', '2026-09-30 19:36:45'),
-(19, 'GLOW-D1449A', 30, 'Sujata AutomatedTest', 'sujata.1790797212@example.com', '9876541364', NULL, 'Hydra Facial Ritual', 3500.00, '75 Minutes', 'Any Master Specialist', '2026-11-15', '02:00 PM', NULL, 'pending', NULL, 0, '2026-09-30 19:40:13', '2026-09-30 19:40:13'),
+(15, 'GLOW-E642FD', 25, 'Ananya Sundaram 4484', 'ananya_4484@example.com', '987654484', NULL, 'Haute Royal Bridal Artistry', 15000.00, '180 Minutes', 'Priya Chandran (Lead Bridal Couturier)', '2026-09-13', '02:00 PM', 'Trial session for wedding reception', 'pending', NULL, 0, '2026-09-30 18:39:10', '2026-09-30 18:39:10'),
+(16, 'GLOW-3CEF6A', 26, 'Ananya Sundaram 5480', 'ananya_5480@example.com', '987655480', NULL, 'Haute Royal Bridal Artistry', 15000.00, '180 Minutes', 'Priya Chandran (Lead Bridal Couturier)', '2026-09-11', '02:00 PM', 'Trial session for wedding reception', 'pending', NULL, 0, '2026-09-30 19:17:07', '2026-09-30 19:17:07'),
+(17, 'GLOW-0496F8', 27, 'Ananya Sundaram 5546', 'ananya_5546@example.com', '987655546', NULL, 'Haute Royal Bridal Artistry', 15000.00, '180 Minutes', 'Priya Chandran (Lead Bridal Couturier)', '2026-09-11', '02:00 PM', 'Trial session for wedding reception', 'pending', NULL, 0, '2026-09-30 19:17:20', '2026-09-30 19:17:20'),
+(18, 'GLOW-D487C4', 29, 'Sujata AutomatedTest', 'sujata.test@example.com', '9876543999', NULL, 'Hydra Facial Ritual', 3500.00, '75 Minutes', 'Any Master Specialist', '2026-09-11', '06:30 PM', NULL, 'pending', NULL, 0, '2026-09-30 19:36:45', '2026-09-30 19:36:45'),
+(19, 'GLOW-D1449A', 30, 'Sujata AutomatedTest', 'sujata.1790797212@example.com', '9876541364', NULL, 'Hydra Facial Ritual', 3500.00, '75 Minutes', 'Any Master Specialist', '2026-09-11', '02:00 PM', NULL, 'pending', NULL, 0, '2026-09-30 19:40:13', '2026-09-30 19:40:13'),
 (20, 'GLOW-B989BF', 31, 'Senthil Kumar R', 'r.senthilkumar22bca106@gmail.com', '1234567890', NULL, 'Hydra Facial Ritual', 3500.00, '75 Minutes', 'Any Master Specialist', '2026-10-03', '10:00 AM', 'Beverage: Organic Matcha Latte | test', 'completed', 14, 1, '2026-10-03 19:26:03', '2026-10-03 20:10:05'),
 (21, 'GLOW-219621', 31, 'Senthil Kumar R', 'r.senthilkumar22bca106@gmail.com', '+919080984655', NULL, 'Precision Thermal Straightening', 3500.00, '150 Minutes', 'Any Master Specialist', '2026-10-03', '11:00 AM', 'Beverage: Organic Matcha Latte | test', 'completed', 13, 1, '2026-10-03 19:34:42', '2026-10-03 20:07:40'),
-(22, 'GLOW-490AD2', 33, 'Senthil Kumar R', 'senthil@gmail.com', '1234567890', NULL, 'Precision Thermal Straightening', 3500.00, '150 Minutes', 'Any Master Specialist', '2026-10-16', '12:30 PM', NULL, 'pending', NULL, 0, '2026-10-10 17:46:44', '2026-10-10 17:46:44'),
+(22, 'GLOW-490AD2', 33, 'Senthil Kumar R', 'senthil@gmail.com', '1234567890', NULL, 'Precision Thermal Straightening', 3500.00, '150 Minutes', 'Any Master Specialist', '2026-09-11', '12:30 PM', NULL, 'pending', NULL, 0, '2026-10-10 17:46:44', '2026-10-10 17:46:44'),
 (23, 'GLOW-59519A', 33, 'Senthil Kumar R', 'senthil@gmail.com', '1234567890', NULL, 'Botox Capillary Reconstruction', 3500.00, '90 Minutes', 'Any Master Specialist', '2026-10-10', '11:00 AM', 'Beverage: Organic Matcha Latte |', 'pending', NULL, 0, '2026-10-10 17:50:13', '2026-10-10 17:50:13'),
 (30, 'GLOW-68CC15', 33, 'Senthil Kumar R', 'senthil@gmail.com', '1234567890', NULL, 'Hydra Facial Ritual', 3500.00, '75 Minutes', 'Any Master Specialist', '2026-10-10', '02:00 PM', 'Beverage: Organic Matcha Latte |', 'completed', 18, 1, '2026-10-10 17:58:14', '2026-10-10 18:01:24'),
 (31, 'GLOW-3DB930', 33, 'Senthil Kumar R', 'senthil@gmail.com', '+919080984655', NULL, 'Precision Thermal Straightening', 3500.00, '150 Minutes', 'Any Master Specialist', '2026-10-10', '12:30 PM', 'Beverage: Organic Matcha Latte |', 'pending', NULL, 0, '2026-10-10 18:00:35', '2026-10-10 18:00:35'),
@@ -1586,7 +1586,7 @@ ALTER TABLE `blog_posts`
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `bridal_packages`
