@@ -97,6 +97,7 @@ $routes->group('admin', ['filter' => 'adminAuth'], static function ($routes) {
 
     // Business Management & Scheduling Routes
     $routes->get('bookings', 'Admin\BookingController::index');
+    $routes->get('bookings/export', 'Admin\BookingController::exportCsv');
     $routes->post('bookings/save', 'Admin\BookingController::save');
     $routes->post('bookings/update-status/(:num)', 'Admin\BookingController::updateStatus/$1');
     $routes->get('bookings/complete/(:num)', 'Admin\BookingController::completeService/$1');

@@ -52,31 +52,7 @@ class BookingController extends BaseController
         $search       = trim((string) $this->request->getGet('search'));
         $today        = date('Y-m-d');
 
-        $builder = $this->bookingModel->orderBy('booking_date', 'DESC')->orderBy('time_slot', 'ASC');
-
-        if ($statusFilter !== 'all') {
-            $builder->where('status', $statusFilter);
-        }
-
-        if ($dateFilter === 'today') {
-            $builder->where('booking_date', $today);
-        } elseif ($dateFilter === 'upcoming') {
-            $builder->where('booking_date >=', $today);
-        } elseif ($dateFilter === 'past') {
-            $builder->where('booking_date <', $today);
-        }
-
-        if (!empty($search)) {
-            $builder->groupStart()
-                    ->like('customer_name', $search)
-                    ->orLike('customer_phone', $search)
-                    ->orLike('customer_email', $search)
-                    ->orLike('booking_code', $search)
-                    ->orLike('service_name', $search)
-                    ->orLike('specialist', $search)
-                    ->groupEnd();
-        }
-
+        $builder = $this->buildFilteredQuery($statusFilter, $dateFilter, $search);
         $bookings = $builder->findAll();
 
         // Calculate real KPI statistics
@@ -127,6 +103,136 @@ class BookingController extends BaseController
             'customers'         => $customers,
             'services'          => $services,
         ]);
+    }
+
+    /**
+     * Build filtered query for bookings based on request parameters
+     */
+    protected function buildFilteredQuery(string $statusFilter, string $dateFilter, string $search)
+    {
+        $today = date('Y-m-d');
+        $builder = $this->bookingModel->orderBy('booking_date', 'DESC')->orderBy('time_slot', 'ASC');
+
+        if ($statusFilter !== 'all') {
+            $builder->where('status', $statusFilter);
+        }
+
+        if ($dateFilter === 'today') {
+            $builder->where('booking_date', $today);
+        } elseif ($dateFilter === 'upcoming') {
+            $builder->where('booking_date >=', $today);
+        } elseif ($dateFilter === 'past') {
+            $builder->where('booking_date <', $today);
+        }
+
+        if (!empty($search)) {
+            $builder->groupStart()
+                    ->like('customer_name', $search)
+                    ->orLike('customer_phone', $search)
+                    ->orLike('customer_email', $search)
+                    ->orLike('booking_code', $search)
+                    ->orLike('service_name', $search)
+                    ->orLike('specialist', $search)
+                    ->groupEnd();
+        }
+
+        return $builder;
+    }
+
+    /**
+     * Export Bookings to CSV
+     */
+    public function exportCsv()
+    {
+        // Enforce administrative authentication check
+        if (!$this->auth->isLoggedIn()) {
+            return redirect()->to(base_url('admin/login'))
+                ->with('error', 'Session expired or unauthorized. Please sign in to access the admin portal.');
+        }
+
+        $statusFilter = $this->request->getGet('status') ?: 'all';
+        $dateFilter   = $this->request->getGet('date') ?: 'all';
+        $search       = trim((string) $this->request->getGet('search'));
+
+        $builder = $this->buildFilteredQuery($statusFilter, $dateFilter, $search);
+        $bookings = $builder->findAll();
+
+        $filename = 'bookings_export_' . date('Ymd_His') . '.csv';
+
+        // Write to memory stream
+        $output = fopen('php://memory', 'w+');
+
+        // Output UTF-8 BOM for Microsoft Excel compatibility
+        fputs($output, "\xEF\xBB\xBF");
+
+        // CSV Headers
+        $headers = [
+            'Booking Code',
+            'Booking Date',
+            'Time Slot',
+            'Customer Name',
+            'Customer Phone',
+            'Customer Email',
+            'Service / Ritual',
+            'Duration',
+            'Specialist',
+            'Amount (INR)',
+            'Status',
+            'Invoice Number',
+            'Customer Notes',
+            'Created At',
+        ];
+        fputcsv($output, $headers);
+
+        foreach ($bookings as $b) {
+            $row = [
+                $this->sanitizeCsvField($b['booking_code'] ?: ('#BK-' . $b['id'])),
+                $this->sanitizeCsvField($b['booking_date'] ?? ''),
+                $this->sanitizeCsvField($b['time_slot'] ?? ''),
+                $this->sanitizeCsvField($b['customer_name'] ?? ''),
+                $this->sanitizeCsvField($b['customer_phone'] ?? ''),
+                $this->sanitizeCsvField($b['customer_email'] ?? ''),
+                $this->sanitizeCsvField($b['service_name'] ?? ''),
+                $this->sanitizeCsvField($b['service_duration'] ?? ''),
+                $this->sanitizeCsvField($b['specialist'] ?? ''),
+                $this->sanitizeCsvField(number_format((float) ($b['service_price'] ?? 0), 2, '.', '')),
+                $this->sanitizeCsvField(ucfirst(str_replace('_', ' ', $b['status'] ?? 'pending'))),
+                $this->sanitizeCsvField(!empty($b['invoice_id']) ? ('INV-' . str_pad($b['invoice_id'], 5, '0', STR_PAD_LEFT)) : 'N/A'),
+                $this->sanitizeCsvField($b['notes'] ?? ''),
+                $this->sanitizeCsvField($b['created_at'] ?? ''),
+            ];
+            fputcsv($output, $row);
+        }
+
+        rewind($output);
+        $csvContent = stream_get_contents($output);
+        fclose($output);
+
+        return $this->response
+            ->setHeader('Content-Type', 'text/csv; charset=UTF-8')
+            ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
+            ->setHeader('Pragma', 'no-cache')
+            ->setHeader('Expires', '0')
+            ->setBody($csvContent);
+    }
+
+    /**
+     * Prevent CSV Formula Injection (Formula Injection / DDE attack)
+     * Prepends single quote if string starts with dangerous formula characters (=, +, -, @, tab, cr)
+     */
+    protected function sanitizeCsvField($val): string
+    {
+        if ($val === null) {
+            return '';
+        }
+        $val = (string) $val;
+
+        // Disarm potential formulas
+        if (preg_match('/^[=\+\-@\t\r]/', $val)) {
+            return "'" . $val;
+        }
+
+        return $val;
     }
 
     /**

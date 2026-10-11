@@ -100,9 +100,15 @@
                style="border-radius: 20px; font-size: 12px;">Completed (<?= esc($stats['completed'] ?? 0) ?>)</a>
         </div>
 
-        <!-- Search & New Booking -->
+        <!-- Search, Export & New Booking -->
         <div class="d-flex align-items-center gap-2">
             <form action="<?= base_url('admin/bookings') ?>" method="get" class="d-flex align-items-center">
+                <?php if ($statusFilter !== 'all'): ?>
+                    <input type="hidden" name="status" value="<?= esc($statusFilter) ?>">
+                <?php endif; ?>
+                <?php if ($dateFilter !== 'all'): ?>
+                    <input type="hidden" name="date" value="<?= esc($dateFilter) ?>">
+                <?php endif; ?>
                 <div class="position-relative">
                     <input type="text" name="search" class="form-control form-control-sm ps-4" 
                            placeholder="Search customer, code, service..." value="<?= esc($search ?? '') ?>" style="width: 220px; border-radius: 8px;">
@@ -110,6 +116,18 @@
                           style="left: 8px; top: 50%; transform: translateY(-50%); font-size: 16px; color: #888;">search</span>
                 </div>
             </form>
+            <?php
+                $exportQuery = [];
+                if ($statusFilter !== 'all') $exportQuery['status'] = $statusFilter;
+                if ($dateFilter !== 'all') $exportQuery['date'] = $dateFilter;
+                if (!empty($search)) $exportQuery['search'] = $search;
+                $exportUrl = base_url('admin/bookings/export') . (!empty($exportQuery) ? ('?' . http_build_query($exportQuery)) : '');
+            ?>
+            <a href="<?= $exportUrl ?>" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1" 
+               title="Export bookings to CSV" style="border-radius: 8px;">
+                <span class="material-symbols-outlined" style="font-size: 16px;">download</span>
+                <span>Export CSV</span>
+            </a>
             <button type="button" class="btn btn-sm btn-primary d-flex align-items-center gap-1" 
                     data-bs-toggle="modal" data-bs-target="#bookingModal" onclick="prepareAddBooking()"
                     style="background: var(--accent); border-color: var(--accent); border-radius: 8px;">
