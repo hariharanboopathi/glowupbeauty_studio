@@ -581,7 +581,12 @@
 
         <!-- PASSWORD -->
         <div class="field">
-            <label for="password">Password</label>
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <label for="password" class="mb-0">Password</label>
+                <a href="<?= base_url('forgot-password') ?>" style="font-size: 11.5px; color: #d9b8ff; font-weight: 600; text-decoration: none; transition: color 0.25s;" onmouseover="this.style.color='#a76cff'" onmouseout="this.style.color='#d9b8ff'">
+                    Forgot Password?
+                </a>
+            </div>
             <div class="field-inner">
                 <span class="material-symbols-outlined">lock</span>
                 <input type="password" id="password" name="password" placeholder="Enter your password" required />

@@ -23,6 +23,8 @@ class CustomerModel extends Model
         'tags',
         'lead_source',
         'password',
+        'reset_token_hash',
+        'reset_token_expires_at',
         'google_id',
         'profile_image',
         'login_provider',
@@ -43,6 +45,17 @@ class CustomerModel extends Model
     public function findByEmail(string $email): ?array
     {
         return $this->where('email', strtolower(trim($email)))->first();
+    }
+
+    /**
+     * Find customer with valid reset token
+     */
+    public function findByValidResetTokenHash(string $tokenHash): ?array
+    {
+        return $this->where('reset_token_hash', $tokenHash)
+            ->where('reset_token_expires_at >=', date('Y-m-d H:i:s'))
+            ->where('status', 1)
+            ->first();
     }
 
     /**

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 10, 2026 at 08:43 PM
+-- Generation Time: Oct 11, 2026 at 07:56 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -217,7 +217,9 @@ INSERT INTO `bookings` (`id`, `booking_code`, `customer_id`, `customer_name`, `c
 (23, 'GLOW-59519A', 33, 'Senthil Kumar R', 'senthil@gmail.com', '1234567890', NULL, 'Botox Capillary Reconstruction', 3500.00, '90 Minutes', 'Any Master Specialist', '2026-10-10', '11:00 AM', 'Beverage: Organic Matcha Latte |', 'pending', NULL, 0, '2026-10-10 17:50:13', '2026-10-10 17:50:13'),
 (30, 'GLOW-68CC15', 33, 'Senthil Kumar R', 'senthil@gmail.com', '1234567890', NULL, 'Hydra Facial Ritual', 3500.00, '75 Minutes', 'Any Master Specialist', '2026-10-10', '02:00 PM', 'Beverage: Organic Matcha Latte |', 'completed', 18, 1, '2026-10-10 17:58:14', '2026-10-10 18:01:24'),
 (31, 'GLOW-3DB930', 33, 'Senthil Kumar R', 'senthil@gmail.com', '+919080984655', NULL, 'Precision Thermal Straightening', 3500.00, '150 Minutes', 'Any Master Specialist', '2026-10-10', '12:30 PM', 'Beverage: Organic Matcha Latte |', 'pending', NULL, 0, '2026-10-10 18:00:35', '2026-10-10 18:00:35'),
-(32, 'GLOW-9EF6F5', 31, 'admin', 'admin@demo.com', '1234567890', NULL, 'Precision Thermal Straightening', 3500.00, '150 Minutes', 'Any Master Specialist', '2026-10-10', '10:00 AM', 'Beverage: Organic Matcha Latte |', 'pending', NULL, 0, '2026-10-10 18:36:09', '2026-10-10 18:36:09');
+(32, 'GLOW-9EF6F5', 31, 'admin', 'admin@demo.com', '1234567890', NULL, 'Precision Thermal Straightening', 3500.00, '150 Minutes', 'Any Master Specialist', '2026-10-10', '10:00 AM', 'Beverage: Organic Matcha Latte |', 'pending', NULL, 0, '2026-10-10 18:36:09', '2026-10-10 18:36:09'),
+(33, 'GLOW-33F2A2', 40, 'Senthil Kumar R', 'admin@gmail.com', '+919080984655', NULL, 'Hydra Facial Ritual', 3500.00, '75 Minutes', 'Any Master Specialist', '2026-10-11', '11:00 AM', 'Beverage: Organic Matcha Latte |', 'pending', NULL, 0, '2026-10-11 16:52:19', '2026-10-11 16:52:19'),
+(34, 'GLOW-50487A', 40, 'Senthil Kumar R', 'admin@gmail.com', '+919080984655', NULL, 'Hydra Facial Ritual', 3500.00, '75 Minutes', 'Any Master Specialist', '2026-10-11', '02:00 PM', NULL, 'pending', NULL, 0, '2026-10-11 16:58:29', '2026-10-11 16:58:29');
 
 -- --------------------------------------------------------
 
@@ -328,7 +330,12 @@ INSERT INTO `communication_logs` (`id`, `customer_id`, `lead_id`, `recipient_nam
 (22, NULL, NULL, 'test', '', 'system', NULL, 'Payment Received: ₹500.00 for Invoice #INV-2026-0003', '', 'sent', NULL, 'Alex Vance', '2026-10-03 20:15:57', '2026-10-03 20:15:57'),
 (23, NULL, NULL, 'Ananya Sundaram 2200', '', 'system', NULL, 'Invoice Generated: INV-2026-0004', '', 'sent', NULL, 'Alex Vance', '2026-10-03 20:17:48', '2026-10-03 20:17:48'),
 (24, NULL, NULL, 'Ananya Sundaram 2200', '', 'system', NULL, 'Payment Received: ₹17,700.00 for Invoice #INV-2026-0004', '', 'sent', NULL, 'Alex Vance', '2026-10-03 20:17:56', '2026-10-03 20:17:56'),
-(25, NULL, NULL, 'Senthil Kumar R', '', 'system', NULL, 'Invoice Generated: INV-2026-0005', '', 'sent', NULL, 'Alex Vance', '2026-10-10 18:01:24', '2026-10-10 18:01:24');
+(25, NULL, NULL, 'Senthil Kumar R', '', 'system', NULL, 'Invoice Generated: INV-2026-0005', '', 'sent', NULL, 'Alex Vance', '2026-10-10 18:01:24', '2026-10-10 18:01:24'),
+(26, NULL, NULL, 'Test Patron', '', 'email', NULL, 'Reset Your Password | Glowup Beauty Studio & Academy', '', 'failed', 'Unable to send email using PHP mail(). Your server might not be configured to send mail using this method.Date: Sun, 11 Oct 2026 17:36:45 +0000\r\nFrom: &quot;Glowup Studio &amp; Academy&quot; &lt;concierge@glowup.com&gt;\r\nReturn-Path: &lt;concierge@glowup.com&gt;\r\nReply-To: &lt;concierge@glowup.com&gt;\r\nUser-Agent: CodeIgniter\r\nX-Sender: concierge@glowup.com\r\nX-Mailer: CodeIgniter\r\nX-Priority: 3 (Normal)\r\nMessage-ID: &lt;6acbc92d5c3c17.08485934@glowup.com&gt;\r\nMime-Version: 1.0\r\nContent-Type: multipart/alternative; boundary=&quot;B_ALT_6acbc92d5c3f00.61872795&quot;\n', 'Alex Vance', '2026-10-11 17:36:47', '2026-10-11 17:36:47'),
+(27, NULL, NULL, 'Test Patron', '', 'email', NULL, 'Reset Your Password | Glowup Beauty Studio & Academy', '', 'failed', 'Unable to send email using PHP mail(). Your server might not be configured to send mail using this method.Date: Sun, 11 Oct 2026 17:38:04 +0000\r\nFrom: &quot;Glowup Studio &amp; Academy&quot; &lt;concierge@glowup.com&gt;\r\nReturn-Path: &lt;concierge@glowup.com&gt;\r\nReply-To: &lt;concierge@glowup.com&gt;\r\nUser-Agent: CodeIgniter\r\nX-Sender: concierge@glowup.com\r\nX-Mailer: CodeIgniter\r\nX-Priority: 3 (Normal)\r\nMessage-ID: &lt;6acbc97c7250e4.05437308@glowup.com&gt;\r\nMime-Version: 1.0\r\nContent-Type: multipart/alternative; boundary=&quot;B_ALT_6acbc97c7253f4.64091197&quot;\n', 'Alex Vance', '2026-10-11 17:38:06', '2026-10-11 17:38:06'),
+(28, NULL, NULL, 'Senthil Kumar R', '', 'email', NULL, 'Reset Your Password | Glowup Beauty Studio & Academy', '', 'failed', 'Unable to send email using PHP mail(). Your server might not be configured to send mail using this method.Date: Sun, 11 Oct 2026 17:43:35 +0000\r\nFrom: &quot;Glowup Studio &amp; Academy&quot; &lt;concierge@glowup.com&gt;\r\nReturn-Path: &lt;concierge@glowup.com&gt;\r\nReply-To: &lt;concierge@glowup.com&gt;\r\nUser-Agent: CodeIgniter\r\nX-Sender: concierge@glowup.com\r\nX-Mailer: CodeIgniter\r\nX-Priority: 3 (Normal)\r\nMessage-ID: &lt;6acbcac7195686.44412594@glowup.com&gt;\r\nMime-Version: 1.0\r\nContent-Type: multipart/alternative; boundary=&quot;B_ALT_6acbcac7195942.58849307&quot;\n', 'Alex Vance', '2026-10-11 17:43:37', '2026-10-11 17:43:37'),
+(29, NULL, NULL, 'Senthil Kumar R', '', 'email', NULL, 'Reset Your Password | Glowup Beauty Studio & Academy', '', 'failed', 'Unable to send email using PHP mail(). Your server might not be configured to send mail using this method.Date: Sun, 11 Oct 2026 17:45:18 +0000\r\nFrom: &quot;Glowup Studio &amp; Academy&quot; &lt;concierge@glowup.com&gt;\r\nReturn-Path: &lt;concierge@glowup.com&gt;\r\nReply-To: &lt;concierge@glowup.com&gt;\r\nUser-Agent: CodeIgniter\r\nX-Sender: concierge@glowup.com\r\nX-Mailer: CodeIgniter\r\nX-Priority: 3 (Normal)\r\nMessage-ID: &lt;6acbcb2e9091b2.76462465@glowup.com&gt;\r\nMime-Version: 1.0\r\nContent-Type: multipart/alternative; boundary=&quot;B_ALT_6acbcb2e9094c9.34192481&quot;\n', 'Alex Vance', '2026-10-11 17:45:20', '2026-10-11 17:45:20'),
+(30, NULL, NULL, 'Senthil Kumar R', '', 'email', NULL, 'Reset Your Password | Glowup Beauty Studio & Academy', '', 'failed', 'Unable to send email using PHP mail(). Your server might not be configured to send mail using this method.Date: Sun, 11 Oct 2026 17:49:53 +0000\r\nFrom: &quot;Glowup Studio &amp; Academy&quot; &lt;concierge@glowup.com&gt;\r\nReturn-Path: &lt;concierge@glowup.com&gt;\r\nReply-To: &lt;concierge@glowup.com&gt;\r\nUser-Agent: CodeIgniter\r\nX-Sender: concierge@glowup.com\r\nX-Mailer: CodeIgniter\r\nX-Priority: 3 (Normal)\r\nMessage-ID: &lt;6acbcc4141dfe1.66598693@glowup.com&gt;\r\nMime-Version: 1.0\r\nContent-Type: multipart/alternative; boundary=&quot;B_ALT_6acbcc4141e275.71010817&quot;\n', 'Alex Vance', '2026-10-11 17:49:55', '2026-10-11 17:49:55');
 
 -- --------------------------------------------------------
 
@@ -379,6 +386,8 @@ CREATE TABLE `customers` (
   `tags` varchar(255) DEFAULT 'Patron',
   `lead_source` varchar(100) DEFAULT 'Website',
   `password` varchar(255) DEFAULT NULL,
+  `reset_token_hash` varchar(64) DEFAULT NULL,
+  `reset_token_expires_at` datetime DEFAULT NULL,
   `google_id` varchar(100) DEFAULT NULL,
   `profile_image` varchar(255) DEFAULT NULL,
   `login_provider` varchar(30) NOT NULL DEFAULT 'local',
@@ -393,19 +402,22 @@ CREATE TABLE `customers` (
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`id`, `name`, `email`, `phone`, `whatsapp_number`, `dob`, `address`, `notes`, `tags`, `lead_source`, `password`, `google_id`, `profile_image`, `login_provider`, `status`, `customer_status`, `preferred_services`, `created_at`, `updated_at`) VALUES
-(1, 'Ananya Krishnan', 'ananya@gmail.com', '+91 98765 43210', '+91 98765 43210', '1996-08-14', '42 South Veli Street, Madurai', 'High-profile bride. Prefers matte airbrush base and jasmine garland styling.', 'VIP, Haute Bridal, Regular Patron', 'Instagram', '$2y$10$4J/fel15qRvVN3OTecK6O.gXOgAhLOmG4Fh3jIYBwv1JfxxIwshEa', NULL, NULL, 'local', 1, 'vip', 'Royal Heritage Temple Bride, Keratin Gloss', '2026-08-01 17:51:13', '2026-09-30 17:51:13'),
-(2, 'Meera Ramachandran', 'meera.r@gmail.com', '+91 94421 77654', '+91 94421 77654', '1992-11-20', '15 KK Nagar, Madurai', 'Sensitive scalp. Always use sulfate-free organic rinse.', 'Hair Alchemy, Trichology', 'Referral', '$2y$10$4MOSyhNSed37bcJrce7OCe42MsduZMqvPxAGfydPFpCVNrkoT3htS', NULL, NULL, 'local', 1, 'active', 'Japanese Straightening & Scalp Detox', '2026-08-16 17:51:13', '2026-09-30 17:51:13'),
-(3, 'Pooja Sundaram', 'pooja.sundaram@gmail.com', '+91 98401 23456', '+91 98401 23456', '1998-04-05', '7 West Masi Street, Madurai', 'Converted lead from Instagram Festive 2026 campaign.', 'Bridal, Converted Lead', 'Instagram Campaign', '$2y$10$0CkPY7vm/PqmmFnvt2GT6.jHjWhyPgUeClu2taRIO0Q07eLz9UFay', NULL, NULL, 'local', 1, 'active', 'Haute Bridal Couture Package', '2026-09-15 17:51:14', '2026-09-30 17:51:13'),
-(13, 'Radhika Singhania', 'radhika_1790784678@luxurypatron.in', '+91 99887 58379', '+91 99887 58379', NULL, NULL, 'Converted from Lead #4 (Instagram Campaign). Campaign: Diwali Bridal Showcase 2026. Notes: Looking for 3-day wedding package including muhurtham and sangeet aesthetics.', 'Converted Lead, New Patron', 'Instagram Campaign', '$2y$10$IeR6AGRsRbpIpDYI1fu6FevCId1uZ96JGsjW10sX3VCXbttYY.viO', NULL, NULL, 'local', 1, 'active', 'Royal Heritage Temple Bridal Package', '2026-09-30 16:11:20', '2026-09-30 16:11:20'),
-(14, 'Radhika Singhania', 'radhika_1790784957@luxurypatron.in', '+91 99887 51553', '+91 99887 51553', NULL, NULL, 'Converted from Lead #5 (Instagram Campaign). Campaign: Diwali Bridal Showcase 2026. Notes: Looking for 3-day wedding package including muhurtham and sangeet aesthetics.', 'Converted Lead, New Patron', 'Instagram Campaign', '$2y$10$e0ihrvIhStvUQsO/NfXA..8v0fw492OQgPZVC/0szld5Kk0ghfLG.', NULL, NULL, 'local', 1, 'active', 'Royal Heritage Temple Bridal Package', '2026-09-30 16:15:58', '2026-09-30 16:16:01'),
-(15, 'Radhika Singhania', 'radhika_1790785001@luxurypatron.in', '+91 99887 83525', '+91 99887 83525', NULL, NULL, 'Converted from Lead #6 (Instagram Campaign). Campaign: Diwali Bridal Showcase 2026. Notes: Looking for 3-day wedding package including muhurtham and sangeet aesthetics.', 'Converted Lead, New Patron', 'Instagram Campaign', '$2y$10$osqcnQ3/u9//Fvc5qDEFwOkRTFyGuN.hHfC5KietoSxGuPpLT0ZJW', NULL, NULL, 'local', 1, 'active', 'Royal Heritage Temple Bridal Package', '2026-09-30 16:16:42', '2026-09-30 16:16:46'),
-(16, 'Radhika Singhania', 'radhika_1790785123@luxurypatron.in', '+91 99887 16391', '+91 99887 16391', NULL, NULL, 'Converted from Lead #7 (Instagram Campaign). Campaign: Diwali Bridal Showcase 2026. Notes: Looking for 3-day wedding package including muhurtham and sangeet aesthetics.', 'Converted Lead, New Patron', 'Instagram Campaign', '$2y$10$Lf2RWfGH2FzsU1Q/Ter6LeXhEg86s.jDol0a7IKsDjRMuUoqXwjRq', NULL, NULL, 'local', 1, 'active', 'Royal Heritage Temple Bridal Package', '2026-09-30 16:18:45', '2026-09-30 16:18:48'),
-(17, 'Sanjana Reddy (VIP Patron)', 'sanjana.reddy@gmail.com', '+91 99123 44556', '+91 99123 44556', '1996-08-14', 'Villa 42, Palm Meadows, Madurai', NULL, 'Patron', 'Online Booking', '$2y$10$.5kX9ShUJGPUPTtNImAxveLX1wN/HJ6Qmo2/4eE8q4gnagPyG6kHm', NULL, NULL, 'local', 1, 'active', 'Signature Bridal Makeup, Hydra Facials', '2026-09-30 16:54:31', '2026-09-30 17:12:18'),
-(18, 'HariHaran B', 'bhariharan741@gmail.com', '8524974685', NULL, NULL, NULL, NULL, 'Patron', 'Website', '$2y$10$5SMLqn/jb0bMy7bZOIVUHOcBsZHC4FD3C620JX5ugz6Nj6zQHGKe6', NULL, NULL, 'local', 1, 'active', NULL, '2026-09-30 17:39:11', '2026-09-30 17:39:11'),
-(31, 'Senthil Kumar R', 'r.senthilkumar22bca106@gmail.com', '1234567890', '1234567890', NULL, NULL, NULL, 'Patron', 'Online Booking', '$2y$10$ojxZmFvDIk0mD4l8J5MPyOGYeMXKKQqPvw8fzOPXmB8IneBRNfX/u', NULL, NULL, 'local', 1, 'active', 'Hydra Facial Ritual', '2026-10-03 19:26:03', '2026-10-03 20:10:22'),
-(32, 'Priya Patel', 'priya.patel@gmail.com', NULL, NULL, NULL, NULL, NULL, 'Patron', 'Website', NULL, 'google_demo_c5ae6681360521c2aea2066b34c42222', 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80', 'google', 1, 'active', NULL, '2026-10-03 19:28:04', '2026-10-03 19:28:04'),
-(33, 'Senthil Kumar R', 'senthil@gmail.com', '1234567890', NULL, NULL, NULL, NULL, 'Patron', 'Website', '$2y$10$DIb70do9FC5WkYGvsDFRROZl8bB/u/5epxGSdnRLl/qNUXSlAuVf6', NULL, NULL, 'local', 1, 'active', NULL, '2026-10-10 17:45:11', '2026-10-10 18:01:24');
+INSERT INTO `customers` (`id`, `name`, `email`, `phone`, `whatsapp_number`, `dob`, `address`, `notes`, `tags`, `lead_source`, `password`, `reset_token_hash`, `reset_token_expires_at`, `google_id`, `profile_image`, `login_provider`, `status`, `customer_status`, `preferred_services`, `created_at`, `updated_at`) VALUES
+(1, 'Ananya Krishnan', 'ananya@gmail.com', '+91 98765 43210', '+91 98765 43210', '1996-08-14', '42 South Veli Street, Madurai', 'High-profile bride. Prefers matte airbrush base and jasmine garland styling.', 'VIP, Haute Bridal, Regular Patron', 'Instagram', '$2y$10$4J/fel15qRvVN3OTecK6O.gXOgAhLOmG4Fh3jIYBwv1JfxxIwshEa', NULL, NULL, NULL, NULL, 'local', 1, 'vip', 'Royal Heritage Temple Bride, Keratin Gloss', '2026-08-01 17:51:13', '2026-09-30 17:51:13'),
+(2, 'Meera Ramachandran', 'meera.r@gmail.com', '+91 94421 77654', '+91 94421 77654', '1992-11-20', '15 KK Nagar, Madurai', 'Sensitive scalp. Always use sulfate-free organic rinse.', 'Hair Alchemy, Trichology', 'Referral', '$2y$10$4MOSyhNSed37bcJrce7OCe42MsduZMqvPxAGfydPFpCVNrkoT3htS', NULL, NULL, NULL, NULL, 'local', 1, 'active', 'Japanese Straightening & Scalp Detox', '2026-08-16 17:51:13', '2026-09-30 17:51:13'),
+(3, 'Pooja Sundaram', 'pooja.sundaram@gmail.com', '+91 98401 23456', '+91 98401 23456', '1998-04-05', '7 West Masi Street, Madurai', 'Converted lead from Instagram Festive 2026 campaign.', 'Bridal, Converted Lead', 'Instagram Campaign', '$2y$10$0CkPY7vm/PqmmFnvt2GT6.jHjWhyPgUeClu2taRIO0Q07eLz9UFay', NULL, NULL, NULL, NULL, 'local', 1, 'active', 'Haute Bridal Couture Package', '2026-09-15 17:51:14', '2026-09-30 17:51:13'),
+(13, 'Radhika Singhania', 'radhika_1790784678@luxurypatron.in', '+91 99887 58379', '+91 99887 58379', NULL, NULL, 'Converted from Lead #4 (Instagram Campaign). Campaign: Diwali Bridal Showcase 2026. Notes: Looking for 3-day wedding package including muhurtham and sangeet aesthetics.', 'Converted Lead, New Patron', 'Instagram Campaign', '$2y$10$IeR6AGRsRbpIpDYI1fu6FevCId1uZ96JGsjW10sX3VCXbttYY.viO', NULL, NULL, NULL, NULL, 'local', 1, 'active', 'Royal Heritage Temple Bridal Package', '2026-09-30 16:11:20', '2026-09-30 16:11:20'),
+(14, 'Radhika Singhania', 'radhika_1790784957@luxurypatron.in', '+91 99887 51553', '+91 99887 51553', NULL, NULL, 'Converted from Lead #5 (Instagram Campaign). Campaign: Diwali Bridal Showcase 2026. Notes: Looking for 3-day wedding package including muhurtham and sangeet aesthetics.', 'Converted Lead, New Patron', 'Instagram Campaign', '$2y$10$e0ihrvIhStvUQsO/NfXA..8v0fw492OQgPZVC/0szld5Kk0ghfLG.', NULL, NULL, NULL, NULL, 'local', 1, 'active', 'Royal Heritage Temple Bridal Package', '2026-09-30 16:15:58', '2026-09-30 16:16:01'),
+(15, 'Radhika Singhania', 'radhika_1790785001@luxurypatron.in', '+91 99887 83525', '+91 99887 83525', NULL, NULL, 'Converted from Lead #6 (Instagram Campaign). Campaign: Diwali Bridal Showcase 2026. Notes: Looking for 3-day wedding package including muhurtham and sangeet aesthetics.', 'Converted Lead, New Patron', 'Instagram Campaign', '$2y$10$osqcnQ3/u9//Fvc5qDEFwOkRTFyGuN.hHfC5KietoSxGuPpLT0ZJW', NULL, NULL, NULL, NULL, 'local', 1, 'active', 'Royal Heritage Temple Bridal Package', '2026-09-30 16:16:42', '2026-09-30 16:16:46'),
+(16, 'Radhika Singhania', 'radhika_1790785123@luxurypatron.in', '+91 99887 16391', '+91 99887 16391', NULL, NULL, 'Converted from Lead #7 (Instagram Campaign). Campaign: Diwali Bridal Showcase 2026. Notes: Looking for 3-day wedding package including muhurtham and sangeet aesthetics.', 'Converted Lead, New Patron', 'Instagram Campaign', '$2y$10$Lf2RWfGH2FzsU1Q/Ter6LeXhEg86s.jDol0a7IKsDjRMuUoqXwjRq', NULL, NULL, NULL, NULL, 'local', 1, 'active', 'Royal Heritage Temple Bridal Package', '2026-09-30 16:18:45', '2026-09-30 16:18:48'),
+(17, 'Sanjana Reddy (VIP Patron)', 'sanjana.reddy@gmail.com', '+91 99123 44556', '+91 99123 44556', '1996-08-14', 'Villa 42, Palm Meadows, Madurai', NULL, 'Patron', 'Online Booking', '$2y$10$.5kX9ShUJGPUPTtNImAxveLX1wN/HJ6Qmo2/4eE8q4gnagPyG6kHm', NULL, NULL, NULL, NULL, 'local', 1, 'active', 'Signature Bridal Makeup, Hydra Facials', '2026-09-30 16:54:31', '2026-09-30 17:12:18'),
+(18, 'HariHaran B', 'bhariharan741@gmail.com', '8524974685', NULL, NULL, NULL, NULL, 'Patron', 'Website', '$2y$10$5SMLqn/jb0bMy7bZOIVUHOcBsZHC4FD3C620JX5ugz6Nj6zQHGKe6', NULL, NULL, NULL, NULL, 'local', 1, 'active', NULL, '2026-09-30 17:39:11', '2026-09-30 17:39:11'),
+(31, 'Senthil Kumar R', 'r.senthilkumar22bca106@gmail.com', '1234567890', '1234567890', NULL, NULL, NULL, 'Patron', 'Online Booking', '$2y$10$ojxZmFvDIk0mD4l8J5MPyOGYeMXKKQqPvw8fzOPXmB8IneBRNfX/u', NULL, NULL, NULL, NULL, 'local', 1, 'active', 'Hydra Facial Ritual', '2026-10-03 19:26:03', '2026-10-03 20:10:22'),
+(32, 'Priya Patel', 'priya.patel@gmail.com', NULL, NULL, NULL, NULL, NULL, 'Patron', 'Website', NULL, NULL, NULL, 'google_demo_c5ae6681360521c2aea2066b34c42222', 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80', 'google', 1, 'active', NULL, '2026-10-03 19:28:04', '2026-10-03 19:28:04'),
+(33, 'Senthil Kumar R', 'senthil@gmail.com', '1234567890', NULL, NULL, NULL, NULL, 'Patron', 'Website', '$2y$10$DIb70do9FC5WkYGvsDFRROZl8bB/u/5epxGSdnRLl/qNUXSlAuVf6', NULL, NULL, NULL, NULL, 'local', 1, 'active', NULL, '2026-10-10 17:45:11', '2026-10-10 18:01:24'),
+(40, 'Senthil Kumar R', 'admin@gmail.com', '1234567890', '1234567890', NULL, NULL, NULL, 'Patron', 'Online Booking', '$2y$10$BijjGJ7MdPjjS19eF9gCju1xwODdMlguZoOhPFNQwPD8NDdad3QSa', NULL, NULL, NULL, NULL, 'local', 1, 'active', 'Hydra Facial Ritual', '2026-10-11 16:52:19', '2026-10-11 17:51:13'),
+(41, 'Jane Doe', 'forgot_test_1791740119@glowup.test', '9988776655', NULL, NULL, NULL, NULL, 'Patron', 'Website', '$2y$10$RU6IBnntjwmZvMnF1ZT/G.Hjw1gZjyhTMjzusNyYopnJ6NXl6Us/W', NULL, NULL, NULL, NULL, 'local', 1, 'active', NULL, '2026-10-11 19:35:19', '2026-10-11 19:35:19'),
+(42, 'Test Patron', 'forgot_client_1791740204@glowup.test', '+91 91234 56789', NULL, NULL, NULL, NULL, 'Patron', 'Website', '$2y$10$2qqRq0Iou1ncWif/9/lHyeMdnMKWFCb837WzSSlE1EkDTz7YFb3h6', '63655af882dd9f569b76d1655cf1fb0d85bcd766121d140a24c9c3bcbd939385', '2026-10-11 18:36:45', NULL, NULL, 'local', 1, 'active', NULL, '2026-10-11 23:06:44', '2026-10-11 17:36:45');
 
 -- --------------------------------------------------------
 
@@ -914,7 +926,9 @@ INSERT INTO `leads` (`id`, `name`, `phone`, `whatsapp`, `email`, `service_intere
 (34, 'Senthil Kumar R', '1234567890', '1234567890', 'senthil@gmail.com', 'Botox Capillary Reconstruction', 'Booking Form', 'Website Booking Wizard', 'Appointment: 2026-10-10 at 11:00 AM with Any Master Specialist. Notes: Beverage: Organic Matcha Latte |', 'booking_confirmed', 'Elena Vance', 33, '2026-10-10 17:50:13', '2026-10-10 17:50:13'),
 (41, 'Senthil Kumar R', '1234567890', '1234567890', 'senthil@gmail.com', 'Hydra Facial Ritual', 'Booking Form', 'Website Booking Wizard', 'Appointment: 2026-10-10 at 02:00 PM with Any Master Specialist. Notes: Beverage: Organic Matcha Latte |', 'booking_confirmed', 'Elena Vance', 33, '2026-10-10 17:58:14', '2026-10-10 17:58:14'),
 (42, 'Senthil Kumar R', '+919080984655', '+919080984655', 'senthil@gmail.com', 'Precision Thermal Straightening', 'Booking Form', 'Website Booking Wizard', 'Appointment: 2026-10-10 at 12:30 PM with Any Master Specialist. Notes: Beverage: Organic Matcha Latte |', 'booking_confirmed', 'Elena Vance', 33, '2026-10-10 18:00:35', '2026-10-10 18:00:35'),
-(43, 'admin', '1234567890', '1234567890', 'admin@demo.com', 'Precision Thermal Straightening', 'Booking Form', 'Website Booking Wizard', 'Appointment: 2026-10-10 at 10:00 AM with Any Master Specialist. Notes: Beverage: Organic Matcha Latte |', 'booking_confirmed', 'Elena Vance', 31, '2026-10-10 18:36:09', '2026-10-10 18:36:09');
+(43, 'admin', '1234567890', '1234567890', 'admin@demo.com', 'Precision Thermal Straightening', 'Booking Form', 'Website Booking Wizard', 'Appointment: 2026-10-10 at 10:00 AM with Any Master Specialist. Notes: Beverage: Organic Matcha Latte |', 'booking_confirmed', 'Elena Vance', 31, '2026-10-10 18:36:09', '2026-10-10 18:36:09'),
+(44, 'Senthil Kumar R', '+919080984655', '+919080984655', 'admin@gmail.com', 'Hydra Facial Ritual', 'Booking Form', 'Website Booking Wizard', 'Appointment: 2026-10-11 at 11:00 AM with Any Master Specialist. Notes: Beverage: Organic Matcha Latte |', 'booking_confirmed', 'Elena Vance', 40, '2026-10-11 16:52:19', '2026-10-11 16:52:19'),
+(45, 'Senthil Kumar R', '+919080984655', '+919080984655', 'admin@gmail.com', 'Hydra Facial Ritual', 'Booking Form', 'Website Booking Wizard', 'Appointment: 2026-10-11 at 02:00 PM with Any Master Specialist. Notes: ', 'booking_confirmed', 'Elena Vance', 40, '2026-10-11 16:58:29', '2026-10-11 16:58:29');
 
 -- --------------------------------------------------------
 
@@ -949,7 +963,8 @@ INSERT INTO `migrations` (`id`, `version`, `class`, `group`, `namespace`, `time`
 (11, '2026-09-30-230000', 'App\\Database\\Migrations\\CreateBlogTables', 'default', 'App', 1790781136, 10),
 (12, '2026-09-30-240000', 'App\\Database\\Migrations\\CreateBusinessAndCrmTables', 'default', 'App', 1790782670, 11),
 (13, '2026-10-02-220000', 'App\\Database\\Migrations\\CreateCategoriesTable', 'default', 'App', 1790959960, 12),
-(14, '2026-10-03-173000', 'App\\Database\\Migrations\\CreateSeoMetadataTable', 'default', 'App', 1791028598, 13);
+(14, '2026-10-03-173000', 'App\\Database\\Migrations\\CreateSeoMetadataTable', 'default', 'App', 1791028598, 13),
+(15, '2026-10-11-230000', 'App\\Database\\Migrations\\AddPasswordResetTokensToCustomersTable', 'default', 'App', 1791739530, 14);
 
 -- --------------------------------------------------------
 
@@ -1571,7 +1586,7 @@ ALTER TABLE `blog_posts`
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `bridal_packages`
@@ -1589,7 +1604,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `communication_logs`
 --
 ALTER TABLE `communication_logs`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `courses`
@@ -1601,7 +1616,7 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `customer_notes`
@@ -1685,13 +1700,13 @@ ALTER TABLE `invoice_items`
 -- AUTO_INCREMENT for table `leads`
 --
 ALTER TABLE `leads`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `offers`

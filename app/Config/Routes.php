@@ -57,6 +57,13 @@ $routes->get('login.html', 'CustomerAuthController::showLogin');
 $routes->post('login', 'CustomerAuthController::login');
 $routes->get('logout', 'CustomerAuthController::logout');
 
+// Customer Password Reset Routes
+$routes->get('forgot-password', 'CustomerAuthController::showForgotPassword');
+$routes->get('forgot-password.html', 'CustomerAuthController::showForgotPassword');
+$routes->post('forgot-password', 'CustomerAuthController::sendResetLink');
+$routes->get('reset-password/(:any)', 'CustomerAuthController::showResetPassword/$1');
+$routes->post('reset-password', 'CustomerAuthController::updateResetPassword');
+
 // Google OAuth Customer Routes
 $routes->get('auth/google', 'CustomerAuthController::googleLogin');
 $routes->get('auth/google/callback', 'CustomerAuthController::googleCallback');

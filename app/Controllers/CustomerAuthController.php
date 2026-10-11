@@ -499,4 +499,197 @@ class CustomerAuthController extends BaseController
             'payments'       => $payments,
         ]);
     }
+
+    /**
+     * Display Forgot Password Request Form
+     */
+    public function showForgotPassword()
+    {
+        if ($this->auth->isLoggedIn()) {
+            return redirect()->to(base_url('profile'));
+        }
+
+        return view('glowup/forgot_password', [
+            'pageTitle' => 'Forgot Password | Glowup Beauty Studio & Academy',
+        ]);
+    }
+
+    /**
+     * Process Forgot Password Request & Dispatch Reset Email
+     */
+    public function sendResetLink()
+    {
+        if ($this->auth->isLoggedIn()) {
+            return redirect()->to(base_url('profile'));
+        }
+
+        $email = strtolower(trim((string) $this->request->getPost('email')));
+
+        if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Please enter a valid email address.');
+        }
+
+        $customer = $this->customerModel->findByEmail($email);
+
+        // Security best practice: Always display generic confirmation message to prevent user enumeration
+        $genericSuccessMsg = 'If an account exists with that email address, a password reset link has been sent. Please check your inbox and spam folder.';
+
+        if (!$customer || empty($customer['status'])) {
+            return redirect()->back()->with('success', $genericSuccessMsg);
+        }
+
+        // Generate 32-byte cryptographically secure random token (64 hex characters)
+        $rawToken = bin2hex(random_bytes(32));
+        $tokenHash = hash('sha256', $rawToken);
+        // Expiration: 1 hour (3600 seconds)
+        $expiresAt = date('Y-m-d H:i:s', time() + 3600);
+
+        $this->customerModel->update($customer['id'], [
+            'reset_token_hash'       => $tokenHash,
+            'reset_token_expires_at' => $expiresAt,
+            'updated_at'             => date('Y-m-d H:i:s'),
+        ]);
+
+        $resetUrl = base_url('reset-password/' . $rawToken);
+        log_message('error',"Reset Link : $resetUrl");
+
+        // Construct luxury HTML email template
+        $recipientName = esc($customer['name'] ?? 'Patron');
+        $subject = 'Reset Your Password | Glowup Beauty Studio & Academy';
+        $htmlBody = <<<HTML
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Reset Your Password</title>
+</head>
+<body style="font-family:'Plus Jakarta Sans',Helvetica,Arial,sans-serif; background-color:#1a0e24; color:#ffffff; margin:0; padding:40px 20px;">
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:560px; background-color:#2d1f3d; border-radius:18px; border:1px solid rgba(229,221,240,0.2); box-shadow:0 25px 60px rgba(0,0,0,0.5); overflow:hidden;">
+        <tr>
+            <td style="padding:36px 36px 20px; text-align:center; background:linear-gradient(135deg, #3d2552 0%, #20132e 100%); border-bottom:1px solid rgba(229,221,240,0.15);">
+                <span style="font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:#b8a3d0; font-weight:700;">GLOWUP BEAUTY STUDIO &amp; ACADEMY</span>
+                <h1 style="font-family:'Playfair Display',Georgia,serif; font-size:26px; color:#ffffff; margin:12px 0 0; font-weight:600;">Password Reset Request</h1>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:32px 36px;">
+                <p style="font-size:15px; color:#e5ddf0; line-height:1.6; margin:0 0 16px;">
+                    Dear <strong>{$recipientName}</strong>,
+                </p>
+                <p style="font-size:14px; color:#c9b8d4; line-height:1.6; margin:0 0 24px;">
+                    We received a request to reset the password for your patron account. Click the button below to create a new password. This link is secure and will expire in <strong>60 minutes</strong>.
+                </p>
+                <table align="center" border="0" cellpadding="0" cellspacing="0" style="margin:28px auto;">
+                    <tr>
+                        <td align="center" style="border-radius:12px; background:linear-gradient(135deg, #a76cff 0%, #8b4fe0 100%);">
+                            <a href="{$resetUrl}" target="_blank" style="font-size:14px; font-weight:700; color:#1a0e24; text-decoration:none; padding:14px 32px; display:inline-block; border-radius:12px; letter-spacing:0.04em;">
+                                Reset Password
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+                <p style="font-size:12.5px; color:#a896b8; line-height:1.5; margin:24px 0 0;">
+                    If the button does not work, copy and paste this link into your browser:<br>
+                    <a href="{$resetUrl}" style="color:#d9b8ff; word-break:break-all; text-decoration:none;">{$resetUrl}</a>
+                </p>
+                <p style="font-size:12px; color:#877596; line-height:1.5; margin:24px 0 0; border-top:1px solid rgba(229,221,240,0.1); padding-top:16px;">
+                    If you did not request a password reset, please ignore this email. Your current password remains safe and unchanged.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:20px 36px; text-align:center; background-color:#1c1028; border-top:1px solid rgba(229,221,240,0.1);">
+                <span style="font-size:11px; color:#786687;">&copy; " . date('Y') . " Glowup Beauty Studio &amp; Academy. All rights reserved.</span>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+HTML;
+
+        $emailService = new \App\Libraries\EmailService();
+        $emailService->sendMail($customer['email'], $subject, $htmlBody, $customer['name'], (int) $customer['id']);
+
+        return redirect()->back()->with('success', $genericSuccessMsg);
+    }
+
+    /**
+     * Display Password Reset Form with Validated Token
+     */
+    public function showResetPassword(string $token)
+    {
+        if ($this->auth->isLoggedIn()) {
+            return redirect()->to(base_url('profile'));
+        }
+
+        $token = trim($token);
+        if (empty($token) || strlen($token) !== 64) {
+            return redirect()->to(base_url('forgot-password'))
+                ->with('error', 'This password reset link is invalid or has expired. Please request a new one.');
+        }
+
+        $tokenHash = hash('sha256', $token);
+        $customer = $this->customerModel->findByValidResetTokenHash($tokenHash);
+
+        if (!$customer) {
+            return redirect()->to(base_url('forgot-password'))
+                ->with('error', 'This password reset link is invalid, expired, or has already been used. Please request a new one.');
+        }
+
+        return view('glowup/reset_password', [
+            'pageTitle' => 'Set New Password | Glowup Beauty Studio & Academy',
+            'token'     => $token,
+            'customer'  => $customer,
+        ]);
+    }
+
+    /**
+     * Update Password with Validated Token
+     */
+    public function updateResetPassword()
+    {
+        if ($this->auth->isLoggedIn()) {
+            return redirect()->to(base_url('profile'));
+        }
+
+        $token           = trim((string) $this->request->getPost('token'));
+        $password        = (string) $this->request->getPost('password');
+        $confirmPassword = (string) $this->request->getPost('confirm_password');
+
+        if (empty($token) || strlen($token) !== 64) {
+            return redirect()->to(base_url('forgot-password'))
+                ->with('error', 'The reset session was invalid. Please request a new reset link.');
+        }
+
+        $tokenHash = hash('sha256', $token);
+        $customer = $this->customerModel->findByValidResetTokenHash($tokenHash);
+
+        if (!$customer) {
+            return redirect()->to(base_url('forgot-password'))
+                ->with('error', 'This password reset link has expired or has already been used. Please request a new one.');
+        }
+
+        if (empty($password) || strlen($password) < 6) {
+            return redirect()->back()
+                ->with('error', 'Your new password must be at least 6 characters long.');
+        }
+
+        if ($password !== $confirmPassword) {
+            return redirect()->back()
+                ->with('error', 'Passwords do not match. Please ensure both fields are identical.');
+        }
+
+        // Atomically update password and immediately invalidate the reset token
+        $this->customerModel->update($customer['id'], [
+            'password'               => password_hash($password, PASSWORD_DEFAULT),
+            'reset_token_hash'       => null,
+            'reset_token_expires_at' => null,
+            'updated_at'             => date('Y-m-d H:i:s'),
+        ]);
+
+        return redirect()->to(base_url('login'))
+            ->with('success', 'Your password has been reset successfully! You can now sign in with your new credentials.');
+    }
 }
