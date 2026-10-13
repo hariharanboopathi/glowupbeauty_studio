@@ -241,15 +241,13 @@ The administrative portal (`/admin`) provides comprehensive salon control:
 
 ## Screenshots
 
-*Placeholders for user interface previews:*
-
 | Customer Home Page | Booking & Slot Selection |
-| :---: | :---: |
-| *(Add screenshot: `public/assets/images/screenshots/home.png`)* | *(Add screenshot: `public/assets/images/screenshots/booking.png`)* |
+|:---:|:---:|
+| ![Customer Home Page](public/assets/images/screenshots/home.png) | ![Booking & Slot Selection](public/assets/images/screenshots/booking.png) |
 
 | Customer Dashboard | Admin Management Portal |
-| :---: | :---: |
-| *(Add screenshot: `public/assets/images/screenshots/customer_dashboard.png`)* | *(Add screenshot: `public/assets/images/screenshots/admin_dashboard.png`)* |
+|:---:|:---:|
+| ![Customer Dashboard](public/assets/images/screenshots/customer_dashboard.png) | ![Admin Management Portal](public/assets/images/screenshots/admin_dashboard.png) |
 
 ---
 
