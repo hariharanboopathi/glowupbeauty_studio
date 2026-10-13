@@ -9,23 +9,26 @@ class Home extends BaseController
      */
     public function index(): string
     {
-        $sectionModel = new \App\Models\HomepageSectionModel();
-        $slideModel   = new \App\Models\HomepageSlideModel();
-        $serviceModel = new \App\Models\HomepageServiceModel();
+        $sectionModel  = new \App\Models\HomepageSectionModel();
+        $slideModel    = new \App\Models\HomepageSlideModel();
+        $serviceModel  = new \App\Models\ServiceModel();
+        $categoryModel = new \App\Models\CategoryModel();
 
-        $hero       = $sectionModel->getSection('hero');
-        $philosophy = $sectionModel->getSection('philosophy');
-        $slides     = $slideModel->getOrderedSlides(true);
-        $services   = $serviceModel->getOrderedServices(true);
-        $offerModel = new \App\Models\OfferModel();
-        $offers     = $offerModel->getActiveFrontendOffers();
+        $hero        = $sectionModel->getSection('hero');
+        $philosophy  = $sectionModel->getSection('philosophy');
+        $slides      = $slideModel->getOrderedSlides(true);
+        $services    = $serviceModel->getHomepageServices(6);
+        $categoryMap = $categoryModel->getCategoryMap();
+        $offerModel  = new \App\Models\OfferModel();
+        $offers      = $offerModel->getActiveFrontendOffers();
 
         return view('glowup/index', [
-            'hero'       => $hero,
-            'philosophy' => $philosophy,
-            'slides'     => $slides,
-            'services'   => $services,
-            'offers'     => $offers,
+            'hero'        => $hero,
+            'philosophy'  => $philosophy,
+            'slides'      => $slides,
+            'services'    => $services,
+            'categoryMap' => $categoryMap,
+            'offers'      => $offers,
         ]);
     }
 

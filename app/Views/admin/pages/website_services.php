@@ -272,7 +272,7 @@
                     <th>Category</th>
                     <th>Price</th>
                     <th>Duration</th>
-                    <th style="width: 90px; text-align: center;">Featured</th>
+                    <th style="width: 100px; text-align: center;">Homepage</th>
                     <th style="width: 100px; text-align: center;">Status</th>
                     <th style="width: 130px; text-align: right;">Actions</th>
                 </tr>
@@ -468,7 +468,7 @@
                         <div class="col-md-4 d-flex align-items-center pt-4">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" name="is_featured" value="1" id="addFeatured">
-                                <label class="form-check-label fw-bold" for="addFeatured" style="font-size: 12.5px;">Spotlight / Featured</label>
+                                <label class="form-check-label fw-bold" for="addFeatured" style="font-size: 12.5px;">Show on Homepage</label>
                             </div>
                         </div>
                         <div class="col-md-4 d-flex align-items-center pt-4">
@@ -561,7 +561,7 @@
                         <div class="col-md-4 d-flex align-items-center pt-4">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" name="is_featured" value="1" id="editServiceFeatured">
-                                <label class="form-check-label fw-bold" for="editServiceFeatured" style="font-size: 12.5px;">Spotlight / Featured</label>
+                                <label class="form-check-label fw-bold" for="editServiceFeatured" style="font-size: 12.5px;">Show on Homepage</label>
                             </div>
                         </div>
                         <div class="col-md-4 d-flex align-items-center pt-4">

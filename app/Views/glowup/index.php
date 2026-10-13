@@ -247,24 +247,39 @@
                 <?php if (!empty($services)): ?>
                     <?php foreach ($services as $srv): ?>
                         <?php
-                            $sImg = (strpos($srv['image_url'], 'http') === 0) ? $srv['image_url'] : base_url($srv['image_url']);
-                            $sBtnUrl = (strpos($srv['button_url'], 'http') === 0) ? $srv['button_url'] : base_url($srv['button_url']);
+                            $sName = $srv['name'] ?? ($srv['title'] ?? 'Treatment');
+                            $sImg = !empty($srv['image_url'])
+                                ? ((strpos($srv['image_url'], 'http') === 0) ? $srv['image_url'] : base_url($srv['image_url']))
+                                : 'https://placehold.co/600x400?text=Ritual';
+                            $btnTarget = !empty($srv['button_url']) ? $srv['button_url'] : 'booking';
+                            $sBtnUrl = (strpos($btnTarget, 'http') === 0) ? $btnTarget : base_url($btnTarget);
+
+                            // Format price: handle numeric values (from services) and formatted strings (from homepage_services fallback)
+                            $priceDisplay = is_numeric($srv['price'] ?? null)
+                                ? ('₹' . number_format((float) $srv['price'], 0))
+                                : ($srv['price'] ?? '');
+
+                            // Resolve category display name
+                            $rawCat = $srv['category'] ?? '';
+                            $catDisplay = $categoryMap[$rawCat] ?? ($categoryMap[strtolower($rawCat)] ?? (ucwords(str_replace(['_', '-'], ' ', $rawCat)) ?: 'Treatment'));
                         ?>
                         <div class="col-md-6 col-lg-4">
                             <div class="service-card">
                                 <div class="service-img">
-                                    <img src="<?= esc($sImg) ?>" alt="<?= esc($srv['title']) ?>" onerror="this.src='https://placehold.co/600x400?text=Ritual'" />
-                                    <div class="price-tag"><?= esc($srv['price']) ?></div>
-                                    <div class="category-tag"><?= esc($srv['category'] ?? 'Treatment') ?></div>
+                                    <img src="<?= esc($sImg) ?>" alt="<?= esc($sName) ?>" onerror="this.src='https://placehold.co/600x400?text=Ritual'" />
+                                    <?php if (!empty($priceDisplay)): ?>
+                                        <div class="price-tag"><?= esc($priceDisplay) ?></div>
+                                    <?php endif; ?>
+                                    <div class="category-tag"><?= esc($catDisplay) ?></div>
                                 </div>
                                 <div class="service-body">
                                     <div>
-                                        <h5><?= esc($srv['title']) ?></h5>
+                                        <h5><?= esc($sName) ?></h5>
                                         <p><?= esc($srv['description']) ?></p>
                                     </div>
                                     <div class="service-footer">
                                         <span class="duration"><span class="material-symbols-outlined" style="font-size:14px;">schedule</span> <?= esc($srv['duration']) ?></span>
-                                        <a href="<?= esc($sBtnUrl) ?>" class="btn-book" data-service-name="<?= esc($srv['title']) ?>"><?= esc($srv['button_text'] ?? 'Book Now') ?></a>
+                                        <a href="<?= esc($sBtnUrl) ?>" class="btn-book" data-service-name="<?= esc($sName) ?>"><?= esc($srv['button_text'] ?? 'Book Now') ?></a>
                                     </div>
                                 </div>
                             </div>

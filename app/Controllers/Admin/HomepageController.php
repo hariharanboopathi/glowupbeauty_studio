@@ -7,6 +7,7 @@ use App\Libraries\AdminAuth;
 use App\Models\HomepageSectionModel;
 use App\Models\HomepageSlideModel;
 use App\Models\HomepageServiceModel;
+use App\Models\ServiceModel;
 
 class HomepageController extends BaseController
 {
@@ -14,13 +15,15 @@ class HomepageController extends BaseController
     protected HomepageSectionModel $sectionModel;
     protected HomepageSlideModel $slideModel;
     protected HomepageServiceModel $serviceModel;
+    protected ServiceModel $catalogServiceModel;
 
     public function __construct()
     {
-        $this->auth         = new AdminAuth();
-        $this->sectionModel = new HomepageSectionModel();
-        $this->slideModel   = new HomepageSlideModel();
-        $this->serviceModel = new HomepageServiceModel();
+        $this->auth                 = new AdminAuth();
+        $this->sectionModel         = new HomepageSectionModel();
+        $this->slideModel           = new HomepageSlideModel();
+        $this->serviceModel         = new HomepageServiceModel();
+        $this->catalogServiceModel  = new ServiceModel();
 
         // Ensure upload directory exists
         $uploadPath = FCPATH . 'uploads/homepage';
@@ -44,7 +47,8 @@ class HomepageController extends BaseController
         $hero = $this->sectionModel->getSection('hero');
         $philosophy = $this->sectionModel->getSection('philosophy');
         $slides = $this->slideModel->getOrderedSlides();
-        $services = $this->serviceModel->getOrderedServices();
+        $homepageServices = $this->catalogServiceModel->getHomepageServices(20);
+        $legacyServices = $this->serviceModel->getOrderedServices();
 
         return view('admin/pages/homepage', [
             'pageTitle'         => 'Homepage Content Management | Glowup Admin',
@@ -57,7 +61,8 @@ class HomepageController extends BaseController
             'hero'              => $hero,
             'philosophy'        => $philosophy,
             'slides'            => $slides,
-            'services'          => $services,
+            'services'          => $homepageServices,
+            'legacyServices'    => $legacyServices,
         ]);
     }
 

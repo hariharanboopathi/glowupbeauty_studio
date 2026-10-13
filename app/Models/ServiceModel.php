@@ -114,4 +114,18 @@ class ServiceModel extends Model
 
         return $counts;
     }
+
+    /**
+     * Retrieve active services marked for Homepage showcase
+     */
+    public function getHomepageServices(int $limit = 6): array
+    {
+        return $this->where('is_active', 1)
+            ->where('is_featured', 1)
+            ->orderBy('sort_order', 'ASC')
+            ->orderBy('id', 'ASC')
+            ->limit($limit)
+            ->findAll();
+    }
 }
+

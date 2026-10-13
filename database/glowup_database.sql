@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 11, 2026 at 09:14 PM
+-- Generation Time: Oct 13, 2026 at 08:45 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -219,7 +219,9 @@ INSERT INTO `bookings` (`id`, `booking_code`, `customer_id`, `customer_name`, `c
 (31, 'GLOW-3DB930', 33, 'Senthil Kumar R', 'senthil@gmail.com', '+919080984655', NULL, 'Precision Thermal Straightening', 3500.00, '150 Minutes', 'Any Master Specialist', '2026-10-10', '12:30 PM', 'Beverage: Organic Matcha Latte |', 'pending', NULL, 0, '2026-10-10 18:00:35', '2026-10-10 18:00:35'),
 (32, 'GLOW-9EF6F5', 31, 'admin', 'admin@demo.com', '1234567890', NULL, 'Precision Thermal Straightening', 3500.00, '150 Minutes', 'Any Master Specialist', '2026-10-10', '10:00 AM', 'Beverage: Organic Matcha Latte |', 'pending', NULL, 0, '2026-10-10 18:36:09', '2026-10-10 18:36:09'),
 (33, 'GLOW-33F2A2', 40, 'Senthil Kumar R', 'admin@gmail.com', '+919080984655', NULL, 'Hydra Facial Ritual', 3500.00, '75 Minutes', 'Any Master Specialist', '2026-10-11', '11:00 AM', 'Beverage: Organic Matcha Latte |', 'pending', NULL, 0, '2026-10-11 16:52:19', '2026-10-11 16:52:19'),
-(34, 'GLOW-50487A', 40, 'Senthil Kumar R', 'admin@gmail.com', '+919080984655', NULL, 'Hydra Facial Ritual', 3500.00, '75 Minutes', 'Any Master Specialist', '2026-10-11', '02:00 PM', NULL, 'pending', NULL, 0, '2026-10-11 16:58:29', '2026-10-11 16:58:29');
+(34, 'GLOW-50487A', 40, 'Senthil Kumar R', 'admin@gmail.com', '+919080984655', NULL, 'Hydra Facial Ritual', 3500.00, '75 Minutes', 'Any Master Specialist', '2026-10-11', '02:00 PM', NULL, 'pending', NULL, 0, '2026-10-11 16:58:29', '2026-10-11 16:58:29'),
+(38, 'GLOW-5BE536', 40, 'admin', 'admin@gmail.com', '1234567890', NULL, 'Botox Capillary Reconstruction', 3500.00, '90 Minutes', 'Any Master Specialist', '2026-10-13', '11:00 AM', 'Beverage: Organic Matcha Latte |', 'pending', NULL, 0, '2026-10-13 18:34:29', '2026-10-13 18:34:29'),
+(39, 'GLOW-C09FAD', 40, 'admin', 'admin@gmail.com', '12345678990', NULL, 'Hydra Facial Ritual', 3500.00, '75 Minutes', 'Dr. Elena Ross (Clinical Director)', '2026-10-13', '10:00 AM', 'Beverage: Organic Matcha Latte |', 'pending', NULL, 0, '2026-10-13 18:38:20', '2026-10-13 18:38:20');
 
 -- --------------------------------------------------------
 
@@ -412,10 +414,9 @@ INSERT INTO `customers` (`id`, `name`, `email`, `phone`, `whatsapp_number`, `dob
 (16, 'Radhika Singhania', 'radhika_1790785123@luxurypatron.in', '+91 99887 16391', '+91 99887 16391', NULL, NULL, 'Converted from Lead #7 (Instagram Campaign). Campaign: Diwali Bridal Showcase 2026. Notes: Looking for 3-day wedding package including muhurtham and sangeet aesthetics.', 'Converted Lead, New Patron', 'Instagram Campaign', '$2y$10$Lf2RWfGH2FzsU1Q/Ter6LeXhEg86s.jDol0a7IKsDjRMuUoqXwjRq', NULL, NULL, NULL, NULL, 'local', 1, 'active', 'Royal Heritage Temple Bridal Package', '2026-09-30 16:18:45', '2026-09-30 16:18:48'),
 (17, 'Sanjana Reddy (VIP Patron)', 'sanjana.reddy@gmail.com', '+91 99123 44556', '+91 99123 44556', '1996-08-14', 'Villa 42, Palm Meadows, Madurai', NULL, 'Patron', 'Online Booking', '$2y$10$.5kX9ShUJGPUPTtNImAxveLX1wN/HJ6Qmo2/4eE8q4gnagPyG6kHm', NULL, NULL, NULL, NULL, 'local', 1, 'active', 'Signature Bridal Makeup, Hydra Facials', '2026-09-30 16:54:31', '2026-09-30 17:12:18'),
 (18, 'HariHaran B', 'bhariharan741@gmail.com', '8524974685', NULL, NULL, NULL, NULL, 'Patron', 'Website', '$2y$10$5SMLqn/jb0bMy7bZOIVUHOcBsZHC4FD3C620JX5ugz6Nj6zQHGKe6', NULL, NULL, NULL, NULL, 'local', 1, 'active', NULL, '2026-09-30 17:39:11', '2026-09-30 17:39:11'),
-(31, 'Senthil Kumar R', 'r.senthilkumar22bca106@gmail.com', '1234567890', '1234567890', NULL, NULL, NULL, 'Patron', 'Online Booking', '$2y$10$ojxZmFvDIk0mD4l8J5MPyOGYeMXKKQqPvw8fzOPXmB8IneBRNfX/u', NULL, NULL, NULL, NULL, 'local', 1, 'active', 'Hydra Facial Ritual', '2026-10-03 19:26:03', '2026-10-03 20:10:22'),
 (32, 'Priya Patel', 'priya.patel@gmail.com', NULL, NULL, NULL, NULL, NULL, 'Patron', 'Website', NULL, NULL, NULL, 'google_demo_c5ae6681360521c2aea2066b34c42222', 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80', 'google', 1, 'active', NULL, '2026-10-03 19:28:04', '2026-10-03 19:28:04'),
 (33, 'Senthil Kumar R', 'senthil@gmail.com', '1234567890', NULL, NULL, NULL, NULL, 'Patron', 'Website', '$2y$10$DIb70do9FC5WkYGvsDFRROZl8bB/u/5epxGSdnRLl/qNUXSlAuVf6', NULL, NULL, NULL, NULL, 'local', 1, 'active', NULL, '2026-10-10 17:45:11', '2026-10-10 18:01:24'),
-(40, 'Senthil Kumar R', 'admin@gmail.com', '1234567890', '1234567890', NULL, NULL, NULL, 'Patron', 'Online Booking', '$2y$10$BijjGJ7MdPjjS19eF9gCju1xwODdMlguZoOhPFNQwPD8NDdad3QSa', NULL, NULL, NULL, NULL, 'local', 1, 'active', 'Hydra Facial Ritual', '2026-10-11 16:52:19', '2026-10-11 17:51:13'),
+(40, 'Admin', 'admin@gmail.com', '1234567890', '1234567890', NULL, NULL, NULL, 'Patron', 'Online Booking', '$2y$10$BijjGJ7MdPjjS19eF9gCju1xwODdMlguZoOhPFNQwPD8NDdad3QSa', NULL, NULL, NULL, NULL, 'local', 1, 'active', 'Hydra Facial Ritual', '2026-10-11 16:52:19', '2026-10-13 18:36:56'),
 (41, 'Jane Doe', 'forgot_test_1791740119@glowup.test', '9988776655', NULL, NULL, NULL, NULL, 'Patron', 'Website', '$2y$10$RU6IBnntjwmZvMnF1ZT/G.Hjw1gZjyhTMjzusNyYopnJ6NXl6Us/W', NULL, NULL, NULL, NULL, 'local', 1, 'active', NULL, '2026-10-11 19:35:19', '2026-10-11 19:35:19'),
 (42, 'Test Patron', 'forgot_client_1791740204@glowup.test', '+91 91234 56789', NULL, NULL, NULL, NULL, 'Patron', 'Website', '$2y$10$2qqRq0Iou1ncWif/9/lHyeMdnMKWFCb837WzSSlE1EkDTz7YFb3h6', '63655af882dd9f569b76d1655cf1fb0d85bcd766121d140a24c9c3bcbd939385', '2026-10-11 18:36:45', NULL, NULL, 'local', 1, 'active', NULL, '2026-10-11 23:06:44', '2026-10-11 17:36:45');
 
@@ -928,7 +929,9 @@ INSERT INTO `leads` (`id`, `name`, `phone`, `whatsapp`, `email`, `service_intere
 (42, 'Senthil Kumar R', '+919080984655', '+919080984655', 'senthil@gmail.com', 'Precision Thermal Straightening', 'Booking Form', 'Website Booking Wizard', 'Appointment: 2026-10-10 at 12:30 PM with Any Master Specialist. Notes: Beverage: Organic Matcha Latte |', 'booking_confirmed', 'Elena Vance', 33, '2026-10-10 18:00:35', '2026-10-10 18:00:35'),
 (43, 'admin', '1234567890', '1234567890', 'admin@demo.com', 'Precision Thermal Straightening', 'Booking Form', 'Website Booking Wizard', 'Appointment: 2026-10-10 at 10:00 AM with Any Master Specialist. Notes: Beverage: Organic Matcha Latte |', 'booking_confirmed', 'Elena Vance', 31, '2026-10-10 18:36:09', '2026-10-10 18:36:09'),
 (44, 'Senthil Kumar R', '+919080984655', '+919080984655', 'admin@gmail.com', 'Hydra Facial Ritual', 'Booking Form', 'Website Booking Wizard', 'Appointment: 2026-10-11 at 11:00 AM with Any Master Specialist. Notes: Beverage: Organic Matcha Latte |', 'booking_confirmed', 'Elena Vance', 40, '2026-10-11 16:52:19', '2026-10-11 16:52:19'),
-(45, 'Senthil Kumar R', '+919080984655', '+919080984655', 'admin@gmail.com', 'Hydra Facial Ritual', 'Booking Form', 'Website Booking Wizard', 'Appointment: 2026-10-11 at 02:00 PM with Any Master Specialist. Notes: ', 'booking_confirmed', 'Elena Vance', 40, '2026-10-11 16:58:29', '2026-10-11 16:58:29');
+(45, 'Senthil Kumar R', '+919080984655', '+919080984655', 'admin@gmail.com', 'Hydra Facial Ritual', 'Booking Form', 'Website Booking Wizard', 'Appointment: 2026-10-11 at 02:00 PM with Any Master Specialist. Notes: ', 'booking_confirmed', 'Elena Vance', 40, '2026-10-11 16:58:29', '2026-10-11 16:58:29'),
+(46, 'admin', '1234567890', '1234567890', 'admin@gmail.com', 'Botox Capillary Reconstruction', 'Booking Form', 'Website Booking Wizard', 'Appointment: 2026-10-13 at 11:00 AM with Any Master Specialist. Notes: Beverage: Organic Matcha Latte |', 'converted', 'Elena Vance', 40, '2026-10-13 18:34:29', '2026-10-13 18:36:31'),
+(47, 'admin', '12345678990', '12345678990', 'admin@gmail.com', 'Hydra Facial Ritual', 'Booking Form', 'Website Booking Wizard', 'Appointment: 2026-10-13 at 10:00 AM with Dr. Elena Ross (Clinical Director). Notes: Beverage: Organic Matcha Latte |', 'booking_confirmed', 'Elena Vance', 40, '2026-10-13 18:38:20', '2026-10-13 18:38:20');
 
 -- --------------------------------------------------------
 
@@ -1212,14 +1215,14 @@ CREATE TABLE `services` (
 --
 
 INSERT INTO `services` (`id`, `name`, `category`, `price`, `duration`, `description`, `image_url`, `button_text`, `button_url`, `is_featured`, `is_active`, `sort_order`, `created_at`, `updated_at`) VALUES
-(1, 'Hydra Facial Ritual', 'facials', 3500.00, '75 Minutes', 'Multi-step resurfacing treatment infusing patented peptides and botanical hydration for an instant, dewy glass-skin luminosity.', 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&q=80', 'Book Now', 'booking', 1, 1, 1, '2026-09-30 14:17:11', '2026-09-30 14:17:11'),
+(1, 'Hydra Facial Ritual', 'facials', 3500.00, '75 Minutes', 'Multi-step resurfacing treatment infusing patented peptides and botanical hydration for an instant, dewy glass-skin luminosity.', 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&q=80', 'Book Now', 'booking', 1, 1, 1, '2026-09-30 14:17:11', '2026-10-13 20:21:20'),
 (2, 'Keratin Infusion Therapy', 'hair', 3500.00, '120 Minutes', 'Intensive botanical protein smoothing infusion that eliminates frizz, restores molecular bonds, and locks in mirror shine.', 'https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=800&q=80', 'Book Now', 'booking', 1, 1, 2, '2026-09-30 14:17:11', '2026-10-02 16:33:06'),
 (3, 'Botox Capillary Reconstruction', 'hair', 3500.00, '90 Minutes', 'Deep-conditioning capillary hair botox formula packed with hyaluronic acid and caviar extract to resurrect damaged strands.', 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=800&q=80', 'Book Now', 'booking', 1, 1, 3, '2026-09-30 14:17:11', '2026-09-30 14:17:11'),
 (4, 'Precision Thermal Straightening', 'hair', 3500.00, '150 Minutes', 'Japanese-inspired precision thermal reconditioning for impeccably sleek, pin-straight hair with silky featherlight movement.', 'https://images.unsplash.com/photo-1560869713-7d0a29430803?w=800&q=80', 'Book Now', 'booking', 1, 1, 4, '2026-09-30 14:17:11', '2026-09-30 14:17:11'),
 (5, 'Organic Cysteine Smoothing', 'hair', 3500.00, '120 Minutes', 'Gentle organic cysteine treatment relaxing unruly curls into effortless, manageable, touchably soft satin waves.', 'https://images.unsplash.com/photo-1522336572468-97b06e8ef143?w=800&q=80', 'Book Now', 'booking', 1, 1, 5, '2026-09-30 14:17:11', '2026-09-30 14:17:11'),
-(6, 'Haute Royal Bridal Artistry', 'bridal', 15000.00, '180 Minutes', 'Bespoke bridal makeover complete with HD airbrush foundation, saree draping, floral hair architecture, and jewel placement.', 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=800&q=80', 'Reserve Date', 'booking', 1, 1, 6, '2026-09-30 14:17:11', '2026-09-30 14:17:11'),
-(7, 'Russian Dry Manicure & BIAB', 'nails', 2800.00, '75 Minutes', 'Clinical diamond e-file cuticle detailing followed by builder gel reinforcement and minimalist editorial nail art.', 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&q=80', 'Book Now', 'booking', 0, 1, 7, '2026-09-30 14:17:11', '2026-10-03 19:38:29'),
-(8, 'Japanese Head Spa & Scalp Detox', 'wellness', 4200.00, '90 Minutes', 'Micro-mist aromatic herbal scalp detox with warm rainfall waterfall cascade, lymphatic drainage, and shiatsu neck massage.', 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80', 'Book Now', 'booking', 1, 1, 8, '2026-09-30 14:17:11', '2026-09-30 14:17:11');
+(6, 'Haute Royal Bridal Artistry', 'bridal', 15000.00, '180 Minutes', 'Bespoke bridal makeover complete with HD airbrush foundation, saree draping, floral hair architecture, and jewel placement.', 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=800&q=80', 'Reserve Date', 'booking', 0, 1, 6, '2026-09-30 14:17:11', '2026-10-13 18:33:12'),
+(7, 'Russian Dry Manicure & BIAB', 'nails', 2800.00, '75 Minutes', 'Clinical diamond e-file cuticle detailing followed by builder gel reinforcement and minimalist editorial nail art.', 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&q=80', 'Book Now', 'booking', 0, 1, 7, '2026-09-30 14:17:11', '2026-10-13 20:21:20'),
+(8, 'Japanese Head Spa & Scalp Detox', 'wellness', 4200.00, '90 Minutes', 'Micro-mist aromatic herbal scalp detox with warm rainfall waterfall cascade, lymphatic drainage, and shiatsu neck massage.', 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80', 'Book Now', 'booking', 0, 1, 8, '2026-09-30 14:17:11', '2026-10-13 18:33:31');
 
 -- --------------------------------------------------------
 
@@ -1586,7 +1589,7 @@ ALTER TABLE `blog_posts`
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `bridal_packages`
@@ -1700,7 +1703,7 @@ ALTER TABLE `invoice_items`
 -- AUTO_INCREMENT for table `leads`
 --
 ALTER TABLE `leads`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -1748,7 +1751,7 @@ ALTER TABLE `seo_metadata`
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `students`

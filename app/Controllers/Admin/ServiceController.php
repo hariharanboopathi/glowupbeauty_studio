@@ -166,7 +166,7 @@ class ServiceController extends BaseController
     }
 
     /**
-     * Toggle Featured Status
+     * Toggle Homepage Featured Status
      */
     public function toggleFeatured($id)
     {
@@ -174,7 +174,8 @@ class ServiceController extends BaseController
         if ($service) {
             $newFeatured = $service['is_featured'] ? 0 : 1;
             $this->serviceModel->update($id, ['is_featured' => $newFeatured]);
-            return redirect()->back()->with('success', 'Featured spotlight status updated.');
+            $statusText = $newFeatured ? 'marked to show on Homepage.' : 'removed from Homepage.';
+            return redirect()->back()->with('success', "Treatment {$statusText}");
         }
         return redirect()->back()->with('error', 'Treatment record not found.');
     }

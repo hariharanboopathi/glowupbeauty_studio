@@ -582,15 +582,44 @@
     <!-- ========================================== -->
     <div class="tab-pane fade" id="treatmentsPane" role="tabpanel">
         <div class="cms-card">
-            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4 pb-2 border-bottom">
-                <div>
-                    <h4 style="font-family: 'Playfair Display', serif; font-size: 1.25rem; color: #483C46; margin: 0; font-weight: 600;">Popular Treatments Grid</h4>
-                    <p style="font-size: 12.5px; color: #7a6e78; margin: 2px 0 0;">Manage signature treatments displayed on the homepage with image, price, duration and direct booking links.</p>
+            <!-- Consolidated Service Management Notice Banner -->
+            <div class="p-4 mb-4 rounded-3 d-flex flex-wrap align-items-center justify-content-between gap-3" 
+                 style="background: linear-gradient(135deg, rgba(89, 46, 131, 0.06), rgba(163, 105, 82, 0.08)); border: 1px solid rgba(89, 46, 131, 0.18);">
+                <div class="d-flex align-items-start gap-3" style="max-width: 650px;">
+                    <div style="width: 44px; height: 44px; border-radius: 12px; background: #592E83; color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 12px rgba(89, 46, 131, 0.25);">
+                        <span class="material-symbols-outlined" style="font-size: 24px;">auto_awesome</span>
+                    </div>
+                    <div>
+                        <h5 style="font-family: 'Playfair Display', serif; font-size: 1.15rem; color: #483C46; margin: 0 0 4px; font-weight: 700;">
+                            Homepage Treatments Are Managed in the Service Catalog
+                        </h5>
+                        <p style="font-size: 13px; color: #7a6e78; margin: 0; line-height: 1.55;">
+                            To avoid duplicate entries, featured treatments are now synchronized directly with your master service catalog. Toggle <b>"Show on Homepage"</b> on any service in the catalog to showcase it on the homepage.
+                        </p>
+                    </div>
                 </div>
-                <button type="button" class="btn-clean-primary" data-bs-toggle="modal" data-bs-target="#addServiceModal">
-                    <span class="material-symbols-outlined" style="font-size: 18px;">add</span>
-                    <span>Add Treatment</span>
-                </button>
+                <div class="d-flex align-items-center gap-2">
+                    <a href="<?= base_url('admin/website/services') ?>" class="btn-clean-primary" style="text-decoration: none;">
+                        <span class="material-symbols-outlined" style="font-size: 18px;">spa</span>
+                        <span>Manage Services &amp; Treatments</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Current Homepage Featured Services Summary Table -->
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3 pb-2 border-bottom">
+                <div>
+                    <h5 style="font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #483C46; margin: 0; font-weight: 600;">
+                        Currently Featured on Homepage (<?= count($services ?? []) ?>)
+                    </h5>
+                    <p style="font-size: 12px; color: #7a6e78; margin: 2px 0 0;">
+                        These active services are currently visible to clients on the homepage, ordered by their catalog sort priority.
+                    </p>
+                </div>
+                <a href="<?= base_url('admin/website/services') ?>" class="btn-clean-secondary" style="font-size: 12px; padding: 6px 12px; text-decoration: none;">
+                    <span class="material-symbols-outlined" style="font-size: 15px;">tune</span>
+                    <span>Edit Homepage Visibility</span>
+                </a>
             </div>
 
             <div class="table-responsive">
@@ -603,69 +632,58 @@
                             <th>Category</th>
                             <th>Price</th>
                             <th>Duration</th>
-                            <th style="width: 100px;">Status</th>
-                            <th style="width: 130px; text-align: right;">Actions</th>
+                            <th style="width: 110px; text-align: center;">Homepage</th>
+                            <th style="width: 110px; text-align: right;">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php if (!empty($services)): ?>
                             <?php foreach ($services as $srv): ?>
                                 <tr>
-                                    <td class="fw-bold" style="color: #7a6e78;">#<?= esc($srv['display_order']) ?></td>
+                                    <td class="fw-bold" style="color: #7a6e78;">#<?= esc($srv['sort_order'] ?? $srv['display_order'] ?? 1) ?></td>
                                     <td>
                                         <?php
-                                            $srvImg = (strpos($srv['image_url'], 'http') === 0) ? $srv['image_url'] : base_url($srv['image_url']);
+                                            $srvImg = !empty($srv['image_url'])
+                                                ? ((strpos($srv['image_url'], 'http') === 0) ? $srv['image_url'] : base_url($srv['image_url']))
+                                                : 'https://placehold.co/100x70?text=Service';
                                         ?>
                                         <img src="<?= esc($srvImg) ?>" alt="Treatment" class="slide-thumb" onerror="this.src='https://placehold.co/100x70?text=Service'">
                                     </td>
                                     <td>
-                                        <div class="fw-bold" style="color: #483C46;"><?= esc($srv['title']) ?></div>
-                                        <div style="font-size: 11.5px; color: #7a6e78; max-width: 280px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"><?= esc($srv['description']) ?></div>
+                                        <div class="fw-bold" style="color: #483C46;"><?= esc($srv['name'] ?? $srv['title']) ?></div>
+                                        <div style="font-size: 11.5px; color: #7a6e78; max-width: 280px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"><?= esc($srv['description'] ?? '') ?></div>
                                     </td>
                                     <td>
                                         <span style="font-size: 11.5px; padding: 3px 8px; border-radius: 6px; background: rgba(89, 46, 131, 0.08); color: #592E83; font-weight: 600;">
-                                            <?= esc($srv['category'] ?? 'Treatment') ?>
+                                            <?= esc(ucwords(str_replace(['_', '-'], ' ', $srv['category'] ?? 'Treatment'))) ?>
                                         </span>
                                     </td>
-                                    <td class="fw-bold" style="color: #A36952;"><?= esc($srv['price']) ?></td>
-                                    <td style="font-size: 12px; color: #7a6e78;"><?= esc($srv['duration']) ?></td>
-                                    <td>
-                                        <form action="<?= base_url('admin/homepage/service/toggle/' . $srv['id']) ?>" method="post" class="d-inline">
-                                            <?= csrf_field() ?>
-                                            <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer;">
-                                                <span class="badge-pill-status <?= $srv['is_active'] ? 'status-active' : 'status-inactive' ?>">
-                                                    <span class="material-symbols-outlined" style="font-size: 13px;"><?= $srv['is_active'] ? 'check_circle' : 'block' ?></span>
-                                                    <?= $srv['is_active'] ? 'Active' : 'Inactive' ?>
-                                                </span>
-                                            </button>
-                                        </form>
+                                    <td class="fw-bold" style="color: #A36952;">
+                                        <?= is_numeric($srv['price'] ?? null) ? ('₹' . number_format((float) $srv['price'], 2)) : esc($srv['price'] ?? '') ?>
+                                    </td>
+                                    <td style="font-size: 12px; color: #7a6e78;"><?= esc($srv['duration'] ?? '') ?></td>
+                                    <td style="text-align: center;">
+                                        <span class="badge-pill-status status-active">
+                                            <span class="material-symbols-outlined" style="font-size: 13px;">check_circle</span>
+                                            Live
+                                        </span>
                                     </td>
                                     <td style="text-align: right;">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary edit-service-btn me-1"
-                                            data-id="<?= esc($srv['id']) ?>"
-                                            data-title="<?= esc($srv['title']) ?>"
-                                            data-category="<?= esc($srv['category']) ?>"
-                                            data-price="<?= esc($srv['price']) ?>"
-                                            data-duration="<?= esc($srv['duration']) ?>"
-                                            data-desc="<?= esc($srv['description']) ?>"
-                                            data-image="<?= esc($srv['image_url']) ?>"
-                                            data-order="<?= esc($srv['display_order']) ?>"
-                                            data-btn-text="<?= esc($srv['button_text']) ?>"
-                                            data-btn-url="<?= esc($srv['button_url']) ?>"
-                                            data-active="<?= esc($srv['is_active']) ?>"
-                                            data-bs-toggle="modal" data-bs-target="#editServiceModal"
-                                            style="padding: 4px 8px; border-radius: 6px;">
+                                        <a href="<?= base_url('admin/website/services') ?>" class="btn btn-sm btn-outline-secondary" style="padding: 4px 8px; border-radius: 6px;" title="Edit in Service Catalog">
                                             <span class="material-symbols-outlined" style="font-size: 16px;">edit</span>
-                                        </button>
-                                        <a href="<?= base_url('admin/homepage/service/delete/' . $srv['id']) ?>" onclick="return confirm('Remove this featured treatment?');" class="btn btn-sm btn-outline-danger" style="padding: 4px 8px; border-radius: 6px;">
-                                            <span class="material-symbols-outlined" style="font-size: 16px;">delete</span>
                                         </a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="8" class="text-center py-4" style="color: #7a6e78;">No featured treatments configured. Add one above.</td>
+                                <td colspan="8" class="text-center py-5" style="color: #7a6e78;">
+                                    <span class="material-symbols-outlined d-block mb-2" style="font-size: 32px; color: #d5ccd3;">spa</span>
+                                    No services are currently marked for homepage display.<br>
+                                    <a href="<?= base_url('admin/website/services') ?>" class="btn-clean-primary mt-3" style="text-decoration: none;">
+                                        <span>Go to Service Catalog to Feature Treatments</span>
+                                    </a>
+                                </td>
                             </tr>
                         <?php endif; ?>
                     </tbody>
@@ -791,149 +809,6 @@
     </div>
 </div>
 
-<!-- Add Treatment Modal -->
-<div class="modal fade" id="addServiceModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content" style="border-radius: 16px; border: 1px solid #ede6e4;">
-            <form action="<?= base_url('admin/homepage/service/save') ?>" method="post" enctype="multipart/form-data">
-                <?= csrf_field() ?>
-                <div class="modal-header border-bottom">
-                    <h5 class="modal-title" style="font-family: 'Playfair Display', serif; color: #483C46;">Add Popular Treatment</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-4">
-                    <div class="row g-3 mb-3">
-                        <div class="col-md-8">
-                            <label class="form-label fw-bold" style="font-size: 12.5px;">Treatment Title <span class="text-danger">*</span></label>
-                            <input type="text" name="title" class="form-control clean-input" required placeholder="e.g. Hydra Facial Ritual">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label fw-bold" style="font-size: 12.5px;">Category</label>
-                            <input type="text" name="category" class="form-control clean-input" placeholder="e.g. Aesthetic Facial">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold" style="font-size: 12.5px;">Price Tag</label>
-                            <input type="text" name="price" class="form-control clean-input" placeholder="e.g. ₹3,500">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold" style="font-size: 12.5px;">Duration</label>
-                            <input type="text" name="duration" class="form-control clean-input" placeholder="e.g. 75 Minutes">
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold" style="font-size: 12.5px;">Description</label>
-                        <textarea name="description" rows="2" class="form-control clean-textarea" placeholder="Brief treatment narrative..."></textarea>
-                    </div>
-                    <div class="row g-3 mb-3">
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold" style="font-size: 12.5px;">Image URL / Path</label>
-                            <input type="text" name="image_url" class="form-control clean-input" placeholder="https://...">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold" style="font-size: 12.5px;">Or Upload Image</label>
-                            <input type="file" name="image_file" class="form-control clean-input" accept="image/*">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold" style="font-size: 12.5px;">Button Text</label>
-                            <input type="text" name="button_text" class="form-control clean-input" value="Book Now">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold" style="font-size: 12.5px;">Button URL</label>
-                            <input type="text" name="button_url" class="form-control clean-input" value="booking">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold" style="font-size: 12.5px;">Display Order</label>
-                            <input type="number" name="display_order" class="form-control clean-input" value="1" min="1">
-                        </div>
-                        <div class="col-md-6 d-flex align-items-center pt-4">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" name="is_active" value="1" id="addSrvActive" checked>
-                                <label class="form-check-label fw-bold" for="addSrvActive" style="font-size: 12.5px;">Active Status</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer border-top">
-                    <button type="button" class="btn-clean-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn-clean-primary">Save Treatment</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Edit Treatment Modal -->
-<div class="modal fade" id="editServiceModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content" style="border-radius: 16px; border: 1px solid #ede6e4;">
-            <form action="<?= base_url('admin/homepage/service/save') ?>" method="post" enctype="multipart/form-data">
-                <?= csrf_field() ?>
-                <input type="hidden" name="id" id="editSrvId">
-                <div class="modal-header border-bottom">
-                    <h5 class="modal-title" style="font-family: 'Playfair Display', serif; color: #483C46;">Edit Popular Treatment</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-4">
-                    <div class="row g-3 mb-3">
-                        <div class="col-md-8">
-                            <label class="form-label fw-bold" style="font-size: 12.5px;">Treatment Title <span class="text-danger">*</span></label>
-                            <input type="text" name="title" id="editSrvTitle" class="form-control clean-input" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label fw-bold" style="font-size: 12.5px;">Category</label>
-                            <input type="text" name="category" id="editSrvCategory" class="form-control clean-input">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold" style="font-size: 12.5px;">Price Tag</label>
-                            <input type="text" name="price" id="editSrvPrice" class="form-control clean-input">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold" style="font-size: 12.5px;">Duration</label>
-                            <input type="text" name="duration" id="editSrvDuration" class="form-control clean-input">
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold" style="font-size: 12.5px;">Description</label>
-                        <textarea name="description" id="editSrvDesc" rows="2" class="form-control clean-textarea"></textarea>
-                    </div>
-                    <div class="row g-3 mb-3">
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold" style="font-size: 12.5px;">Image URL / Path</label>
-                            <input type="text" name="image_url" id="editSrvImage" class="form-control clean-input">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold" style="font-size: 12.5px;">Or Upload Image</label>
-                            <input type="file" name="image_file" class="form-control clean-input" accept="image/*">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold" style="font-size: 12.5px;">Button Text</label>
-                            <input type="text" name="button_text" id="editSrvBtnText" class="form-control clean-input">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold" style="font-size: 12.5px;">Button URL</label>
-                            <input type="text" name="button_url" id="editSrvBtnUrl" class="form-control clean-input">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold" style="font-size: 12.5px;">Display Order</label>
-                            <input type="number" name="display_order" id="editSrvOrder" class="form-control clean-input" min="1">
-                        </div>
-                        <div class="col-md-6 d-flex align-items-center pt-4">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" name="is_active" value="1" id="editSrvActive">
-                                <label class="form-check-label fw-bold" for="editSrvActive" style="font-size: 12.5px;">Active Status</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer border-top">
-                    <button type="button" class="btn-clean-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn-clean-primary">Update Treatment</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     // Preserve active tab across page reloads / hash navigation
@@ -954,23 +829,6 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('editSlideOrder').value = this.dataset.order;
             document.getElementById('editSlideImage').value = this.dataset.image;
             document.getElementById('editSlideActive').checked = this.dataset.active == '1';
-        });
-    });
-
-    // Modal data population for Service Edit
-    document.querySelectorAll('.edit-service-btn').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-            document.getElementById('editSrvId').value = this.dataset.id;
-            document.getElementById('editSrvTitle').value = this.dataset.title;
-            document.getElementById('editSrvCategory').value = this.dataset.category;
-            document.getElementById('editSrvPrice').value = this.dataset.price;
-            document.getElementById('editSrvDuration').value = this.dataset.duration;
-            document.getElementById('editSrvDesc').value = this.dataset.desc;
-            document.getElementById('editSrvImage').value = this.dataset.image;
-            document.getElementById('editSrvBtnText').value = this.dataset.btnText;
-            document.getElementById('editSrvBtnUrl').value = this.dataset.btnUrl;
-            document.getElementById('editSrvOrder').value = this.dataset.order;
-            document.getElementById('editSrvActive').checked = this.dataset.active == '1';
         });
     });
 });
