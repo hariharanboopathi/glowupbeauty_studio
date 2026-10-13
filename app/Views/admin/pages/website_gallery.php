@@ -47,45 +47,137 @@
     <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
         <!-- Category Filter Pills -->
         <div class="d-flex flex-wrap align-items-center gap-2">
-            <a href="<?= base_url('admin/website/gallery?category=all') ?>" class="badge-pill <?= ($currentCategory === 'all') ? 'active-pill' : 'inactive-pill' ?>">
+            <a href="<?= base_url('admin/website/gallery?category=all&view=' . esc($currentView ?? 'table')) ?>" class="badge-pill <?= ($currentCategory === 'all') ? 'active-pill' : 'inactive-pill' ?>">
                 All Categories
             </a>
-            <a href="<?= base_url('admin/website/gallery?category=bridal') ?>" class="badge-pill <?= ($currentCategory === 'bridal') ? 'active-pill' : 'inactive-pill' ?>">
+            <a href="<?= base_url('admin/website/gallery?category=bridal&view=' . esc($currentView ?? 'table')) ?>" class="badge-pill <?= ($currentCategory === 'bridal') ? 'active-pill' : 'inactive-pill' ?>">
                 Haute Bridal
             </a>
-            <a href="<?= base_url('admin/website/gallery?category=hair') ?>" class="badge-pill <?= ($currentCategory === 'hair') ? 'active-pill' : 'inactive-pill' ?>">
+            <a href="<?= base_url('admin/website/gallery?category=hair&view=' . esc($currentView ?? 'table')) ?>" class="badge-pill <?= ($currentCategory === 'hair') ? 'active-pill' : 'inactive-pill' ?>">
                 Hair Alchemy
             </a>
-            <a href="<?= base_url('admin/website/gallery?category=facials') ?>" class="badge-pill <?= ($currentCategory === 'facials') ? 'active-pill' : 'inactive-pill' ?>">
+            <a href="<?= base_url('admin/website/gallery?category=facials&view=' . esc($currentView ?? 'table')) ?>" class="badge-pill <?= ($currentCategory === 'facials') ? 'active-pill' : 'inactive-pill' ?>">
                 Skin Radiance
             </a>
-            <a href="<?= base_url('admin/website/gallery?category=academy') ?>" class="badge-pill <?= ($currentCategory === 'academy') ? 'active-pill' : 'inactive-pill' ?>">
+            <a href="<?= base_url('admin/website/gallery?category=academy&view=' . esc($currentView ?? 'table')) ?>" class="badge-pill <?= ($currentCategory === 'academy') ? 'active-pill' : 'inactive-pill' ?>">
                 Academy
             </a>
-            <a href="<?= base_url('admin/website/gallery?category=nails') ?>" class="badge-pill <?= ($currentCategory === 'nails') ? 'active-pill' : 'inactive-pill' ?>">
+            <a href="<?= base_url('admin/website/gallery?category=nails&view=' . esc($currentView ?? 'table')) ?>" class="badge-pill <?= ($currentCategory === 'nails') ? 'active-pill' : 'inactive-pill' ?>">
                 Nails & Lashes
             </a>
         </div>
 
-        <!-- Search and Add Button -->
-        <div class="d-flex align-items-center gap-2">
+        <!-- Search, View Switcher & Action Buttons -->
+        <div class="d-flex flex-wrap align-items-center gap-2">
             <form action="<?= base_url('admin/website/gallery') ?>" method="GET" class="d-flex align-items-center">
                 <input type="hidden" name="category" value="<?= esc($currentCategory) ?>">
-                <div class="input-group input-group-sm" style="width: 220px;">
+                <input type="hidden" name="view" value="<?= esc($currentView ?? 'table') ?>">
+                <div class="input-group input-group-sm" style="width: 200px;">
                     <span class="input-group-text bg-white border-end-0 text-muted">
                         <span class="material-symbols-outlined" style="font-size: 16px;">search</span>
                     </span>
                     <input type="text" name="q" value="<?= esc($searchQuery ?? '') ?>" class="form-control border-start-0 ps-0" placeholder="Search gallery...">
                 </div>
             </form>
+
+            <!-- View Switcher -->
+            <div class="btn-group btn-group-sm" role="group" aria-label="View Switcher">
+                <a href="<?= base_url('admin/website/gallery?category=' . urlencode($currentCategory) . ($searchQuery ? '&q=' . urlencode($searchQuery) : '') . '&view=table') ?>" 
+                   class="btn <?= ($currentView ?? 'table') !== 'grid' ? 'btn-luxury-primary' : 'btn-outline-secondary' ?> d-flex align-items-center gap-1" title="Table Manager View">
+                    <span class="material-symbols-outlined" style="font-size: 16px;">table_rows</span>
+                    <span class="d-none d-sm-inline">Table</span>
+                </a>
+                <a href="<?= base_url('admin/website/gallery?category=' . urlencode($currentCategory) . ($searchQuery ? '&q=' . urlencode($searchQuery) : '') . '&view=grid') ?>" 
+                   class="btn <?= ($currentView ?? 'table') === 'grid' ? 'btn-luxury-primary' : 'btn-outline-secondary' ?> d-flex align-items-center gap-1" title="Visual Showcase Grid">
+                    <span class="material-symbols-outlined" style="font-size: 16px;">auto_awesome_mosaic</span>
+                    <span class="d-none d-sm-inline">Showcase</span>
+                </a>
+            </div>
+
+            <a href="<?= base_url('gallery') ?>" target="_blank" class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1" title="Preview Public Lookbook">
+                <span class="material-symbols-outlined" style="font-size: 16px;">open_in_new</span>
+                <span class="d-none d-md-inline">Public View</span>
+            </a>
+
             <button type="button" class="btn btn-luxury-primary btn-sm d-flex align-items-center gap-1" data-bs-toggle="modal" data-bs-target="#galleryItemModal" onclick="resetGalleryModal()">
                 <span class="material-symbols-outlined" style="font-size: 18px;">add_photo_alternate</span>
-                <span>Add Lookbook Asset</span>
+                <span>Add Asset</span>
             </button>
         </div>
     </div>
 </div>
 
+<?php if (($currentView ?? 'table') === 'grid'): ?>
+<!-- Visual Portfolio Showcase Grid -->
+<div class="row g-4 mb-4">
+    <?php if (!empty($items) && count($items) > 0): ?>
+        <?php foreach ($items as $item): ?>
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+                <div class="glass-panel p-0 h-100 d-flex flex-column" style="border-radius: 16px; overflow: hidden; transition: transform 0.2s ease, box-shadow 0.2s ease;">
+                    <div style="height: 220px; position: relative; overflow: hidden; background: #faf7f5;">
+                        <?php 
+                            $imgSrc = $item['image_url'];
+                            if (!str_starts_with($imgSrc, 'http')) {
+                                $imgSrc = base_url($imgSrc);
+                            }
+                        ?>
+                        <img src="<?= esc($imgSrc) ?>" alt="<?= esc($item['title']) ?>" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&q=80'">
+                        
+                        <div style="position: absolute; top: 12px; left: 12px;">
+                            <span class="badge" style="background: rgba(26, 14, 36, 0.85); backdrop-filter: blur(8px); color: #eedcd6; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.05em; padding: 4px 10px; border-radius: 6px;">
+                                <?= esc(ucfirst($item['category'])) ?>
+                            </span>
+                        </div>
+
+                        <?php if ($item['is_featured']): ?>
+                            <div style="position: absolute; top: 12px; right: 12px;">
+                                <span class="badge" style="background: #c98860; color: #fff; font-size: 10px; padding: 4px 8px; border-radius: 6px; display: flex; align-items: center; gap: 2px;">
+                                    <span class="material-symbols-outlined" style="font-size: 12px;">star</span>
+                                    <span>Featured</span>
+                                </span>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="p-3 d-flex flex-column flex-grow-1">
+                        <h6 class="fw-bold mb-1" style="font-family: 'Playfair Display', serif; color: var(--text-main); font-size: 15px;">
+                            <?= esc($item['title']) ?>
+                        </h6>
+                        <p class="text-muted small mb-3 flex-grow-1" style="font-size: 12px; line-height: 1.5;">
+                            <?= esc($item['description'] ?? 'Artisan bridal & skin finishing.') ?>
+                        </p>
+                        <div class="d-flex align-items-center justify-content-between pt-2 border-top" style="border-color: var(--border-subtle) !important;">
+                            <span class="badge <?= $item['is_active'] ? 'bg-success-subtle text-success' : 'bg-secondary-subtle text-secondary' ?>" style="font-size: 10px; border-radius: 999px; padding: 3px 8px;">
+                                <?= $item['is_active'] ? 'Active Lookbook' : 'Hidden' ?>
+                            </span>
+                            <div class="d-flex align-items-center gap-2">
+                                <button type="button" class="btn btn-sm btn-link p-0 text-decoration-none" style="color: var(--accent); font-size: 11.5px; font-weight: 600;" 
+                                    onclick='editGalleryItem(<?= htmlspecialchars(json_encode($item), ENT_QUOTES, 'UTF-8') ?>)'>
+                                    Edit &rarr;
+                                </button>
+                                <a href="<?= base_url('admin/website/gallery/delete/' . $item['id']) ?>" class="text-danger text-decoration-none ms-1" title="Delete Asset" onclick="return confirm('Permanently remove this image asset from gallery lookbook?');" style="font-size: 11.5px;">
+                                    <span class="material-symbols-outlined" style="font-size: 15px; vertical-align: middle;">delete</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <div class="col-12">
+            <div class="glass-panel p-5 text-center">
+                <span class="material-symbols-outlined text-muted" style="font-size: 52px; opacity: 0.4;">auto_awesome_mosaic</span>
+                <h5 class="mt-3 text-muted">No portfolio items discovered</h5>
+                <p class="text-muted small mb-3">Add items in this category to populate this showcase.</p>
+                <button type="button" class="btn btn-luxury-primary btn-sm" data-bs-toggle="modal" data-bs-target="#galleryItemModal" onclick="resetGalleryModal()">
+                    Add Lookbook Asset
+                </button>
+            </div>
+        </div>
+    <?php endif; ?>
+</div>
+<?php else: ?>
 <!-- Table Card -->
 <div class="glass-panel p-0 mb-4" style="overflow: hidden;">
     <div class="table-responsive">
@@ -167,7 +259,7 @@
                         <td colspan="7" class="text-center py-5">
                             <span class="material-symbols-outlined text-muted" style="font-size: 48px; opacity: 0.4;">photo_library</span>
                             <div class="mt-2 fw-semibold text-muted">No lookbook assets discovered in this category</div>
-                            <small class="text-muted">Click "Add Lookbook Asset" above to publish your first high-fashion portrait.</small>
+                            <small class="text-muted">Click "Add Asset" above to publish your first high-fashion portrait.</small>
                         </td>
                     </tr>
                 <?php endif; ?>
@@ -175,6 +267,7 @@
         </table>
     </div>
 </div>
+<?php endif; ?>
 
 <!-- Add/Edit Gallery Modal -->
 <div class="modal fade" id="galleryItemModal" tabindex="-1" aria-hidden="true">

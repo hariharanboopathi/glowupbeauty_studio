@@ -13,6 +13,7 @@ use App\Models\ServiceModel;
 use App\Libraries\WhatsAppService;
 use App\Libraries\SmsService;
 use App\Libraries\EmailService;
+use App\Models\NewsletterSubscriberModel;
 
 class MarketingController extends BaseController
 {
@@ -26,6 +27,7 @@ class MarketingController extends BaseController
     protected WhatsAppService $whatsappService;
     protected SmsService $smsService;
     protected EmailService $emailService;
+    protected NewsletterSubscriberModel $subscriberModel;
 
     public function __construct()
     {
@@ -39,6 +41,7 @@ class MarketingController extends BaseController
         $this->whatsappService  = new WhatsAppService();
         $this->smsService       = new SmsService();
         $this->emailService     = new EmailService();
+        $this->subscriberModel  = new NewsletterSubscriberModel();
     }
 
     protected function getAdminData(): array
@@ -403,4 +406,151 @@ class MarketingController extends BaseController
 
         return redirect()->to(base_url('admin/marketing/communication-center'))->with('success', $statusMsg);
     }
+
+    /* =========================================================================
+     * 3. NEWSLETTER SUBSCRIBERS MANAGEMENT
+     * ========================================================================= */
+
+    /**
+     * View & Search Subscribers (/admin/marketing/subscribers)
+     */
+    public function subscribers()
+    {
+        $statusFilter = $this->request->getGet('status') ?: 'all';
+        $search       = trim((string) $this->request->getGet('q'));
+
+        $builder     = $this->subscriberModel->getFilteredSubscribers($statusFilter, $search);
+        $subscribers = $builder->findAll();
+        $stats       = $this->subscriberModel->getStatistics();
+
+        return view('admin/pages/subscribers', [
+            'pageTitle'         => 'Newsletter Subscribers | Glowup Admin',
+            'pageHeading'       => 'Newsletter & Journal Subscribers',
+            'pageIcon'          => 'mark_email_read',
+            'breadcrumbSection' => 'Marketing & Growth',
+            'breadcrumbTitle'   => 'Newsletter Subscribers',
+            'activeMenu'        => 'subscribers',
+            'admin'             => $this->getAdminData(),
+            'subscribers'       => $subscribers,
+            'stats'             => $stats,
+            'statusFilter'      => $statusFilter,
+            'searchQuery'       => $search,
+        ]);
+    }
+
+    /**
+     * Toggle Subscriber Status (active <-> unsubscribed)
+     */
+    public function toggleSubscriber($id)
+    {
+        $subscriber = $this->subscriberModel->find((int) $id);
+        if (!$subscriber) {
+            if ($this->request->isAJAX()) {
+                return $this->response->setJSON(['status' => false, 'message' => 'Subscriber not found.']);
+            }
+            return redirect()->back()->with('error', 'Subscriber not found.');
+        }
+
+        $newStatus = ($subscriber['status'] === 'active') ? 'unsubscribed' : 'active';
+        $this->subscriberModel->update($id, ['status' => $newStatus]);
+
+        if ($this->request->isAJAX()) {
+            return $this->response->setJSON([
+                'status'     => true,
+                'new_status' => $newStatus,
+                'message'    => "Subscriber marked as {$newStatus}.",
+            ]);
+        }
+
+        return redirect()->back()->with('success', "Subscriber {$subscriber['email']} marked as " . ucfirst($newStatus) . ".");
+    }
+
+    /**
+     * Delete Subscriber
+     */
+    public function deleteSubscriber($id)
+    {
+        $subscriber = $this->subscriberModel->find((int) $id);
+        if ($subscriber) {
+            $this->subscriberModel->delete($id);
+            return redirect()->back()->with('success', "Subscriber {$subscriber['email']} removed successfully.");
+        }
+
+        return redirect()->back()->with('error', 'Subscriber record not found.');
+    }
+
+    /**
+     * Export Subscribers to CSV
+     */
+    public function exportSubscribers()
+    {
+        if (!$this->auth->isLoggedIn()) {
+            return redirect()->to(base_url('admin/login'))
+                ->with('error', 'Session expired. Please sign in to access the admin portal.');
+        }
+
+        $statusFilter = $this->request->getGet('status') ?: 'all';
+        $search       = trim((string) $this->request->getGet('q'));
+
+        $builder     = $this->subscriberModel->getFilteredSubscribers($statusFilter, $search);
+        $subscribers = $builder->findAll();
+
+        $filename = 'newsletter_subscribers_' . date('Ymd_His') . '.csv';
+        $output   = fopen('php://memory', 'w+');
+
+        // Output UTF-8 BOM for Excel compatibility
+        fputs($output, "\xEF\xBB\xBF");
+
+        // CSV Header
+        $headers = [
+            'ID',
+            'Email Address',
+            'Status',
+            'Subscription Source',
+            'IP Address',
+            'Subscribed At',
+            'Last Updated',
+        ];
+        fputcsv($output, $headers);
+
+        foreach ($subscribers as $s) {
+            $row = [
+                $this->sanitizeCsvField((string) $s['id']),
+                $this->sanitizeCsvField($s['email']),
+                $this->sanitizeCsvField(ucfirst($s['status'] ?? 'active')),
+                $this->sanitizeCsvField(ucfirst($s['source'] ?? 'footer')),
+                $this->sanitizeCsvField($s['ip_address'] ?? 'N/A'),
+                $this->sanitizeCsvField(!empty($s['created_at']) ? date('d M Y, h:i A', strtotime($s['created_at'])) : ''),
+                $this->sanitizeCsvField(!empty($s['updated_at']) ? date('d M Y, h:i A', strtotime($s['updated_at'])) : ''),
+            ];
+            fputcsv($output, $row);
+        }
+
+        rewind($output);
+        $csvContent = stream_get_contents($output);
+        fclose($output);
+
+        return $this->response
+            ->setHeader('Content-Type', 'text/csv; charset=UTF-8')
+            ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
+            ->setHeader('Pragma', 'no-cache')
+            ->setHeader('Expires', '0')
+            ->setBody($csvContent);
+    }
+
+    /**
+     * Sanitize CSV values to prevent formula injection attacks
+     */
+    protected function sanitizeCsvField(?string $value): string
+    {
+        if ($value === null || $value === '') {
+            return '';
+        }
+        $firstChar = substr($value, 0, 1);
+        if (in_array($firstChar, ['=', '+', '-', '@', "\t", "\r"], true)) {
+            return "'" . $value;
+        }
+        return $value;
+    }
 }
+

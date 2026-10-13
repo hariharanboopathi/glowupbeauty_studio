@@ -345,6 +345,61 @@ class Home extends BaseController
     }
 
     /**
+     * Newsletter Subscription Endpoint
+     */
+    public function subscribeNewsletter()
+    {
+        $email = strtolower(trim((string) $this->request->getPost('email')));
+
+        if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 191) {
+            return $this->response->setJSON([
+                'status'     => false,
+                'message'    => 'Please provide a valid email address.',
+                'csrf_token' => csrf_token(),
+                'csrf_hash'  => csrf_hash(),
+            ]);
+        }
+
+        $email     = strtolower(trim((string) $this->request->getPost('email')));
+        $ipAddress = $this->request->getIPAddress();
+        $source    = trim((string) $this->request->getPost('source')) ?: 'footer';
+
+        $subscriberModel = new \App\Models\NewsletterSubscriberModel();
+        $result = $subscriberModel->subscribe($email, $ipAddress, $source);
+
+        // Resilient welcome email dispatch if newly subscribed
+        if ($result['status'] && ($result['code'] ?? '') === 'subscribed') {
+            try {
+                $emailService = new \App\Libraries\EmailService();
+                $subject = 'Welcome to the Glow Up Private Journal';
+                $htmlBody = '
+                    <div style="font-family: \'Playfair Display\', serif, Arial; max-width: 600px; margin: 0 auto; padding: 24px; color: #1a0e24;">
+                        <h2 style="color: #592e83; margin-bottom: 8px;">Welcome to the Private Journal</h2>
+                        <p style="font-size: 15px; color: #555; line-height: 1.6;">
+                            Thank you for joining our community. As a subscriber, you will receive curated beauty insights, seasonal bridal previews, and bespoke salon privileges directly to your inbox.
+                        </p>
+                        <p style="font-size: 13px; color: #888; margin-top: 24px;">
+                            Warm regards,<br>
+                            <strong>Glow Up Beauty Studio &amp; Academy</strong>
+                        </p>
+                    </div>
+                ';
+                @$emailService->sendMail($email, $subject, $htmlBody, 'Valued Patron');
+            } catch (\Throwable $e) {
+                log_message('notice', 'Newsletter welcome email not sent: ' . $e->getMessage());
+            }
+        }
+
+        return $this->response->setJSON([
+            'status'     => $result['status'],
+            'code'       => $result['code'] ?? 'subscribed',
+            'message'    => $result['message'],
+            'csrf_token' => csrf_token(),
+            'csrf_hash'  => csrf_hash(),
+        ]);
+    }
+
+    /**
      * Submit Academy Enrollment Form to Database (Enquiries & CRM Leads)
      */
     public function submitAcademyEnroll()

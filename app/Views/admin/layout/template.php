@@ -2606,6 +2606,10 @@ $adminUser = $admin ?? [
                 <span class="material-symbols-outlined">campaign</span>
                 Communication Center
             </a>
+            <a href="<?= base_url('admin/marketing/subscribers') ?>" class="sidebar-link <?= ($activeMenu ?? '') === 'subscribers' ? 'active' : '' ?>">
+                <span class="material-symbols-outlined">mark_email_read</span>
+                Newsletter Subscribers
+            </a>
             <a href="<?= base_url('admin/settings/email-templates') ?>" class="sidebar-link <?= ($activeMenu ?? '') === 'email_templates' ? 'active' : '' ?>">
                 <span class="material-symbols-outlined">mark_email_read</span>
                 Email Templates
@@ -2620,13 +2624,9 @@ $adminUser = $admin ?? [
 
             <!-- MEDIA -->
             <div class="sidebar-label">Media &amp; Stories</div>
-            <a href="<?= base_url('admin/website/gallery') ?>" class="sidebar-link <?= ($activeMenu ?? '') === 'website_gallery' ? 'active' : '' ?>">
+            <a href="<?= base_url('admin/website/gallery') ?>" class="sidebar-link <?= in_array($activeMenu ?? '', ['website_gallery', 'portfolio']) ? 'active' : '' ?>">
                 <span class="material-symbols-outlined">photo_library</span>
-                Lookbook Gallery
-            </a>
-            <a href="<?= base_url('admin/media/portfolio') ?>" class="sidebar-link <?= ($activeMenu ?? '') === 'portfolio' ? 'active' : '' ?>">
-                <span class="material-symbols-outlined">auto_awesome_mosaic</span>
-                Portfolio Folio
+                Lookbook &amp; Portfolio
             </a>
             <a href="<?= base_url('admin/blog') ?>" class="sidebar-link <?= ($activeMenu ?? '') === 'blog' ? 'active' : '' ?>">
                 <span class="material-symbols-outlined">article</span>

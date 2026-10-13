@@ -30,6 +30,7 @@ $routes->post('contact/submit', 'Home::submitContact');
 $routes->match(['get', 'head'], 'review', 'Home::review');
 $routes->match(['get', 'head'], 'review.html', 'Home::review');
 $routes->post('review/submit', 'Home::submitReview');
+$routes->post('newsletter/subscribe', 'Home::subscribeNewsletter');
 
 $routes->match(['get', 'head'], 'booking', 'Home::booking');
 $routes->match(['get', 'head'], 'booking.html', static function() {
@@ -130,6 +131,10 @@ $routes->group('admin', ['filter' => 'adminAuth'], static function ($routes) {
     $routes->match(['get', 'post'], 'marketing/offers/delete/(:num)', 'Admin\MarketingController::deleteOffer/$1');
     $routes->get('marketing/communication-center', 'Admin\MarketingController::communicationCenter');
     $routes->post('marketing/communication-center/send', 'Admin\MarketingController::sendMessage');
+    $routes->get('marketing/subscribers', 'Admin\MarketingController::subscribers');
+    $routes->post('marketing/subscribers/toggle/(:num)', 'Admin\MarketingController::toggleSubscriber/$1');
+    $routes->match(['get', 'post'], 'marketing/subscribers/delete/(:num)', 'Admin\MarketingController::deleteSubscriber/$1');
+    $routes->get('marketing/subscribers/export', 'Admin\MarketingController::exportSubscribers');
 
     // Email Templates Routes
     $routes->get('settings/email-templates', 'Admin\EmailTemplateController::index');

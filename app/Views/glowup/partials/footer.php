@@ -61,11 +61,15 @@ if (!isset($footerSettings) || !isset($footerQuickLinks) || !isset($footerTreatm
                     <?= esc($footerSettings['newsletter_desc'] ?? 'Receive curated beauty journals and bespoke privileges.') ?>
                 </p>
 
-                <div class="input-group mt-3" style="max-width: 320px;">
-                    <input type="email" class="form-control newsletter-input" placeholder="Enter your email address" />
-                    <button class="btn btn-newsletter"
-                        type="button"><?= esc($footerSettings['newsletter_btn_text'] ?? 'Join') ?></button>
-                </div>
+                <form id="newsletterFooterForm" class="mt-3" style="max-width: 320px;" onsubmit="handleNewsletterSubmit(event)">
+                    <?= csrf_field() ?>
+                    <input type="hidden" name="source" value="footer">
+                    <div class="input-group">
+                        <input type="email" name="email" id="newsletterFooterEmail" class="form-control newsletter-input" placeholder="Enter your email address" required autocomplete="email" />
+                        <button class="btn btn-newsletter" id="newsletterFooterBtn" type="submit"><?= esc($footerSettings['newsletter_btn_text'] ?? 'Join') ?></button>
+                    </div>
+                    <div id="newsletterFooterMsg" class="mt-2" style="font-size: 12.5px; display: none; line-height: 1.4;"></div>
+                </form>
             </div>
 
             <!-- Quick Links -->
@@ -233,6 +237,82 @@ if (!isset($footerSettings) || !isset($footerQuickLinks) || !isset($footerTreatm
 
     </div>
 </footer>
+
+<script>
+function handleNewsletterSubmit(e) {
+    e.preventDefault();
+    const form = document.getElementById('newsletterFooterForm');
+    const emailInput = document.getElementById('newsletterFooterEmail');
+    const submitBtn = document.getElementById('newsletterFooterBtn');
+    const msgBox = document.getElementById('newsletterFooterMsg');
+    
+    const email = emailInput ? emailInput.value.trim() : '';
+    if (!email) {
+        if (msgBox) {
+            msgBox.style.display = 'block';
+            msgBox.style.color = '#ff9e9e';
+            msgBox.textContent = 'Please enter your email address.';
+        }
+        return;
+    }
+    
+    const originalText = submitBtn ? submitBtn.innerHTML : 'Join';
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="width: 14px; height: 14px; border-width: 2px;"></span>';
+    }
+    if (msgBox) {
+        msgBox.style.display = 'none';
+        msgBox.textContent = '';
+    }
+
+    const formData = new FormData(form);
+
+    fetch('<?= base_url('newsletter/subscribe') ?>', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+        }
+
+        // Refresh CSRF tokens across the current page
+        if (data.csrf_token && data.csrf_hash) {
+            const csrfInputs = document.querySelectorAll(`input[name="${data.csrf_token}"]`);
+            csrfInputs.forEach(inp => inp.value = data.csrf_hash);
+        }
+
+        if (msgBox) {
+            msgBox.style.display = 'block';
+            if (data.status) {
+                msgBox.style.color = '#7de8a3';
+                msgBox.innerHTML = '<span class="material-symbols-outlined align-middle" style="font-size: 15px; vertical-align: -2px;">check_circle</span> ' + (data.message || 'Subscribed successfully!');
+                if (emailInput) emailInput.value = '';
+            } else {
+                msgBox.style.color = (data.code === 'already_subscribed') ? '#e8c97d' : '#ff9e9e';
+                msgBox.innerHTML = '<span class="material-symbols-outlined align-middle" style="font-size: 15px; vertical-align: -2px;">info</span> ' + (data.message || 'Could not subscribe.');
+            }
+        }
+    })
+    .catch(err => {
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+        }
+        if (msgBox) {
+            msgBox.style.display = 'block';
+            msgBox.style.color = '#ff9e9e';
+            msgBox.textContent = 'Connection error. Please try again.';
+        }
+    });
+}
+</script>
 
 <!-- Site-wide Luxury Floating Contact Actions -->
 <?= view('glowup/partials/floating_contact') ?>

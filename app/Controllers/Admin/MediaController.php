@@ -34,12 +34,13 @@ class MediaController extends BaseController
     }
 
     /**
-     * Gallery Manager View (/admin/website/gallery)
+     * Lookbook & Portfolio Manager View (/admin/website/gallery)
      */
     public function gallery()
     {
         $category = $this->request->getGet('category') ?: 'all';
         $search   = trim((string) $this->request->getGet('q'));
+        $view     = $this->request->getGet('view') ?: 'table';
 
         $builder = $this->galleryModel->orderBy('sort_order', 'ASC')->orderBy('id', 'DESC');
 
@@ -62,16 +63,17 @@ class MediaController extends BaseController
         $activeCount   = $this->galleryModel->where('is_active', 1)->countAllResults();
 
         return view('admin/pages/website_gallery', [
-            'pageTitle'         => 'Visual Gallery & Lookbook | Glowup Admin',
-            'pageHeading'       => 'Visual Lookbook & Gallery',
+            'pageTitle'         => 'Lookbook & Portfolio | Glowup Admin',
+            'pageHeading'       => 'Visual Lookbook & Portfolio',
             'pageIcon'          => 'photo_library',
-            'breadcrumbSection' => 'Website Content',
-            'breadcrumbTitle'   => 'Gallery',
+            'breadcrumbSection' => 'Media & Stories',
+            'breadcrumbTitle'   => 'Lookbook & Portfolio',
             'activeMenu'        => 'website_gallery',
             'admin'             => $this->getAdminData(),
             'items'             => $items,
             'currentCategory'   => $category,
             'searchQuery'       => $search,
+            'currentView'       => $view,
             'stats'             => [
                 'total'    => $totalItems,
                 'featured' => $featuredCount,
@@ -82,21 +84,11 @@ class MediaController extends BaseController
 
     /**
      * Visual Portfolio Showcase (/admin/media/portfolio)
+     * Redirects to the unified Lookbook & Portfolio showcase grid
      */
     public function portfolio()
     {
-        $items = $this->galleryModel->orderBy('sort_order', 'ASC')->findAll();
-
-        return view('admin/pages/portfolio', [
-            'pageTitle'         => 'Portfolio Showcase | Glowup Admin',
-            'pageHeading'       => 'Haute Artistry Portfolio',
-            'pageIcon'          => 'auto_awesome_mosaic',
-            'breadcrumbSection' => 'Media',
-            'breadcrumbTitle'   => 'Portfolio',
-            'activeMenu'        => 'portfolio',
-            'admin'             => $this->getAdminData(),
-            'items'             => $items,
-        ]);
+        return redirect()->to(base_url('admin/website/gallery?view=grid'));
     }
 
     /**

@@ -56,19 +56,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 4. Newsletter Subscription Form Handler
-  const newsletterBtns = document.querySelectorAll('.btn-newsletter');
-  newsletterBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const input = btn.previousElementSibling;
-      if (input && input.value.trim() !== '' && input.value.includes('@')) {
-        alert('Thank you for subscribing to the Glowup Private Journal! A welcome curation has been sent to ' + input.value);
-        input.value = '';
-      } else {
-        alert('Please enter a valid email address.');
-      }
-    });
-  });
+  // const newsletterBtns = document.querySelectorAll('.btn-newsletter');
+  // newsletterBtns.forEach(btn => {
+  //   btn.addEventListener('click', (e) => {
+  //     e.preventDefault();
+  //     const input = btn.previousElementSibling;
+  //     if (input && input.value.trim() !== '' && input.value.includes('@')) {
+  //       alert('Thank you for subscribing to the Glowup Private Journal! A welcome curation has been sent to ' + input.value);
+  //       input.value = '';
+  //     } else {
+  //       alert('Please enter a valid email address.');
+  //     }
+  //   });
+  // });
 
   // 5. Film Card Multi-Image Auto-Slideshow (Cycles every 2 seconds)
   const filmSlides = document.querySelectorAll('.film-slide');
